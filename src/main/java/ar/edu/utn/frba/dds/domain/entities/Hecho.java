@@ -28,10 +28,6 @@ public class Hecho {
     private LocalDate fechaCarga;
     private Set<Etiqueta> etiquetas;
 
-    @Getter
-    @Setter
-    private List<SolicitudEliminacionDeHecho> solicitudesEliminacion;
-
     @Setter
     private boolean fueEliminado;
 
@@ -44,11 +40,6 @@ public class Hecho {
         this.longitud = longitud;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.fechaCarga = fechaCarga;
-        this.solicitudesEliminacion = new ArrayList<>();
-    }
-
-    public void addSolicitudEliminacionDeHecho(SolicitudEliminacionDeHecho solicitud) {
-        this.solicitudesEliminacion.add(solicitud);
     }
 }
 
