@@ -51,6 +51,28 @@ public class TestSolicitudEliminacionDeHecho {
         });
     }
 
+    @Test
+    public void testHechoHasMoreThan2Requests() {
+        String justificacion1 = "Justificación válida 1 con más de 500 caracteres...".repeat(10);
+        String justificacion2 = "Justificación válida 2 con más de 500 caracteres...".repeat(10);
+        String justificacion3 = "Justificación válida 3 con más de 500 caracteres...".repeat(10);
+
+        SolicitudEliminacionDeHecho solicitud1 = new SolicitudEliminacionDeHecho(unHecho, justificacion1);
+        SolicitudEliminacionDeHecho solicitud2 = new SolicitudEliminacionDeHecho(unHecho, justificacion2);
+        SolicitudEliminacionDeHecho solicitud3 = new SolicitudEliminacionDeHecho(unHecho, justificacion3);
+
+        assertEquals(4, unHecho.getSolicitudesEliminacion().size());
+        assertTrue(unHecho.getSolicitudesEliminacion().size() > 2);
+    }
+
+    @Test
+    public void testRequestHasLessThan500Chars() {
+        String justificacion = "Justificación inválida con menos de 500 caracteres.";
+        assertThrows(IllegalArgumentException.class, () -> {
+            new SolicitudEliminacionDeHecho(unHecho, justificacion);
+        });
+    }
+
     // No sabemos si al tener una solicitud pendiente, el hecho puede ser agregado a la colección o no.
     // @Test
     // public void testPendingRequest() {
