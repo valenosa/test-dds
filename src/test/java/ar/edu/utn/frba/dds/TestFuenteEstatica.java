@@ -27,7 +27,6 @@ public class TestFuenteEstatica {
 
 
   @BeforeEach
-
   public void setUp() {
     desastresNaturalesArgentina = new CSVImportStrategy();
     desastresNaturalesArgentina.setRutaArchivoCsv("src/test/resources/fuente.csv"); // TODO: Después cambiar la ruta
