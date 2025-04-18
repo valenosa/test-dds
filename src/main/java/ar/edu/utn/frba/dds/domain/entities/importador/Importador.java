@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.importador;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.importador.stretegies.ImportStrategy;
 import lombok.Setter;
 
@@ -15,7 +15,7 @@ public class Importador {
     this.importStrategy = importStrategy;
   }
 
-  public Set<Hecho> importarHechos() {
+  public Set<Hecho> importHechos() {
     return this.importStrategy.importHechos();
   }
 }

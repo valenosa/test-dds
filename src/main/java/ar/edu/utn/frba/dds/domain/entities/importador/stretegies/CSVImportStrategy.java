@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.domain.entities.importador.stretegies;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Origen;
+
 import com.opencsv.CSVReader;
 import lombok.Setter;
 
@@ -18,12 +20,20 @@ public class CSVImportStrategy implements ImportStrategy {
 
   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+  //--- Constructor
+  public CSVImportStrategy(String rutaArchivoCsv) {
+    this.rutaArchivoCsv = rutaArchivoCsv;
+  }
+
+  //--- Importar Hechos
+  @Override
   public Set<Hecho> importHechos() {
 
     Set<Hecho> hechos = new HashSet<>();
 
     try (CSVReader reader = new CSVReader(new FileReader(rutaArchivoCsv))) {
-      String[] headers = reader.readNext(); // salteamos encabezado
+
+      String[] headers = reader.readNext();
       String[] fila;
 
       while ((fila = reader.readNext()) != null) {
@@ -34,6 +44,7 @@ public class CSVImportStrategy implements ImportStrategy {
         Double longitud = Double.parseDouble(fila[4]);
         LocalDate fechaAcontecimiento = null;
         LocalDate fechaCarga = LocalDate.now();
+        Origen origen = Origen.DATASET;
 
         try {
           fechaAcontecimiento = LocalDate.parse(fila[5], formatter);
@@ -42,7 +53,7 @@ public class CSVImportStrategy implements ImportStrategy {
         }
 
 
-        Hecho hecho = new Hecho(titulo, descripcion, categoria, latitud, longitud, fechaAcontecimiento, fechaCarga);
+        Hecho hecho = new Hecho(titulo, descripcion, categoria, latitud, longitud, fechaAcontecimiento, fechaCarga, origen);
         hechos.add(hecho);
       }
     } catch (Exception e) {
