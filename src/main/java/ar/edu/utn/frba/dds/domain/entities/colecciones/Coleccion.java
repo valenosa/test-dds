@@ -20,7 +20,6 @@ public class Coleccion {
   public Coleccion(String titulo, String descripcion) {
     this.titulo = titulo;
     this.descripcion = descripcion;
-    this.hechos = new HashSet<>();
   }
 
 //  public void addHecho(Hecho hecho) {
