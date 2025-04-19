@@ -19,7 +19,7 @@ public class CriterioPertenencia {
     }
   }
 
-  private boolean cumpleFiltros(Hecho hecho) {
+  public boolean cumpleFiltros(Hecho hecho) {
     return filtrosAplicados.stream().allMatch(filtro -> filtro.cumple(hecho));
   }
 }
