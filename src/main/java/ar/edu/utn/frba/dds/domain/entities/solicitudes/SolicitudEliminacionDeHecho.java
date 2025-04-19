@@ -3,8 +3,6 @@ package ar.edu.utn.frba.dds.domain.entities.solicitudes;
 import ar.edu.utn.frba.dds.domain.entities.Hecho;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 public class SolicitudEliminacionDeHecho {
 
     private Integer id;
@@ -33,7 +31,7 @@ public class SolicitudEliminacionDeHecho {
     //Recordemos que, o bien cuando pasen 24 horas o cuando un admin lo decida, deberiamos activar este metodo.
     public void aceptar() {
         this.estado = EstadoSolicitud.ACEPTADA;
-        this.hecho.setFueEliminado(true);
+        this.hecho.setEliminado(true);
         //TODO actualizar la solicitud en la bbdd
     }
 }

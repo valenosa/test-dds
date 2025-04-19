@@ -11,37 +11,24 @@ import java.util.List;
 import java.util.Set;
 
 public class Coleccion {
-    private String titulo;
-    private String descripcion;
-    @Getter
-    private Set<Hecho> hechos;
-    private List<ImportStrategy> fuentes;
-    private CriterioPertenencia criterioDePertenencia;
+  private String titulo;
+  private String descripcion;
+  @Getter
+  private Set<Hecho> hechos;
+  private List<ImportStrategy> fuentes;
+  private CriterioPertenencia criterioDePertenencia;
 
-    public Coleccion(String titulo, String descripcion) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.hechos = new HashSet<>();
-        // this.fuentes = fuentes;
-        // this.criterioDePertenencia = criterioDePertenencia;
+  public Coleccion(String titulo, String descripcion) {
+    this.titulo = titulo;
+    this.descripcion = descripcion;
+    this.hechos = new HashSet<>();
+  }
+
+  public void addHecho(Hecho hecho) {
+    if (hecho.isEliminado()) {
+      throw new HechosConSolicitudesPendientesException();
     }
-
-    public void addHecho(Hecho hecho) {
-        if (this.hasSolicitudesAceptadasOPendientes(hecho)) {
-            throw new HechosConSolicitudesPendientesException();
-        }
-        hechos.add(hecho);
-    }
-
-    private boolean hasSolicitudesAceptadasOPendientes(Hecho hecho) {
-        if (hecho.getSolicitudesEliminacion().isEmpty()) {
-            return false;
-        }
-
-        return hecho.getSolicitudesEliminacion()
-                .stream()
-                .anyMatch(solicitud -> solicitud.getEstado() == EstadoSolicitud.ACEPTADA ||
-                        solicitud.getEstado() == EstadoSolicitud.PENDIENTE);
-    }
+    hechos.add(hecho);
+  }
 }
 
