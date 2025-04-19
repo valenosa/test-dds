@@ -1,9 +1,10 @@
-package ar.edu.utn.frba.dds.domain.entities;
+package ar.edu.utn.frba.dds.domain.entities.Hecho;
 
+import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
 import ar.edu.utn.frba.dds.domain.entities.multimedia.Multimedia;
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Origen;
 import java.time.LocalDate;
 import java.util.Set;
-//import javafx.util.Pair;
 
 
 public class Hecho {
@@ -19,8 +20,9 @@ public class Hecho {
   private LocalDate fechaCarga;
   private Set<Etiqueta> etiquetas;
   private boolean fueEliminado;
+  private Origen origen;
 
-  public Hecho(String titulo, String descripcion, String categoria, Double latitud, Double longitud, LocalDate fechaAcontecimiento, LocalDate fechaCarga) {
+  public Hecho(String titulo, String descripcion, String categoria, Double latitud, Double longitud, LocalDate fechaAcontecimiento, LocalDate fechaCarga, Origen origen) {
     this.titulo = titulo;
     this.descripcion = descripcion;
     this.categoria = categoria;
@@ -28,5 +30,6 @@ public class Hecho {
     this.longitud = longitud;
     this.fechaAcontecimiento = fechaAcontecimiento;
     this.fechaCarga = fechaCarga;
+    this.origen = origen;
   }
 }
