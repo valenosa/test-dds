@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.solicitudes;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
 import lombok.Getter;
 
 public class SolicitudEliminacionDeHecho {

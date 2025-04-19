@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Origen;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.excepciones.HechoEliminadoException;
 import ar.edu.utn.frba.dds.domain.entities.solicitudes.EstadoSolicitud;
@@ -21,7 +22,7 @@ public class TestSolicitudEliminacionDeHecho {
 
   @BeforeEach
   public void setUp() {
-    unHecho = new Hecho("Incendio en la torre Eiffel", "El dibu atajo 2 penales y los mandó a dormir", "Incendios patrióticos", 48.8584, 2.2945, LocalDate.now(), LocalDate.now());
+    unHecho = new Hecho("Incendio en la torre Eiffel", "El dibu atajo 2 penales y los mandó a dormir", "Incendios patrióticos", 48.8584, 2.2945, LocalDate.now(), LocalDate.now(), Origen.MANUAL);
     String justificacion = "La tecnología ha transformado nuestras vidas de maneras profundas y en muchos casos inesperadas. Hoy, la conectividad instantánea, la inteligencia artificial y las innovaciones en el campo de la salud están cambiando la forma en que trabajamos, nos comunicamos y nos cuidamos. A través de la automatización, por ejemplo, se han logrado avances muy significativos en la productividad, pero también ha generado preocupaciones sobre el futuro del empleo y la ética en la toma de decisiones automatizada...";
     unaSolicitud = new SolicitudEliminacionDeHecho(unHecho, justificacion);
     unaColeccion = new Coleccion("Incendios en Francia", "Incendios en Francia");

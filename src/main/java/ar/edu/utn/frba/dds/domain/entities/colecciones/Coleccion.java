@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
 import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.excepciones.HechoEliminadoException;
 import ar.edu.utn.frba.dds.domain.entities.importador.stretegies.ImportStrategy;
 import lombok.Getter;
