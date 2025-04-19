@@ -46,7 +46,7 @@ public class Coleccion {
   }
 
   private boolean pertenece(Hecho hecho) {
-    return criterioDePertenencia.cumple(hecho) && !hecho.isEliminado();
+    return criterioDePertenencia.cumpleFiltros(hecho) && !hecho.isEliminado();
   }
 
   public Set<Hecho> getHechosPertenecientes() {
