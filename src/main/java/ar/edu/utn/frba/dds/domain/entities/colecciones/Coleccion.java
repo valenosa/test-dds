@@ -8,35 +8,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Getter
 public class Coleccion {
-  @Getter
-  private String titulo;
-  @Getter
-  private String descripcion;
-  @Getter
+  private final String titulo;
+  private final String descripcion;
   private List<Importador> fuentes;
-  private CriterioPertenencia criterioDePertenencia;
+  private final CriterioPertenencia criterioDePertenencia;
 
   public Coleccion(String titulo, String descripcion) {
     this.titulo = titulo;
     this.descripcion = descripcion;
+    this.criterioDePertenencia = new CriterioPertenencia();
   }
 
-//  public void addHecho(Hecho hecho) {
-//
-//    if (criterioDePertenencia.cumple(hecho) && !hecho.isEliminado()) {
-//      hechos.add(hecho);
-//    }
-//
-//    //TODO: ver que onda con esto, no se si es necesaria la exception
-//    if (hecho.isEliminado()) {
-//      throw new HechoEliminadoException();
-//    }
-//  }
-
   //--- Hechos pertenecientes
-
-  //TODO: sseguro se cambia cuando la fuente tenga sus hechos guardados en mem
+  //TODO: seguro se cambia cuando la fuente tenga sus hechos guardados en mem
   private Set<Hecho> getHechosfromFuentes() {
     Set<Hecho> hechosCombinados = new HashSet<>();
     for (Importador fuente : fuentes) {
@@ -54,4 +40,19 @@ public class Coleccion {
     return hechosFuentes.stream().filter(this::pertenece).collect(HashSet::new, HashSet::add, HashSet::addAll);
   }
 }
+
+
+
+//Cod viejo que hay que revisar
+//  public void addHecho(Hecho hecho) {
+//
+//    if (criterioDePertenencia.cumple(hecho) && !hecho.isEliminado()) {
+//      hechos.add(hecho);
+//    }
+//
+//    //TODO: ver que onda con esto, no se si es necesaria la exception
+//    if (hecho.isEliminado()) {
+//      throw new HechoEliminadoException();
+//    }
+//  }
 
