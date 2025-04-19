@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.entities.colecciones;
+package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
 
 import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
 

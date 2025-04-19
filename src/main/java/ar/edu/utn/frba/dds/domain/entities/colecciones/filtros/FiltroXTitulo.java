@@ -1,0 +1,17 @@
+package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
+
+import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
+
+public class FiltroXTitulo implements FiltroHecho {
+
+  String titulo;
+
+  public FiltroXTitulo(String titulo) {
+    this.titulo = titulo;
+  }
+
+  @Override
+  public boolean cumple(Hecho hecho) {
+    return this.titulo.equals(hecho.getTitulo());
+  }
+}
