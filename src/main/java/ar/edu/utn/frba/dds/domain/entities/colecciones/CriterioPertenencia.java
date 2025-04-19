@@ -2,6 +2,8 @@ package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
 import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
 
-public interface CriterioPertenencia {
-  boolean cumple(Hecho hecho);
+public class CriterioPertenencia {
+  boolean cumple(Hecho hecho) {
+    return true;
+  }
 }
