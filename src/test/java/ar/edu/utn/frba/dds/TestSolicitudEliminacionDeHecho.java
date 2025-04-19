@@ -2,16 +2,13 @@ package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
-import ar.edu.utn.frba.dds.domain.entities.excepciones.HechosConSolicitudesPendientesException;
-import ar.edu.utn.frba.dds.domain.entities.importador.stretegies.CSVImportStrategy;
+import ar.edu.utn.frba.dds.domain.entities.excepciones.HechoEliminadoException;
 import ar.edu.utn.frba.dds.domain.entities.solicitudes.EstadoSolicitud;
 import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacionDeHecho;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,7 +43,7 @@ public class TestSolicitudEliminacionDeHecho {
 
         assertEquals(EstadoSolicitud.ACEPTADA, unaSolicitud.getEstado());
 
-        assertThrows(HechosConSolicitudesPendientesException.class, () -> {
+        assertThrows(HechoEliminadoException.class, () -> {
             unaColeccion.addHecho(unHecho);
         });
     }

@@ -1,9 +1,8 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
 import ar.edu.utn.frba.dds.domain.entities.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.excepciones.HechosConSolicitudesPendientesException;
+import ar.edu.utn.frba.dds.domain.entities.excepciones.HechoEliminadoException;
 import ar.edu.utn.frba.dds.domain.entities.importador.stretegies.ImportStrategy;
-import ar.edu.utn.frba.dds.domain.entities.solicitudes.EstadoSolicitud;
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -26,7 +25,7 @@ public class Coleccion {
 
   public void addHecho(Hecho hecho) {
     if (hecho.isEliminado()) {
-      throw new HechosConSolicitudesPendientesException();
+      throw new HechoEliminadoException();
     }
     hechos.add(hecho);
   }
