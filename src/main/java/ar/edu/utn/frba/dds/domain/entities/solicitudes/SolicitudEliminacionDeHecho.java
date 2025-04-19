@@ -11,9 +11,8 @@ public class SolicitudEliminacionDeHecho {
   @Getter
   private EstadoSolicitud estado;
 
-  //REQUISITO 1
   public SolicitudEliminacionDeHecho(Hecho hecho, String justificacion) {
-    //REQUISITO 2
+
     if (justificacion == null || justificacion.length() < 500) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
@@ -24,16 +23,12 @@ public class SolicitudEliminacionDeHecho {
 
   public void rechazar() {
     this.estado = EstadoSolicitud.RECHAZADA;
-    //TODO actualizar la solicitud en la bbdd
+    //TODO
   }
 
-  //Recordemos que, o bien cuando pasen 24 horas o cuando un admin lo decida, deberiamos activar este metodo.
+  //Recordemos que, o bien cuando pasen 24 horas o cuando un admin lo decida, deberiamos activar este método.
   public void aceptar() {
     this.estado = EstadoSolicitud.ACEPTADA;
     this.hecho.setEliminado(true);
-    //TODO actualizar la solicitud en la bbdd
   }
 }
-
-//Map<Id_Hecho, Id_Solicitud>
-
