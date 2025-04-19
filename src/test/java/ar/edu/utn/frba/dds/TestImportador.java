@@ -14,7 +14,7 @@ public class TestImportador {
   @DisplayName("CSV - Los hechos se importan correctamente")
   public void importarCSV() {
 
-    String CSVPath = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest.csv";
+    String CSVPath = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
     Importador importadorCSV = new Importador(new CSVImportStrategy(CSVPath));
 
     Set<Hecho> hechosImportados = importadorCSV.importHechos();
