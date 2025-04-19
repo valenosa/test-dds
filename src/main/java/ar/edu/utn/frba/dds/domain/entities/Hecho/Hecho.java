@@ -17,6 +17,7 @@ public class Hecho {
   private Integer id;
   private String titulo;
   private String descripcion;
+  @Getter
   private String categoria;
   private Double latitud;
   private Double longitud;
