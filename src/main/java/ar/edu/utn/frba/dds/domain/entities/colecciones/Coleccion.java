@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.fuente.CreadorFuente;
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -42,18 +41,4 @@ public class Coleccion {
   }
 }
 
-
-
-//Cod viejo que hay que revisar
-//  public void addHecho(Hecho hecho) {
-//
-//    if (criterioDePertenencia.cumple(hecho) && !hecho.isEliminado()) {
-//      hechos.add(hecho);
-//    }
-//
-//    //TODO: ver que onda con esto, no se si es necesaria la exception
-//    if (hecho.isEliminado()) {
-//      throw new HechoEliminadoException();
-//    }
-//  }
 
