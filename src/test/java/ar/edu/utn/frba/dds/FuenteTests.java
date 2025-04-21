@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TestImportador {
+public class FuenteTests {
 
   @Test
   @DisplayName("CSV - Los hechos se importan correctamente")
