@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.importador.Importador;
-import ar.edu.utn.frba.dds.domain.entities.importador.stretegies.CSVImportStrategy;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.EstrategiaDeImportacionEstatica;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,9 +15,9 @@ public class TestImportador {
   public void importarCSV() {
 
     String CSVPath = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    Importador importadorCSV = new Importador(new CSVImportStrategy(CSVPath));
+    Fuente fuenteCSV = new Fuente(new EstrategiaDeImportacionEstatica(CSVPath));
 
-    Set<Hecho> hechosImportados = importadorCSV.importHechos();
+    Set<Hecho> hechosImportados = fuenteCSV.importHechos();
 
 
 

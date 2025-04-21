@@ -1,7 +1,7 @@
-package ar.edu.utn.frba.dds.domain.entities.importador.stretegies;
+package ar.edu.utn.frba.dds.domain.entities.fuente.estrategias;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Origen;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 
 import com.opencsv.CSVReader;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CSVImportStrategy implements ImportStrategy {
+public class EstrategiaDeImportacionEstatica implements EstrategiaDeImportacion {
 
   @Setter
   private String rutaArchivoCsv;
@@ -21,7 +21,7 @@ public class CSVImportStrategy implements ImportStrategy {
   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
   //--- Constructor
-  public CSVImportStrategy(String rutaArchivoCsv) {
+  public EstrategiaDeImportacionEstatica(String rutaArchivoCsv) {
     this.rutaArchivoCsv = rutaArchivoCsv;
   }
 

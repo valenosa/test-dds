@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroHecho;
 import java.util.ArrayList;
 import java.util.List;

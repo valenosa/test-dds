@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Origen;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.excepciones.HechoEliminadoException;
 import ar.edu.utn.frba.dds.domain.entities.solicitudes.EstadoSolicitud;

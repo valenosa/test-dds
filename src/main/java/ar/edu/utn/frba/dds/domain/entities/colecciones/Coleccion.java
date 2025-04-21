@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.importador.Importador;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Coleccion {
   private final String titulo;
   private final String descripcion;
-  private List<Importador> fuentes;
+  private List<Fuente> fuentes;
   private final CriterioPertenencia criterioDePertenencia;
 
   public Coleccion(String titulo, String descripcion) {
@@ -22,10 +22,9 @@ public class Coleccion {
   }
 
   //--- Hechos pertenecientes
-  //TODO: seguro se cambia cuando la fuente tenga sus hechos guardados en mem
   private Set<Hecho> getHechosfromFuentes() {
     Set<Hecho> hechosCombinados = new HashSet<>();
-    for (Importador fuente : fuentes) {
+    for (Fuente fuente : fuentes) {
       hechosCombinados.addAll(fuente.importHechos());
     }
     return hechosCombinados;

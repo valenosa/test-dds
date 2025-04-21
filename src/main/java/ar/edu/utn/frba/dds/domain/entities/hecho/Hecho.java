@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.entities.Hecho;
+package ar.edu.utn.frba.dds.domain.entities.hecho;
 
 import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
 import ar.edu.utn.frba.dds.domain.entities.multimedia.Multimedia;

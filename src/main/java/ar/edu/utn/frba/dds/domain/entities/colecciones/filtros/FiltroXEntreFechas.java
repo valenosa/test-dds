@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
 
 public class FiltroXEntreFechas implements FiltroHecho {
