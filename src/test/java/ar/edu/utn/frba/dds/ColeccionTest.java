@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.CriterioPertenencia;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroXCategoria;
-import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroXEntreFechas;
+import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroEntreXFechas;
 import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.EstrategiaDeImportacion;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.EstrategiaDeImportacionEstatica;
@@ -46,7 +46,7 @@ class ColeccionTest {
     Set<Hecho> hechosAsociados;
 
     //Agrego filtro entreFechas y recalculo
-    criterioDeCol.addFiltros(new FiltroXEntreFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
+    criterioDeCol.addFiltros(new FiltroEntreXFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
     hechosAsociados = unaColeccion.getHechosPertenecientes();
 
     Assertions.assertEquals(3, hechosAsociados.size());

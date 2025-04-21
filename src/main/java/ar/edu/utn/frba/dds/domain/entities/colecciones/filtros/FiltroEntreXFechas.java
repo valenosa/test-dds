@@ -5,12 +5,12 @@ import java.time.LocalDate;
 
 //TODO Borrarlo y usar la combinación de filtro desde y filtro hasta en vez de este filtro compuesto
 
-public class FiltroXEntreFechas implements FiltroHecho {
+public class FiltroEntreXFechas implements Filtro {
 
-  FiltroHecho filtroDesde;
-  FiltroHecho filtroHasta;
+  Filtro filtroDesde;
+  Filtro filtroHasta;
 
-  public FiltroXEntreFechas(LocalDate desde, LocalDate hasta) {
+  public FiltroEntreXFechas(LocalDate desde, LocalDate hasta) {
     filtroDesde = new FiltroDesdeXFecha(desde);
     filtroHasta = new FiltroHastaXFecha(hasta);
   }
