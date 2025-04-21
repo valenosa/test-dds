@@ -23,7 +23,6 @@ public class SolicitudEliminacionDeHecho {
 
   public void rechazar() {
     this.estado = EstadoSolicitud.RECHAZADA;
-    //TODO
   }
 
   //Recordemos que, o bien cuando pasen 24 horas o cuando un admin lo decida, deberiamos activar este método.

@@ -4,9 +4,8 @@ import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.CriterioPertenencia;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroXCategoria;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroEntreXFechas;
-import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
-import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.EstrategiaDeImportacion;
-import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.EstrategiaDeImportacionEstatica;
+import ar.edu.utn.frba.dds.domain.entities.fuente.CreadorFuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
 import java.util.Set;
@@ -17,16 +16,14 @@ import org.junit.jupiter.api.Test;
 
 class ColeccionTest {
 
-  Fuente unaFuente;
   Coleccion unaColeccion;
-  EstrategiaDeImportacion unaEstrategiaDeImportacion;
+  Fuente unaFuente;
 
 
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    unaEstrategiaDeImportacion = new EstrategiaDeImportacionEstatica(pathCSV);
-    unaFuente = new Fuente(unaEstrategiaDeImportacion);
+    unaFuente = CreadorFuente.fuenteEstatica(pathCSV);
     unaColeccion = new Coleccion("Colección prueba", "Esto es una prueba", unaFuente);
   }
 

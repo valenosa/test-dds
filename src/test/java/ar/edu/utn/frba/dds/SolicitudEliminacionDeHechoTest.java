@@ -1,17 +1,5 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
-import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.EstrategiaDeImportacionEstatica;
-import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
-import ar.edu.utn.frba.dds.domain.entities.excepciones.HechoEliminadoException;
-import ar.edu.utn.frba.dds.domain.entities.solicitudes.EstadoSolicitud;
-import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacionDeHecho;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class SolicitudEliminacionDeHechoTest {
 
 //  Coleccion unaColeccion;

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class EstrategiaDeImportacionEstatica implements EstrategiaDeImportacion {
+public class FuenteEstatica implements Fuente {
 
   @Setter
   private String rutaArchivoCsv;
@@ -21,7 +21,7 @@ public class EstrategiaDeImportacionEstatica implements EstrategiaDeImportacion 
   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
   //--- Constructor
-  public EstrategiaDeImportacionEstatica(String rutaArchivoCsv) {
+  public FuenteEstatica(String rutaArchivoCsv) {
     this.rutaArchivoCsv = rutaArchivoCsv;
   }
 

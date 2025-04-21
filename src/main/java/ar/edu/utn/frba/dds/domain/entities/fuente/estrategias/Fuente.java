@@ -4,6 +4,6 @@ import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 
 import java.util.Set;
 
-public interface EstrategiaDeImportacion {
+public interface Fuente {
   Set<Hecho> importHechos();
 }
