@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 
 public class FiltroXCategoria implements FiltroHecho {
-
   String categoria;
 
   public FiltroXCategoria(String categoria) {
