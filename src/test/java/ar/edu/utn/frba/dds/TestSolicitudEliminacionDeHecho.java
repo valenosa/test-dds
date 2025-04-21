@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds;
 
+import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.EstrategiaDeImportacionEstatica;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
@@ -16,16 +18,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSolicitudEliminacionDeHecho {
 
-  SolicitudEliminacionDeHecho unaSolicitud;
-  Hecho unHecho;
   Coleccion unaColeccion;
+  Fuente unaFuente;
+  SolicitudEliminacionDeHecho unaSolicitud;
 
   @BeforeEach
   public void setUp() {
-    unHecho = new Hecho("Incendio en la torre Eiffel", "El dibu atajo 2 penales y los mandó a dormir", "Incendios patrióticos", 48.8584, 2.2945, LocalDate.now(), LocalDate.now(), Origen.MANUAL);
     String justificacion = "La tecnología ha transformado nuestras vidas de maneras profundas y en muchos casos inesperadas. Hoy, la conectividad instantánea, la inteligencia artificial y las innovaciones en el campo de la salud están cambiando la forma en que trabajamos, nos comunicamos y nos cuidamos. A través de la automatización, por ejemplo, se han logrado avances muy significativos en la productividad, pero también ha generado preocupaciones sobre el futuro del empleo y la ética en la toma de decisiones automatizada...";
+    unaFuente = new Fuente(new EstrategiaDeImportacionEstatica("./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv"));
+    unaColeccion = new Coleccion("Incendios en Francia", "Incendios en Francia", unaFuente);
+    //TODO necesito podes crear una solicitud de eliminación que tenga persistencia
     unaSolicitud = new SolicitudEliminacionDeHecho(unHecho, justificacion);
-    unaColeccion = new Coleccion("Incendios en Francia", "Incendios en Francia");
   }
 
   //Rechazar esta solicitud un día después de su creación. Dado que fue rechazada, el hecho puede ser agregado a cualquier colección.
@@ -36,7 +39,6 @@ public class TestSolicitudEliminacionDeHecho {
 
     assertEquals(EstadoSolicitud.RECHAZADA, unaSolicitud.getEstado());
 
-    unaColeccion.addHecho(unHecho);
     assertTrue(unaColeccion.getHechos().contains(unHecho));
   }
 

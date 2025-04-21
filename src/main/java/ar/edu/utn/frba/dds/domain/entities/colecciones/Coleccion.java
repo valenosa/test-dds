@@ -12,19 +12,20 @@ import java.util.Set;
 public class Coleccion {
   private final String titulo;
   private final String descripcion;
-  private List<Fuente> fuentes;
+  private List<Fuente> fuentesAsociadas;
   private final CriterioPertenencia criterioDePertenencia;
 
-  public Coleccion(String titulo, String descripcion) {
+  public Coleccion(String titulo, String descripcion, Fuente... fuentes) {
     this.titulo = titulo;
     this.descripcion = descripcion;
     this.criterioDePertenencia = new CriterioPertenencia();
+    this.fuentesAsociadas = List.of(fuentes);
   }
 
   //--- Hechos pertenecientes
   private Set<Hecho> getHechosfromFuentes() {
     Set<Hecho> hechosCombinados = new HashSet<>();
-    for (Fuente fuente : fuentes) {
+    for (Fuente fuente : fuentesAsociadas) {
       hechosCombinados.addAll(fuente.importHechos());
     }
     return hechosCombinados;
