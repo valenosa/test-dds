@@ -12,9 +12,6 @@ import java.util.Set;
 @Getter
 public class Hecho {
 
-  private static int contadorIds = 1; //Variable estatica para el contador de ids. Estará momentaneamente hasta que trabajemos con bbdd.
-
-  private Integer id;
   //-- Descripcion
   private String titulo;
   private String descripcion;
@@ -33,7 +30,6 @@ public class Hecho {
   private Origen origen;
 
   public Hecho(String titulo, String descripcion, String categoria, Double latitud, Double longitud, LocalDate fechaAcontecimiento, LocalDate fechaCarga, Origen origen) {
-    this.id = Hecho.contadorIds++;
     this.titulo = titulo;
     this.descripcion = descripcion;
     this.categoria = categoria;
