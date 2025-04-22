@@ -4,7 +4,6 @@ import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 
 import com.opencsv.CSVReader;
-import lombok.Setter;
 
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -13,21 +12,21 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FuenteEstatica implements Fuente {
+public class FuenteEstatica extends Fuente {
 
-  @Setter
-  private String rutaArchivoCsv;
+  private final String rutaArchivoCsv;
 
   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
   //--- Constructor
   public FuenteEstatica(String rutaArchivoCsv) {
     this.rutaArchivoCsv = rutaArchivoCsv;
+    this.hechosAsociados = importHechos();
   }
 
   //--- Importar Hechos
   @Override
-  public Set<Hecho> importHechos() {
+  protected Set<Hecho> importHechos() {
 
     Set<Hecho> hechos = new HashSet<>();
 
