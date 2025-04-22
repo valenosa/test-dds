@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class FuenteTests {
 
+
   @Test
   @DisplayName("CSV - Los hechos se importan correctamente")
   public void importarCSV() {
@@ -25,5 +26,7 @@ public class FuenteTests {
 
     //Validamos que se subieron a la "BD" (Este test no se si tiene mucho sentido xq se va a romper una vez creada la BD real)
     Assertions.assertEquals(5 , BaseDeDatos.hechos.size());
+
+    //TODO: Buscar una mejor forma de validar que realmente los hechos se crearon de manera correcta (Validando la informacion interna)
   }
 }
