@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.fuente.estrategias;
 
+import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 
@@ -21,7 +22,11 @@ public class FuenteEstatica extends Fuente {
   //--- Constructor
   public FuenteEstatica(String rutaArchivoCsv) {
     this.rutaArchivoCsv = rutaArchivoCsv;
-    this.hechosAsociados = importHechos();
+
+    // TODO Delegar al padre👶
+    Set<Hecho> hechosImportados = importHechos();
+    BaseDeDatos.subirHechos(hechosImportados);
+    this.nombresHechosAsociados = nombresHechos(hechosImportados);
   }
 
   //--- Importar Hechos
@@ -52,7 +57,16 @@ public class FuenteEstatica extends Fuente {
         }
 
 
-        Hecho hecho = new Hecho(titulo, descripcion, categoria, latitud, longitud, fechaAcontecimiento, fechaCarga, origen);
+        Hecho hecho = new Hecho(
+            titulo,
+            descripcion,
+            categoria,
+            latitud,
+            longitud,
+            fechaAcontecimiento,
+            fechaCarga,
+            origen);
+
         hechos.add(hecho);
       }
     } catch (Exception e) {
