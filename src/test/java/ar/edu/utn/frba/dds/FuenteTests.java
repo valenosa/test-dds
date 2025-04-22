@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds;
 
+import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.fuente.CreadorFuente;
@@ -19,8 +20,10 @@ public class FuenteTests {
 
     Set<Hecho> hechosImportados = fuenteCSV.importHechos();
 
+    //Validamos que los hechos se importen correctamente
+    Assertions.assertEquals(5 , hechosImportados.size());
 
-
-    Assertions.assertEquals(5 , hechosImportados.size() );
+    //Validamos que se subieron a la "BD" (Este test no se si tiene mucho sentido xq se va a romper una vez creada la BD real)
+    Assertions.assertEquals(5 , BaseDeDatos.hechos.size());
   }
 }
