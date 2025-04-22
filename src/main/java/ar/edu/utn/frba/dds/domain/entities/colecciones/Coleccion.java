@@ -2,6 +2,9 @@ package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+
+import java.util.stream.Collectors;
+
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -10,8 +13,11 @@ import java.util.Set;
 
 @Getter
 public class Coleccion {
+  //-- Descripcion
   private final String titulo;
   private final String descripcion;
+  public Set<Hecho> hechosPertenecientes; // Podría guardarse simplemente un id (x ej el titulo) y despues traerlo de la BD
+  //-- Funcionales
   private final List<Fuente> fuentesAsociadas;
   private final CriterioPertenencia criterioDePertenencia;
 
@@ -23,22 +29,22 @@ public class Coleccion {
   }
 
   //--- Hechos pertenecientes
-  private Set<Hecho> getHechosfromFuentes() {
+  private Set<Hecho> getHechosFromFuentes() {
     Set<Hecho> hechosCombinados = new HashSet<>();
     for (Fuente fuente : fuentesAsociadas) {
-      hechosCombinados.addAll(fuente.importHechos());
+      hechosCombinados.addAll(fuente.getHechosAsociados());
     }
+
     return hechosCombinados;
   }
 
   private boolean pertenece(Hecho hecho) {
-    return criterioDePertenencia.cumpleFiltros(hecho) && !hecho.isEliminado();
+    return criterioDePertenencia.cumpleFiltros(hecho);
   }
 
   public Set<Hecho> getHechosPertenecientes() {
-    Set<Hecho> hechosFuentes = getHechosfromFuentes();
-    return hechosFuentes.stream().filter(this::pertenece).collect(HashSet::new, HashSet::add, HashSet::addAll);
+    Set<Hecho> hechosFuentes = getHechosFromFuentes();
+    return hechosFuentes.stream().filter(this::pertenece).collect(Collectors.toSet());
   }
+  //!!No se que tan bueno es calcularlos cada vez que un usuario los pide pero si en un futuro las fuentes son dinamicas y crecen algo vamos a tener que hacer.
 }
-
-

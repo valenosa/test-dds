@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.fuente.CreadorFuente;
-import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.FuenteEstatica;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

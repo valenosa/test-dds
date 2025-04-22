@@ -1,10 +1,10 @@
 package ar.edu.utn.frba.dds.domain.entities.fuente.estrategias;
 
+import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 
 import com.opencsv.CSVReader;
-import lombok.Setter;
 
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -13,21 +13,25 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FuenteEstatica implements Fuente {
+public class FuenteEstatica extends Fuente {
 
-  @Setter
-  private String rutaArchivoCsv;
+  private final String rutaArchivoCsv;
 
   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
   //--- Constructor
   public FuenteEstatica(String rutaArchivoCsv) {
     this.rutaArchivoCsv = rutaArchivoCsv;
+
+    // TODO Delegar al padre👶
+    Set<Hecho> hechosImportados = importHechos();
+    BaseDeDatos.subirHechos(hechosImportados);
+    this.nombresHechosAsociados = nombresHechos(hechosImportados);
   }
 
   //--- Importar Hechos
   @Override
-  public Set<Hecho> importHechos() {
+  protected Set<Hecho> importHechos() {
 
     Set<Hecho> hechos = new HashSet<>();
 
@@ -53,7 +57,16 @@ public class FuenteEstatica implements Fuente {
         }
 
 
-        Hecho hecho = new Hecho(titulo, descripcion, categoria, latitud, longitud, fechaAcontecimiento, fechaCarga, origen);
+        Hecho hecho = new Hecho(
+            titulo,
+            descripcion,
+            categoria,
+            latitud,
+            longitud,
+            fechaAcontecimiento,
+            fechaCarga,
+            origen);
+
         hechos.add(hecho);
       }
     } catch (Exception e) {
