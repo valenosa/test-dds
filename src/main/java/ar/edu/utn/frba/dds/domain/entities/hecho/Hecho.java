@@ -1,8 +1,9 @@
-package ar.edu.utn.frba.dds.domain.entities.Hecho;
+package ar.edu.utn.frba.dds.domain.entities.hecho;
 
 import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
 import ar.edu.utn.frba.dds.domain.entities.multimedia.Multimedia;
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Origen;
+import java.util.Collections;
+import java.util.HashSet;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,29 +11,28 @@ import java.time.LocalDate;
 import java.util.Set;
 
 
+@Getter
 public class Hecho {
 
-  private static int contadorIds = 1; //Variable estatica para el contador de ids. Estará momentaneamente hasta que trabajemos con bbdd.
-
-  private Integer id;
+  //-- Descripcion
+  @Getter
   private String titulo;
   private String descripcion;
   private String categoria;
+  //-- Ubicacion
   private Double latitud;
   private Double longitud;
-  //Pair <Double, Double> ubicacion = new Pair <> (latitud, longitud);
+  //-- Fechas
   private LocalDate fechaAcontecimiento;
-  private Multimedia multimedia;
   private LocalDate fechaCarga;
-  private Set<Etiqueta> etiquetas;
-
+  //-- Extras
   @Setter
-  @Getter
   private boolean eliminado;
+  private Multimedia multimedia;
+  public Set<Etiqueta> etiquetas; //lo pongo public para usarlo en test
   private Origen origen;
 
   public Hecho(String titulo, String descripcion, String categoria, Double latitud, Double longitud, LocalDate fechaAcontecimiento, LocalDate fechaCarga, Origen origen) {
-    this.id = Hecho.contadorIds++;
     this.titulo = titulo;
     this.descripcion = descripcion;
     this.categoria = categoria;
@@ -41,5 +41,12 @@ public class Hecho {
     this.fechaAcontecimiento = fechaAcontecimiento;
     this.fechaCarga = fechaCarga;
     this.origen = origen;
+    this.eliminado = false;
+    etiquetas = new HashSet<>();
   }
+
+  public void agregarEtiqueta(Etiqueta etiqueta) {
+    etiquetas.add(etiqueta);
+  }
+
 }

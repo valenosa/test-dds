@@ -1,33 +1,49 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
-import ar.edu.utn.frba.dds.domain.entities.Hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.excepciones.HechoEliminadoException;
-import ar.edu.utn.frba.dds.domain.entities.importador.stretegies.ImportStrategy;
+import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+
+import java.util.stream.Collectors;
+
 import lombok.Getter;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Getter
 public class Coleccion {
-  private String titulo;
-  private String descripcion;
-  @Getter
-  private Set<Hecho> hechos;
-  private List<ImportStrategy> fuentes;
-  private CriterioPertenencia criterioDePertenencia;
+  //-- Descripcion
+  private final String titulo;
+  private final String descripcion;
+  //-- Funcionales
+  private final List<Fuente> fuentesAsociadas;
+  private final CriterioPertenencia criterioDePertenencia;
 
-  public Coleccion(String titulo, String descripcion) {
+  public Coleccion(String titulo, String descripcion, Fuente... fuentes) {
     this.titulo = titulo;
     this.descripcion = descripcion;
-    this.hechos = new HashSet<>();
+    this.criterioDePertenencia = new CriterioPertenencia();
+    this.fuentesAsociadas = List.of(fuentes);
   }
 
-  public void addHecho(Hecho hecho) {
-    if (hecho.isEliminado()) {
-      throw new HechoEliminadoException();
+  //--- Hechos pertenecientes
+  private Set<Hecho> getHechosFromFuentes() {
+    Set<Hecho> hechosCombinados = new HashSet<>();
+    for (Fuente fuente : fuentesAsociadas) {
+      hechosCombinados.addAll(fuente.getHechosAsociados());
     }
-    hechos.add(hecho);
-  }
-}
 
+    return hechosCombinados;
+  }
+
+  private boolean pertenece(Hecho hecho) {
+    return criterioDePertenencia.cumpleFiltros(hecho);
+  }
+
+  public Set<Hecho> getHechosPertenecientes() {
+    Set<Hecho> hechosFuentes = getHechosFromFuentes();
+    return hechosFuentes.stream().filter(this::pertenece).collect(Collectors.toSet());
+  }
+  //!!No se que tan bueno es calcular los hechos pertenecientes cada vez que un usuario los pide pero si en un futuro las fuentes son dinamicas de alguna forma las colecciones deben actualizarce.
+}
