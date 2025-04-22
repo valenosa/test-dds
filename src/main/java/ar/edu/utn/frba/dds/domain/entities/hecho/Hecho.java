@@ -40,12 +40,10 @@ public class Hecho {
     this.fechaAcontecimiento = fechaAcontecimiento;
     this.fechaCarga = fechaCarga;
     this.origen = origen;
+    etiquetas = new HashSet<>();
   }
 
   public void agregarEtiqueta(Etiqueta etiqueta) {
-    if (etiquetas == null) {
-      etiquetas = new HashSet<>();
-    }
     etiquetas.add(etiqueta);
   }
 
