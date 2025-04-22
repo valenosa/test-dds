@@ -32,18 +32,22 @@ class ColeccionTest {
   void testValidacionDeObtencionDeHechos() {
     Set<Hecho> hechosAsociados = unaColeccion.getHechosPertenecientes();
 
-    Set<Hecho> hechosEsperados = unaFuente.importHechos();
     Assertions.assertEquals(5, hechosAsociados.size());
   }
 
   @Test
   @DisplayName("Se aplicar Criterios de pertenencia")
   void testCriteriosDePertenencia() {
+    //Obtengo criterio de la coleccion creada
     CriterioPertenencia criterioDeCol = unaColeccion.getCriterioDePertenencia();
+
+    //Creo un set de hechos asociados
     Set<Hecho> hechosAsociados;
 
     //Agrego filtro entreFechas y recalculo
     criterioDeCol.addFiltros(new FiltroEntreXFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
+
+    //Ya tengo el los filtros listos, me guardo los hechos de la coleccion
     hechosAsociados = unaColeccion.getHechosPertenecientes();
 
     Assertions.assertEquals(3, hechosAsociados.size());

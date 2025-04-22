@@ -16,7 +16,6 @@ public class Coleccion {
   //-- Descripcion
   private final String titulo;
   private final String descripcion;
-  public Set<Hecho> hechosPertenecientes; // Podría guardarse simplemente un id (x ej el titulo) y despues traerlo de la BD
   //-- Funcionales
   private final List<Fuente> fuentesAsociadas;
   private final CriterioPertenencia criterioDePertenencia;
@@ -46,5 +45,5 @@ public class Coleccion {
     Set<Hecho> hechosFuentes = getHechosFromFuentes();
     return hechosFuentes.stream().filter(this::pertenece).collect(Collectors.toSet());
   }
-  //!!No se que tan bueno es calcularlos cada vez que un usuario los pide pero si en un futuro las fuentes son dinamicas y crecen algo vamos a tener que hacer.
+  //!!No se que tan bueno es calcular los hechos pertenecientes cada vez que un usuario los pide pero si en un futuro las fuentes son dinamicas de alguna forma las colecciones deben actualizarce.
 }

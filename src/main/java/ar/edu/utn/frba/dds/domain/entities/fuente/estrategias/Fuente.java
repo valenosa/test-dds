@@ -10,7 +10,7 @@ public abstract class Fuente {
 
   public Set<String> nombresHechosAsociados;
 
-  protected abstract Set<Hecho> importHechos();
+  public abstract Set<Hecho> importHechos();
 
   public Set<Hecho> getHechosAsociados() {
     return BaseDeDatos.obtenerHechos(nombresHechosAsociados);

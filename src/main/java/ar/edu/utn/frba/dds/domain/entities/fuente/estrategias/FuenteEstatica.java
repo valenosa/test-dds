@@ -31,7 +31,7 @@ public class FuenteEstatica extends Fuente {
 
   //--- Importar Hechos
   @Override
-  protected Set<Hecho> importHechos() {
+  public Set<Hecho> importHechos() {
 
     Set<Hecho> hechos = new HashSet<>();
 

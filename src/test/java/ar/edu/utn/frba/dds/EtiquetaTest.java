@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EtiquetaTest {
   @Test
-  @DisplayName("Etiquetas - Etiquetar al hecho titulado “Caída de aeronave impacta en Olavarría” como Olavarría y etiquetar como Grave")
+  @DisplayName("Se agregan Etiquetas a un hecho")
   public void etiquetar() {
 
     String titulo = "Caída de aeronave impacta en Venado Tuerto, Santa Fe";

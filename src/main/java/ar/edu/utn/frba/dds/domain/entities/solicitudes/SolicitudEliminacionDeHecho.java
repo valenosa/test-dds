@@ -27,7 +27,7 @@ public class SolicitudEliminacionDeHecho {
   }
 
   private boolean esFundamentada(String justificacion) {
-    return justificacion.length() < 500;
+    return justificacion.length() >= 500;
   }
 
   public void eliminar() {
@@ -40,5 +40,9 @@ public class SolicitudEliminacionDeHecho {
     hecho.setEliminado(true);
     BaseDeDatos.actualizarHecho(hecho);
     this.eliminar();
+  }
+
+  public void rechazar() {
+
   }
 }

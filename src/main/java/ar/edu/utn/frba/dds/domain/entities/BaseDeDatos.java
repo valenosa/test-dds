@@ -36,7 +36,7 @@ public class BaseDeDatos {
    * @return Conjunto de hechos no eliminados.
    */
   public static Set<Hecho> obtenerHechos(Set<String> nombresHechos) {
-    return nombresHechos.stream().map(hechos::get).filter(Hecho::isEliminado).collect(Collectors.toSet());
+    return nombresHechos.stream().map(hechos::get).filter((hecho) -> !hecho.isEliminado()).collect(Collectors.toSet());
   }
 
   /**
