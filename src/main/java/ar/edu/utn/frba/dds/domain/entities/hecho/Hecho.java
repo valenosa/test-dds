@@ -13,6 +13,7 @@ import java.util.Set;
 public class Hecho {
 
   //-- Descripcion
+  @Getter
   private String titulo;
   private String descripcion;
   private String categoria;
@@ -38,5 +39,6 @@ public class Hecho {
     this.fechaAcontecimiento = fechaAcontecimiento;
     this.fechaCarga = fechaCarga;
     this.origen = origen;
+    this.eliminado = false;
   }
 }

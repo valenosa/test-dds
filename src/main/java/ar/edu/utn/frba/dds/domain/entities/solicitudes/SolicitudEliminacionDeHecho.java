@@ -1,33 +1,44 @@
 package ar.edu.utn.frba.dds.domain.entities.solicitudes;
 
+import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import lombok.Getter;
+import lombok.NonNull;
 
 public class SolicitudEliminacionDeHecho {
 
-  private Integer id;
-  private Hecho hecho;
-  private String justificacion;
-  @Getter
-  private EstadoSolicitud estado;
+  private static Integer contadorId = 0; //? Cuándo implementemos la BD esto vuela?
 
-  public SolicitudEliminacionDeHecho(Hecho hecho, String justificacion) {
+  @Getter private final Integer id;
+  private final String tituloHecho;
+  @Getter private final String justificacion;
 
-    if (justificacion == null || justificacion.length() < 500) {
+  public SolicitudEliminacionDeHecho(Hecho hecho, @NonNull String justificacion) {
+
+    if (!this.esFundamentada(justificacion)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
-    this.hecho = hecho;
+    this.id = contadorId++;
+
+    this.tituloHecho = hecho.getTitulo();
     this.justificacion = justificacion;
-    this.estado = EstadoSolicitud.PENDIENTE;
+
+    BaseDeDatos.subirSolicitudDeEliminacion(this);
   }
 
-  public void rechazar() {
-    this.estado = EstadoSolicitud.RECHAZADA;
+  private boolean esFundamentada(String justificacion) {
+    return justificacion.length() < 500;
   }
 
-  //Recordemos que, o bien cuando pasen 24 horas o cuando un admin lo decida, deberiamos activar este método.
+  public void eliminar() {
+    BaseDeDatos.eliminarSolicitudDeEliminacion(this); //? Es preferible pasarle el objeto o directamente la id?
+  }
+
+  //TODO consultar que se hace con las solicitudes restantes de un mismo hecho cuando se acepta una de ellas
   public void aceptar() {
-    this.estado = EstadoSolicitud.ACEPTADA;
-    this.hecho.setEliminado(true);
+    Hecho hecho = BaseDeDatos.obtenerHecho(tituloHecho);
+    hecho.setEliminado(true);
+    BaseDeDatos.actualizarHecho(hecho);
+    this.eliminar();
   }
 }
