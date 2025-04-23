@@ -2,8 +2,9 @@ package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.FuenteEstatica;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.fuente.CreadorFuente;
+
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +18,7 @@ public class FuenteTests {
   public void importarCSV() {
 
     String CSVPath = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    Fuente fuenteCSV = CreadorFuente.fuenteEstatica(CSVPath);
+    Fuente fuenteCSV = new FuenteEstatica(CSVPath);
 
     Set<Hecho> hechosImportados = fuenteCSV.importHechos();
 
@@ -30,7 +31,7 @@ public class FuenteTests {
   public void subirCSV() {
 
     String CSVPath = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    Fuente fuenteCSV = CreadorFuente.fuenteEstatica(CSVPath);
+    Fuente fuenteCSV = new FuenteEstatica(CSVPath);
 
     Set<Hecho> hechosImportados = fuenteCSV.importHechos();
 

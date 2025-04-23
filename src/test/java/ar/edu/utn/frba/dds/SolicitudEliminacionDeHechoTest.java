@@ -2,8 +2,8 @@ package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
-import ar.edu.utn.frba.dds.domain.entities.fuente.CreadorFuente;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.FuenteEstatica;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacionDeHecho;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +21,7 @@ public class SolicitudEliminacionDeHechoTest {
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    unaFuente = CreadorFuente.fuenteEstatica(pathCSV);
+    unaFuente = new FuenteEstatica(pathCSV);
     unaColeccion = new Coleccion("Colección prueba", "Esto es una prueba", unaFuente);
 
     String justificacionValida = "A".repeat(500);
