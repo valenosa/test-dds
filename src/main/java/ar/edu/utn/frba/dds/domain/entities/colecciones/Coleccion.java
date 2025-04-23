@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
+import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.Filtro;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.util.HashSet;
@@ -8,13 +9,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 
-@Getter
 public class Coleccion {
   //-- Descripcion
-  private final String titulo;
-  private final String descripcion;
+  @Getter private final String titulo;
+  @Getter private final String descripcion;
   //-- Funcionales
-  private final List<Fuente> fuentesAsociadas;
+  @Getter private final List<Fuente> fuentesAsociadas;
   private final CriterioPertenencia criterioDePertenencia;
 
   public Coleccion(String titulo, String descripcion, Fuente... fuentes) {
@@ -46,4 +46,13 @@ public class Coleccion {
   !!No se que tan bueno es calcular los hechos pertenecientes cada vez que un usuario los pide
    pero si en un futuro las fuentes son dinamicas de alguna forma las colecciones deben actualizarce
    */
+
+  /**
+   Permite agregar filtros al criterioDePertenencia manteniendo el encapsulamiento
+   */
+  public void addFiltros(Filtro filtro, Filtro... filtros) {
+    criterioDePertenencia.addFiltros(filtro, filtros);
+  }
+
+
 }

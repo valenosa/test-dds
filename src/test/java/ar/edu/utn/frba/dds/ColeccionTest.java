@@ -38,14 +38,11 @@ class ColeccionTest {
   @Test
   @DisplayName("Se aplicar Criterios de pertenencia")
   void testCriteriosDePertenencia() {
-    //Obtengo criterio de la coleccion creada
-    CriterioPertenencia criterioDeCol = unaColeccion.getCriterioDePertenencia();
-
     //Creo un set de hechos asociados
     Set<Hecho> hechosAsociados;
 
     //Agrego filtro entreFechas y recalculo
-    criterioDeCol.addFiltros(new FiltroEntreFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
+    unaColeccion.addFiltros(new FiltroEntreFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
 
     //Ya tengo el los filtros listos, me guardo los hechos de la coleccion
     hechosAsociados = unaColeccion.getHechosPertenecientes();
@@ -53,7 +50,7 @@ class ColeccionTest {
     Assertions.assertEquals(3, hechosAsociados.size());
 
     //Agrego filtro por categoria
-    criterioDeCol.addFiltros(new FiltroCategoria("Caída de aeronave"));
+    unaColeccion.addFiltros(new FiltroCategoria("Caída de aeronave"));
     hechosAsociados = unaColeccion.getHechosPertenecientes();
 
     Assertions.assertEquals(2, hechosAsociados.size());
