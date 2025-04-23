@@ -27,7 +27,6 @@ public class Hecho {
   @Setter
   private boolean eliminado;
   private final Origen origen;
-  private Multimedia multimedia;
   public Set<Etiqueta> etiquetas; //lo pongo public para usarlo en test
 
   public Hecho(String titulo,
