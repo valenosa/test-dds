@@ -4,9 +4,7 @@ import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 import com.opencsv.CSVReader;
-
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -76,7 +74,7 @@ public class FuenteEstatica extends Fuente {
         hechos.add(hecho);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      e.printStackTrace(); //TODO Cambiar esto por un método de logging más robusto
     }
 
     return hechos;
