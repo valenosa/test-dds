@@ -82,6 +82,7 @@ public class BaseDeDatos {
    * @return Hecho correspondiente o null si no existe.
    */
   public Hecho obtenerHecho(String tituloHecho) {
+    //TODO validar que el hecho no haya sido eliminado
     return hechos.get(tituloHecho);
   }
 

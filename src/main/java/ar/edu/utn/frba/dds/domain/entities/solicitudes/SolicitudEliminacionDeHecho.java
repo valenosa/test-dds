@@ -35,8 +35,7 @@ public class SolicitudEliminacionDeHecho {
 
   public void eliminar() {
     //? Es preferible pasarle el objeto o directamente la id?
-    BaseDeDatos db = BaseDeDatos.getInstance();
-    db.eliminarSolicitudDeEliminacion(this);
+    BaseDeDatos.getInstance().eliminarSolicitudDeEliminacion(this);
   }
 
   /*TODO consultar que se hace con las solicitudes restantes
@@ -50,6 +49,6 @@ public class SolicitudEliminacionDeHecho {
   }
 
   public void rechazar() {
-
+    this.eliminar();
   }
 }
