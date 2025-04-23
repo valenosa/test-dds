@@ -4,7 +4,11 @@ import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 import com.opencsv.CSVReader;
+
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -33,7 +37,11 @@ public class FuenteEstatica extends Fuente {
 
     Set<Hecho> hechos = new HashSet<>();
 
-    try (CSVReader reader = new CSVReader(new FileReader(rutaArchivoCsv))) {
+    try (
+        CSVReader reader = new CSVReader(
+            new InputStreamReader(new FileInputStream(rutaArchivoCsv), StandardCharsets.UTF_8)
+        )
+    ) {
 
       String[] headers = reader.readNext();
       String[] fila;
