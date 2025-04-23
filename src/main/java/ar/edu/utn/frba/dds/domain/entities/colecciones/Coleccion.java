@@ -2,14 +2,11 @@ package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-
-import java.util.stream.Collectors;
-
-import lombok.Getter;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import lombok.Getter;
 
 @Getter
 public class Coleccion {

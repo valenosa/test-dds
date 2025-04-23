@@ -2,13 +2,11 @@ package ar.edu.utn.frba.dds.domain.entities.hecho;
 
 import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
 import ar.edu.utn.frba.dds.domain.entities.multimedia.Multimedia;
-import java.util.Collections;
+import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 
 @Getter
@@ -32,7 +30,14 @@ public class Hecho {
   public Set<Etiqueta> etiquetas; //lo pongo public para usarlo en test
   private Origen origen;
 
-  public Hecho(String titulo, String descripcion, String categoria, Double latitud, Double longitud, LocalDate fechaAcontecimiento, LocalDate fechaCarga, Origen origen) {
+  public Hecho(String titulo,
+               String descripcion,
+               String categoria,
+               Double latitud,
+               Double longitud,
+               LocalDate fechaAcontecimiento,
+               LocalDate fechaCarga,
+               Origen origen) {
     this.titulo = titulo;
     this.descripcion = descripcion;
     this.categoria = categoria;

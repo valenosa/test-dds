@@ -3,14 +3,14 @@ package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
 
-public class FiltroEntreXFechas implements Filtro {
+public class FiltroEntreFechas implements Filtro {
 
   Filtro filtroDesde;
   Filtro filtroHasta;
 
-  public FiltroEntreXFechas(LocalDate desde, LocalDate hasta) {
-    filtroDesde = new FiltroDesdeXFecha(desde);
-    filtroHasta = new FiltroHastaXFecha(hasta);
+  public FiltroEntreFechas(LocalDate desde, LocalDate hasta) {
+    filtroDesde = new FiltroDesdeFecha(desde);
+    filtroHasta = new FiltroHastaFecha(hasta);
   }
 
   @Override

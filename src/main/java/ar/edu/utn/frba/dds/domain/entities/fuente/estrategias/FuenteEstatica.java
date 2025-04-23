@@ -3,9 +3,7 @@ package ar.edu.utn.frba.dds.domain.entities.fuente.estrategias;
 import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
-
 import com.opencsv.CSVReader;
-
 import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -2,8 +2,8 @@ package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.CriterioPertenencia;
-import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroXCategoria;
-import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroEntreXFechas;
+import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroCategoria;
+import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroEntreFechas;
 import ar.edu.utn.frba.dds.domain.entities.fuente.CreadorFuente;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
@@ -45,7 +45,7 @@ class ColeccionTest {
     Set<Hecho> hechosAsociados;
 
     //Agrego filtro entreFechas y recalculo
-    criterioDeCol.addFiltros(new FiltroEntreXFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
+    criterioDeCol.addFiltros(new FiltroEntreFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
 
     //Ya tengo el los filtros listos, me guardo los hechos de la coleccion
     hechosAsociados = unaColeccion.getHechosPertenecientes();
@@ -53,7 +53,7 @@ class ColeccionTest {
     Assertions.assertEquals(3, hechosAsociados.size());
 
     //Agrego filtro por categoria
-    criterioDeCol.addFiltros(new FiltroXCategoria("Caída de aeronave"));
+    criterioDeCol.addFiltros(new FiltroCategoria("Caída de aeronave"));
     hechosAsociados = unaColeccion.getHechosPertenecientes();
 
     Assertions.assertEquals(2, hechosAsociados.size());

@@ -2,11 +2,11 @@ package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
 
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 
-public class FiltroXTitulo implements Filtro {
+public class FiltroTitulo implements Filtro {
 
   String titulo;
 
-  public FiltroXTitulo(String titulo) {
+  public FiltroTitulo(String titulo) {
     this.titulo = titulo;
   }
 

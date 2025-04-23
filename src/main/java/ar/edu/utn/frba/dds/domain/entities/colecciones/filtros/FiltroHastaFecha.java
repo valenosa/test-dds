@@ -1,19 +1,18 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
 
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-
 import java.time.LocalDate;
 
-public class FiltroDesdeXFecha implements Filtro {
+public class FiltroHastaFecha implements Filtro {
 
-  LocalDate desde;
+  LocalDate hasta;
 
-  public FiltroDesdeXFecha(LocalDate desde) {
-    this.desde = desde;
+  public FiltroHastaFecha(LocalDate hasta) {
+    this.hasta = hasta;
   }
 
   @Override
   public boolean cumple(Hecho hecho) {
-    return hecho.getFechaAcontecimiento().isAfter(desde);
+    return hecho.getFechaAcontecimiento().isBefore(hasta);
   }
 }

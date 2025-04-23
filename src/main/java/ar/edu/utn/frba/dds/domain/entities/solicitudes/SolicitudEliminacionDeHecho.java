@@ -9,9 +9,11 @@ public class SolicitudEliminacionDeHecho {
 
   private static Integer contadorId = 0; //? Cuándo implementemos la BD esto vuela?
 
-  @Getter private final Integer id;
+  @Getter
+  private final Integer id;
   private final String tituloHecho;
-  @Getter private final String justificacion;
+  @Getter
+  private final String justificacion;
 
   public SolicitudEliminacionDeHecho(Hecho hecho, @NonNull String justificacion) {
 
@@ -31,10 +33,12 @@ public class SolicitudEliminacionDeHecho {
   }
 
   public void eliminar() {
-    BaseDeDatos.eliminarSolicitudDeEliminacion(this); //? Es preferible pasarle el objeto o directamente la id?
+    //? Es preferible pasarle el objeto o directamente la id?
+    BaseDeDatos.eliminarSolicitudDeEliminacion(this);
   }
 
-  //TODO consultar que se hace con las solicitudes restantes de un mismo hecho cuando se acepta una de ellas
+  /*TODO consultar que se hace con las solicitudes restantes
+     de un mismo hecho cuando se acepta una de ellas */
   public void aceptar() {
     Hecho hecho = BaseDeDatos.obtenerHecho(tituloHecho);
     hecho.setEliminado(true);

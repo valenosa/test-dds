@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 /**
  * Clase que simula una base de datos en memoria para gestionar hechos y solicitudes de eliminación.
- * Contiene estructuras estáticas para almacenar hechos y solicitudes, y métodos utilitarios para acceder y modificar los datos.
+ * Contiene estructuras estáticas para almacenar hechos y solicitudes,
+ * y métodos utilitarios para acceder y modificar los datos.
  */
 public class BaseDeDatos {
 
@@ -30,13 +31,15 @@ public class BaseDeDatos {
   }
 
   /**
-   * Devuelve los hechos especificados por título, <b>siempre que no estén marcados como eliminados</b>.
+   * Devuelve los hechos especificados por título,
+   * <b>siempre que no estén marcados como eliminados</b>.
    *
    * @param nombresHechos Títulos de los hechos a buscar.
    * @return Conjunto de hechos no eliminados.
    */
   public static Set<Hecho> obtenerHechos(Set<String> nombresHechos) {
-    return nombresHechos.stream().map(hechos::get).filter((hecho) -> !hecho.isEliminado()).collect(Collectors.toSet());
+    return nombresHechos.stream().map(hechos::get).filter(
+        (hecho) -> !hecho.isEliminado()).collect(Collectors.toSet());
   }
 
   /**

@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.domain.entities.fuente.estrategias;
 
 import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 
