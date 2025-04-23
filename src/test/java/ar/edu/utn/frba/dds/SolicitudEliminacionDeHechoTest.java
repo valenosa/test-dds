@@ -55,9 +55,7 @@ public class SolicitudEliminacionDeHechoTest {
   @DisplayName("No es posible crear una solicitud de eliminación con una justificación invalida")
   public void testRequestTieneMenosDe500Caracteres() {
     String justificacionInvalida = "Justificación inválida";
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      new SolicitudEliminacionDeHecho(unHecho, justificacionInvalida);
-    });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> new SolicitudEliminacionDeHecho(unHecho, justificacionInvalida));
 
 
   }

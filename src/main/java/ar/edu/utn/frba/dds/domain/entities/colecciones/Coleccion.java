@@ -42,5 +42,8 @@ public class Coleccion {
     Set<Hecho> hechosFuentes = getHechosFromFuentes();
     return hechosFuentes.stream().filter(this::pertenece).collect(Collectors.toSet());
   }
-  //!!No se que tan bueno es calcular los hechos pertenecientes cada vez que un usuario los pide pero si en un futuro las fuentes son dinamicas de alguna forma las colecciones deben actualizarce.
+  /*
+  !!No se que tan bueno es calcular los hechos pertenecientes cada vez que un usuario los pide
+   pero si en un futuro las fuentes son dinamicas de alguna forma las colecciones deben actualizarce
+   */
 }

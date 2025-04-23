@@ -14,21 +14,21 @@ public class Hecho {
 
   //-- Descripcion
   @Getter
-  private String titulo;
-  private String descripcion;
-  private String categoria;
+  private final String titulo;
+  private final String descripcion;
+  private final String categoria;
   //-- Ubicacion
-  private Double latitud;
-  private Double longitud;
+  private final Double latitud;
+  private final Double longitud;
   //-- Fechas
-  private LocalDate fechaAcontecimiento;
-  private LocalDate fechaCarga;
+  private final LocalDate fechaAcontecimiento;
+  private final LocalDate fechaCarga;
   //-- Extras
   @Setter
   private boolean eliminado;
+  private final Origen origen;
   private Multimedia multimedia;
   public Set<Etiqueta> etiquetas; //lo pongo public para usarlo en test
-  private Origen origen;
 
   public Hecho(String titulo,
                String descripcion,

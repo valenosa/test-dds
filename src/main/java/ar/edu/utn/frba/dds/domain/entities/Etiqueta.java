@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Etiqueta {
-  private String nombre;
+  private final String nombre;
 
   public Etiqueta(String nombre) {
     this.nombre = nombre;
