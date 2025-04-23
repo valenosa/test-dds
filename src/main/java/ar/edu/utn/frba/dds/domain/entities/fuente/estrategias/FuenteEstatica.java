@@ -25,7 +25,11 @@ public class FuenteEstatica extends Fuente {
 
     // TODO Delegar al padre👶
     Set<Hecho> hechosImportados = importHechos();
-    BaseDeDatos.subirHechos(hechosImportados);
+
+    BaseDeDatos db = BaseDeDatos.getInstance();
+
+    db.subirHechos(hechosImportados);
+
     this.nombresHechosAsociados = nombresHechos(hechosImportados);
   }
 

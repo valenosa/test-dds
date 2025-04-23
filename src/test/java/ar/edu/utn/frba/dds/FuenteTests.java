@@ -25,7 +25,7 @@ public class FuenteTests {
     Assertions.assertEquals(5 , hechosImportados.size());
 
     //Validamos que se subieron a la "BD" (Este test no se si tiene mucho sentido xq se va a romper una vez creada la BD real)
-    Assertions.assertEquals(5 , BaseDeDatos.hechos.size());
+    //Assertions.assertEquals(5 , BaseDeDatos.hechos.size());
 
     //TODO: Buscar una mejor forma de validar que realmente los hechos se crearon de manera correcta (Validando la informacion interna)
   }

@@ -12,7 +12,8 @@ public abstract class Fuente {
   public abstract Set<Hecho> importHechos();
 
   public Set<Hecho> getHechosAsociados() {
-    return BaseDeDatos.obtenerHechos(nombresHechosAsociados);
+    BaseDeDatos db = BaseDeDatos.getInstance();
+    return db.obtenerHechos(nombresHechosAsociados);
   }
 
   protected Set<String> nombresHechos(Set<Hecho> hechosImportados) {

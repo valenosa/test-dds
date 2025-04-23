@@ -25,7 +25,10 @@ public class SolicitudEliminacionDeHechoTest {
     unaColeccion = new Coleccion("Colección prueba", "Esto es una prueba", unaFuente);
 
     String justificacionValida = "A".repeat(500);
-    unHecho = BaseDeDatos.obtenerHecho("Caída de aeronave impacta en Olavarría");
+
+    BaseDeDatos db = BaseDeDatos.getInstance();
+
+    unHecho = db.obtenerHecho("Caída de aeronave impacta en Olavarría");
     unaSolicitud = new SolicitudEliminacionDeHecho(unHecho, justificacionValida);
   }
 

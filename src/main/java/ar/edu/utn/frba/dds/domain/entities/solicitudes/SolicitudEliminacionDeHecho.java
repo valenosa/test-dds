@@ -25,7 +25,8 @@ public class SolicitudEliminacionDeHecho {
     this.tituloHecho = hecho.getTitulo();
     this.justificacion = justificacion;
 
-    BaseDeDatos.subirSolicitudDeEliminacion(this);
+    BaseDeDatos db = BaseDeDatos.getInstance();
+    db.subirSolicitudDeEliminacion(this);
   }
 
   private boolean esFundamentada(String justificacion) {
@@ -34,15 +35,17 @@ public class SolicitudEliminacionDeHecho {
 
   public void eliminar() {
     //? Es preferible pasarle el objeto o directamente la id?
-    BaseDeDatos.eliminarSolicitudDeEliminacion(this);
+    BaseDeDatos db = BaseDeDatos.getInstance();
+    db.eliminarSolicitudDeEliminacion(this);
   }
 
   /*TODO consultar que se hace con las solicitudes restantes
      de un mismo hecho cuando se acepta una de ellas */
   public void aceptar() {
-    Hecho hecho = BaseDeDatos.obtenerHecho(tituloHecho);
+    BaseDeDatos db = BaseDeDatos.getInstance();
+    Hecho hecho = db.obtenerHecho(tituloHecho);
     hecho.setEliminado(true);
-    BaseDeDatos.actualizarHecho(hecho);
+    db.actualizarHecho(hecho);
     this.eliminar();
   }
 
