@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.hecho;
 
 import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
-import ar.edu.utn.frba.dds.domain.entities.multimedia.Multimedia;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +26,6 @@ public class Hecho {
   @Setter
   private boolean eliminado;
   private final Origen origen;
-  private Multimedia multimedia;
   public Set<Etiqueta> etiquetas; //lo pongo public para usarlo en test
 
   public Hecho(String titulo,

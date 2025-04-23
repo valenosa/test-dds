@@ -4,7 +4,9 @@ import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 import com.opencsv.CSVReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -15,15 +17,17 @@ public class FuenteEstatica extends Fuente {
 
   private final String rutaArchivoCsv;
 
-  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
   //--- Constructor
   public FuenteEstatica(String rutaArchivoCsv) {
     this.rutaArchivoCsv = rutaArchivoCsv;
 
     // TODO Delegar al padre👶
     Set<Hecho> hechosImportados = importHechos();
-    BaseDeDatos.subirHechos(hechosImportados);
+
+    BaseDeDatos db = BaseDeDatos.getInstance();
+
+    db.subirHechos(hechosImportados);
+
     this.nombresHechosAsociados = nombresHechos(hechosImportados);
   }
 
@@ -33,7 +37,11 @@ public class FuenteEstatica extends Fuente {
 
     Set<Hecho> hechos = new HashSet<>();
 
-    try (CSVReader reader = new CSVReader(new FileReader(rutaArchivoCsv))) {
+    try (
+        CSVReader reader = new CSVReader(
+            new InputStreamReader(new FileInputStream(rutaArchivoCsv), StandardCharsets.UTF_8)
+        )
+    ) {
 
       String[] headers = reader.readNext();
       String[] fila;
@@ -49,7 +57,7 @@ public class FuenteEstatica extends Fuente {
         Origen origen = Origen.DATASET;
 
         try {
-          fechaAcontecimiento = LocalDate.parse(fila[5], formatter);
+          fechaAcontecimiento = LocalDate.parse(fila[5], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (Exception e) {
           System.out.println("Fecha inválida para fila: " + Arrays.toString(fila));
         }
@@ -68,7 +76,7 @@ public class FuenteEstatica extends Fuente {
         hechos.add(hecho);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      e.printStackTrace(); //TODO Cambiar esto por un método de logging más robusto
     }
 
     return hechos;

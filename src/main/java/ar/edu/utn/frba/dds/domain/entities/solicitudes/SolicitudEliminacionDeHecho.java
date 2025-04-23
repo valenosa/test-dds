@@ -2,13 +2,13 @@ package ar.edu.utn.frba.dds.domain.entities.solicitudes;
 
 import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Getter;
 import lombok.NonNull;
 
 public class SolicitudEliminacionDeHecho {
 
-  private static Integer contadorId = 0; //? Cuándo implementemos la BD esto vuela?
-
+  private static final AtomicInteger contadorID = new AtomicInteger(1);
   @Getter
   private final Integer id;
   private final String tituloHecho;
@@ -20,12 +20,13 @@ public class SolicitudEliminacionDeHecho {
     if (!this.esFundamentada(justificacion)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
-    this.id = contadorId++;
+    this.id = contadorID.getAndIncrement();
 
     this.tituloHecho = hecho.getTitulo();
     this.justificacion = justificacion;
 
-    BaseDeDatos.subirSolicitudDeEliminacion(this);
+    BaseDeDatos db = BaseDeDatos.getInstance();
+    db.subirSolicitudDeEliminacion(this);
   }
 
   private boolean esFundamentada(String justificacion) {
@@ -34,19 +35,20 @@ public class SolicitudEliminacionDeHecho {
 
   public void eliminar() {
     //? Es preferible pasarle el objeto o directamente la id?
-    BaseDeDatos.eliminarSolicitudDeEliminacion(this);
+    BaseDeDatos.getInstance().eliminarSolicitudDeEliminacion(this);
   }
 
   /*TODO consultar que se hace con las solicitudes restantes
      de un mismo hecho cuando se acepta una de ellas */
   public void aceptar() {
-    Hecho hecho = BaseDeDatos.obtenerHecho(tituloHecho);
+    BaseDeDatos db = BaseDeDatos.getInstance();
+    Hecho hecho = db.obtenerHecho(tituloHecho);
     hecho.setEliminado(true);
-    BaseDeDatos.actualizarHecho(hecho);
+    db.actualizarHecho(hecho);
     this.eliminar();
   }
 
   public void rechazar() {
-
+    this.eliminar();
   }
 }
