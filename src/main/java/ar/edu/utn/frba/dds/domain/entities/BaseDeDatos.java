@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.domain.entities;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacionDeHecho;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -62,6 +63,16 @@ public class BaseDeDatos {
   public Set<Hecho> obtenerHechos(Set<String> nombresHechos) {
     return nombresHechos.stream().map(hechos::get).filter(
         (hecho) -> !hecho.isEliminado()).collect(Collectors.toSet());
+  }
+
+  /**
+   * Devuelve todos los hechos de la DB,
+   * <b>siempre que no estén marcados como eliminados</b>.
+   *
+   * @return Conjunto de hechos no eliminados.
+   */
+  public Set<Hecho> obtenerHechos() {
+    return new HashSet<>(hechos.values());
   }
 
   /**

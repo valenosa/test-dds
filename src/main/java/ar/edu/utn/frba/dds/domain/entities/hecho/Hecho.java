@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.hecho;
 
 import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
-import ar.edu.utn.frba.dds.domain.entities.multimedia.Multimedia;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;

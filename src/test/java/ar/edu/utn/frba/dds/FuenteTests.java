@@ -13,7 +13,7 @@ public class FuenteTests {
 
 
   @Test
-  @DisplayName("CSV - Los hechos se importan correctamente")
+  @DisplayName("CSV - Los hechos se importan")
   public void importarCSV() {
 
     String CSVPath = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
@@ -23,10 +23,30 @@ public class FuenteTests {
 
     //Validamos que los hechos se importen correctamente
     Assertions.assertEquals(5 , hechosImportados.size());
-
-    //Validamos que se subieron a la "BD" (Este test no se si tiene mucho sentido xq se va a romper una vez creada la BD real)
-    //Assertions.assertEquals(5 , BaseDeDatos.hechos.size());
-
-    //TODO: Buscar una mejor forma de validar que realmente los hechos se crearon de manera correcta (Validando la informacion interna)
   }
+
+  @Test
+  @DisplayName("CSV - Los hechos se suben a la DB")
+  public void subirCSV() {
+
+    String CSVPath = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
+    Fuente fuenteCSV = CreadorFuente.fuenteEstatica(CSVPath);
+
+    Set<Hecho> hechosImportados = fuenteCSV.importHechos();
+
+    BaseDeDatos db = BaseDeDatos.getInstance();
+
+    db.subirHechos(hechosImportados);
+
+    // 🔍 Verificamos que todos los hechos importados estén en la BD con el mismo contenido
+    Set<Hecho> hechosEnDB = BaseDeDatos.getInstance().obtenerHechos();
+
+    Assertions.assertTrue(
+        hechosEnDB.containsAll(hechosImportados),
+        "No todos los hechos importados están presentes en la base de datos"
+    );
+
+  }
+
+
 }
