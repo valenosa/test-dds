@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
  */
 public class BaseDeDatos {
 
-  public static Map<String, Hecho> hechos = new HashMap<>(); //<Titulo, Hecho>
-  public static Map<Integer, SolicitudEliminacionDeHecho> solicitudes = new HashMap<>();
+  public static final Map<String, Hecho> hechos = new HashMap<>(); //<Titulo, Hecho>
+  public static final Map<Integer, SolicitudEliminacionDeHecho> solicitudes = new HashMap<>();
 
   /**
    * Agrega un conjunto de nuevos hechos al sistema.
