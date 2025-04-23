@@ -14,7 +14,7 @@ public class Coleccion {
   @Getter private final String titulo;
   @Getter private final String descripcion;
   //-- Funcionales
-  @Getter private final List<Fuente> fuentesAsociadas;
+  @Getter private final List<Fuente> fuentesAsociadas; //TODO: Solo una fuente asociada
   private final CriterioPertenencia criterioDePertenencia;
 
   public Coleccion(String titulo, String descripcion, Fuente... fuentes) {
@@ -28,7 +28,7 @@ public class Coleccion {
   private Set<Hecho> getHechosFromFuentes() {
     Set<Hecho> hechosCombinados = new HashSet<>();
     for (Fuente fuente : fuentesAsociadas) {
-      hechosCombinados.addAll(fuente.getHechosAsociados());
+      hechosCombinados.addAll(fuente.getHechos());
     }
 
     return hechosCombinados;
