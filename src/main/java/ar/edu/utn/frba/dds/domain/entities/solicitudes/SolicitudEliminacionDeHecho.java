@@ -2,13 +2,13 @@ package ar.edu.utn.frba.dds.domain.entities.solicitudes;
 
 import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Getter;
 import lombok.NonNull;
 
 public class SolicitudEliminacionDeHecho {
 
-  private static Integer contadorId = 0; //? Cuándo implementemos la BD esto vuela?
-
+  private static final AtomicInteger contadorID = new AtomicInteger(1);
   @Getter
   private final Integer id;
   private final String tituloHecho;
@@ -20,7 +20,7 @@ public class SolicitudEliminacionDeHecho {
     if (!this.esFundamentada(justificacion)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
-    this.id = contadorId++;
+    this.id = contadorID.getAndIncrement();
 
     this.tituloHecho = hecho.getTitulo();
     this.justificacion = justificacion;
