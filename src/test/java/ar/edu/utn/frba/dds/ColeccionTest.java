@@ -28,9 +28,9 @@ class ColeccionTest {
   @Test
   @DisplayName("Se pueden obtener hechos a partir de una colección")
   void testValidacionDeObtencionDeHechos() {
-    Set<Hecho> hechosAsociados = unaColeccion.getHechosPertenecientes();
+    Set<Hecho> hechos = unaColeccion.getHechos();
 
-    Assertions.assertEquals(5, hechosAsociados.size());
+    Assertions.assertEquals(5, hechos.size());
   }
 
   @Test
@@ -42,14 +42,14 @@ class ColeccionTest {
     //Agrego filtro entreFechas y recalculo
     unaColeccion.addFiltros(new FiltroEntreFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
 
-    //Ya tengo el los filtros listos, me guardo los hechos de la coleccion
-    hechosAsociados = unaColeccion.getHechosPertenecientes();
+    //Ya tengo el los filtros listos, me guardo los hechos de la colección
+    hechosAsociados = unaColeccion.getHechos();
 
     Assertions.assertEquals(3, hechosAsociados.size());
 
     //Agrego filtro por categoria
     unaColeccion.addFiltros(new FiltroCategoria("Caída de aeronave"));
-    hechosAsociados = unaColeccion.getHechosPertenecientes();
+    hechosAsociados = unaColeccion.getHechos();
 
     Assertions.assertEquals(2, hechosAsociados.size());
 

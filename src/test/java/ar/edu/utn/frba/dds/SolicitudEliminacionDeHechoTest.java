@@ -39,7 +39,7 @@ public class SolicitudEliminacionDeHechoTest {
     //Se valida que el hecho fue marcadocomo eliminado
     Assertions.assertFalse(unHecho.isEliminado());
     //Se valida que no se agrega a una coleccion
-    Assertions.assertTrue(unaColeccion.getHechosPertenecientes().contains(unHecho));
+    Assertions.assertTrue(unaColeccion.getHechos().contains(unHecho));
   }
 
   @Test
@@ -50,7 +50,7 @@ public class SolicitudEliminacionDeHechoTest {
     //Se valida que el hecho NO fue marcado como eliminado
     Assertions.assertTrue(unHecho.isEliminado());
     //Se valida que no se agrega a una coleccion
-    Assertions.assertFalse(unaColeccion.getHechosPertenecientes().contains(unHecho));
+    Assertions.assertFalse(unaColeccion.getHechos().contains(unHecho));
   }
 
   @Test
