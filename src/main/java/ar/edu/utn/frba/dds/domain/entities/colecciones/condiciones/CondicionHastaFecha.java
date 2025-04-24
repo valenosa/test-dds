@@ -1,13 +1,13 @@
-package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
+package ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones;
 
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
 
-public class FiltroHastaFecha implements Filtro {
+public class CondicionHastaFecha extends Condicion {
 
   LocalDate hasta;
 
-  public FiltroHastaFecha(LocalDate hasta) {
+  public CondicionHastaFecha(LocalDate hasta) {
     this.hasta = hasta;
   }
 

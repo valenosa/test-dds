@@ -1,11 +1,11 @@
-package ar.edu.utn.frba.dds.domain.entities.colecciones.filtros;
+package ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones;
 
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 
-public class FiltroCategoria implements Filtro {
+public class CondicionCategoria extends Condicion {
   String categoria;
 
-  public FiltroCategoria(String categoria) {
+  public CondicionCategoria(String categoria) {
     this.categoria = categoria;
   }
 

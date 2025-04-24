@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.colecciones;
 
-import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.Filtro;
+import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.Condicion;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.util.Set;
@@ -32,14 +32,14 @@ public class Coleccion {
    */
   public void calculateHechos() {
     Set<Hecho> hechosFuentes = this.fuente.getHechos();
-    this.hechos = hechosFuentes.stream().filter(criterioDePertenencia::cumpleFiltros).collect(Collectors.toSet());
+    this.hechos = hechosFuentes.stream().filter(criterioDePertenencia::cumpleCondiciones).collect(Collectors.toSet());
   }
 
   /**
-   Permite agregar filtros al criterioDePertenencia manteniendo el encapsulamiento
+   Permite agregar condiciones al criterioDePertenencia manteniendo el encapsulamiento
    */
-  public void addFiltros(Filtro filtro, Filtro... filtros) {
-    criterioDePertenencia.addFiltros(filtro, filtros);
+  public void addCondicion(Condicion condicion, Condicion... condiciones) {
+    criterioDePertenencia.addCondicion(condicion, condiciones);
     this.calculateHechos();
   }
 

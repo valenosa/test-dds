@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
-import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroCategoria;
-import ar.edu.utn.frba.dds.domain.entities.colecciones.filtros.FiltroEntreFechas;
+import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionCategoria;
+import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionEntreFechas;
 import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
@@ -39,16 +39,16 @@ class ColeccionTest {
     //Creo un set de hechos asociados
     Set<Hecho> hechosAsociados;
 
-    //Agrego filtro entreFechas y recalculo
-    unaColeccion.addFiltros(new FiltroEntreFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
+    //Agrego condicion entreFechas y recalculo
+    unaColeccion.addCondicion(new CondicionEntreFechas(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
 
-    //Ya tengo el los filtros listos, me guardo los hechos de la colección
+    //Ya tengo el los condiciones listos, me guardo los hechos de la colección
     hechosAsociados = unaColeccion.getHechos();
 
     Assertions.assertEquals(3, hechosAsociados.size());
 
-    //Agrego filtro por categoria
-    unaColeccion.addFiltros(new FiltroCategoria("Caída de aeronave"));
+    //Agrego condicion por categoria
+    unaColeccion.addCondicion(new CondicionCategoria("Caída de aeronave"));
     hechosAsociados = unaColeccion.getHechos();
 
     Assertions.assertEquals(2, hechosAsociados.size());
