@@ -1,5 +1,6 @@
-package ar.edu.utn.frba.dds.domain.entities.fuente.estrategias;
+package ar.edu.utn.frba.dds.domain.entities.fuente;
 
+import ar.edu.utn.frba.dds.domain.entities.hecho.Categoria;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;
 import com.opencsv.CSVReader;
@@ -42,7 +43,7 @@ public class Fuente {
       while ((fila = reader.readNext()) != null) {
         String titulo = fila[0];
         String descripcion = fila[1];
-        String categoria = fila[2];
+        Categoria categoria = new Categoria(fila[2]);
         Double latitud = Double.parseDouble(fila[3]);
         Double longitud = Double.parseDouble(fila[4]);
         LocalDate fechaAcontecimiento = null;

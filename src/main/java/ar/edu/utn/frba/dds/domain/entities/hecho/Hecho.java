@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.domain.entities.hecho;
 
-import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ public class Hecho {
   @Getter
   private final String titulo;
   private final String descripcion;
-  private final String categoria;
+  private final Categoria categoria;
   //-- Ubicacion
   private final Double latitud;
   private final Double longitud;
@@ -30,7 +30,7 @@ public class Hecho {
 
   public Hecho(String titulo,
                String descripcion,
-               String categoria,
+               Categoria categoria,
                Double latitud,
                Double longitud,
                LocalDate fechaAcontecimiento,
@@ -48,8 +48,11 @@ public class Hecho {
     etiquetas = new HashSet<>();
   }
 
-  public void agregarEtiqueta(Etiqueta etiqueta) {
+  public void agregarEtiqueta(Etiqueta etiqueta, Etiqueta ... etiquetasAgregadas) {
     etiquetas.add(etiqueta);
+    if (etiquetasAgregadas != null) {
+      etiquetas.addAll(Set.of(etiquetasAgregadas));
+    }
   }
 
 }
