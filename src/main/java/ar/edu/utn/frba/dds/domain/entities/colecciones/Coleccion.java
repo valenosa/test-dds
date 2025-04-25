@@ -32,7 +32,11 @@ public class Coleccion {
    */
   public void calculateHechos() {
     Set<Hecho> hechosFuentes = this.fuente.getHechos();
-    this.hechos = hechosFuentes.stream().filter(criterioDePertenencia::cumpleCondiciones).filter((hecho) -> !hecho.isEliminado()).collect(Collectors.toSet());
+    this.hechos = hechosFuentes.stream().filter(this::pertenece).collect(Collectors.toSet());
+  }
+
+  private boolean pertenece(Hecho hecho) {
+    return criterioDePertenencia.cumpleCondiciones(hecho) && !hecho.isEliminado();
   }
 
   /**

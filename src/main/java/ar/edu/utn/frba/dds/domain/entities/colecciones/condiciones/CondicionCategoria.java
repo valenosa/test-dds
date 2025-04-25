@@ -10,7 +10,6 @@ public class CondicionCategoria extends Condicion {
     this.categoria = categoria;
   }
 
-  // TODO Creé una clase Categoría para reemplazar la string, pero solo contiene una string y me veo obligado a comparar las strings en vez de las clases? No tiene sentido de ser...
   @Override
   public boolean cumple(Hecho hecho) {
     String categoriaCondicion = categoria.getNombre();
@@ -18,5 +17,7 @@ public class CondicionCategoria extends Condicion {
 
     return categoriaCondicion.equals(categoriaHecho);
   }
+
+  // TODO: Se compara la cotegoria a partir del String, es correcto?
 
 }
