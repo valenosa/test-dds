@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionCategoria;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionEntreFechas;
 import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Categoria;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
 import java.util.Set;
@@ -48,7 +49,7 @@ class ColeccionTest {
     Assertions.assertEquals(3, hechosAsociados.size());
 
     //Agrego condicion por categoria
-    unaColeccion.addCondicion(new CondicionCategoria("Caída de aeronave"));
+    unaColeccion.addCondicion(new CondicionCategoria(new Categoria("Caída de aeronave")));
     hechosAsociados = unaColeccion.getHechos();
 
     Assertions.assertEquals(2, hechosAsociados.size());

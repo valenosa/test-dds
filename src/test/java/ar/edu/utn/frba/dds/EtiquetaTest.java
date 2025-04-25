@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds;
 
+import ar.edu.utn.frba.dds.domain.entities.hecho.Categoria;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Etiqueta;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class EtiquetaTest {
     LocalDate fechaAcontecimiento = LocalDate.of(2008, 8, 8);
     String descripcion =  "Grave caída de aeronave ocurrió en las inmediaciones de Venado Tuerto, Santa Fe. El incidente destruyó viviendas y dejó a familias evacuadas. Autoridades nacionales se han puesto a disposición para brindar asistencia";
 
-    Hecho hecho1 = new Hecho(titulo, descripcion, "Caída de aeronave", -33.768051, -61.921032 , fechaAcontecimiento, LocalDate.now(), null);
+    Hecho hecho1 = new Hecho(titulo, descripcion,new Categoria("Caída de aeronave"), -33.768051, -61.921032 , fechaAcontecimiento, LocalDate.now(), null);
 
     Etiqueta etiqueta1 = new Etiqueta("Olavarría");
     Etiqueta etiqueta2 = new Etiqueta("Grave");
