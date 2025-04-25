@@ -28,15 +28,15 @@ public class Coleccion {
   }
 
   /**
-   Calcula en base a su criterio de pertenencia los hechos que pertenecen a la coleccion
+   * Calcula en base a su criterio de pertenencia los hechos que pertenecen a la coleccion
    */
   public void calculateHechos() {
     Set<Hecho> hechosFuentes = this.fuente.getHechos();
-    this.hechos = hechosFuentes.stream().filter(criterioDePertenencia::cumpleCondiciones).collect(Collectors.toSet());
+    this.hechos = hechosFuentes.stream().filter(criterioDePertenencia::cumpleCondiciones).filter((hecho) -> !hecho.isEliminado()).collect(Collectors.toSet());
   }
 
   /**
-   Permite agregar condiciones al criterioDePertenencia manteniendo el encapsulamiento
+   * Permite agregar condiciones al criterioDePertenencia manteniendo el encapsulamiento
    */
   public void addCondicion(Condicion condicion, Condicion... condiciones) {
     criterioDePertenencia.addCondicion(condicion, condiciones);
