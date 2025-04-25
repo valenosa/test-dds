@@ -1,29 +1,23 @@
 package ar.edu.utn.frba.dds.domain.entities.solicitudes;
 
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 
-public class SolicitudEliminacionDeHecho {
+public class SolicitudEliminacion {
 
-  private static final AtomicInteger contadorID = new AtomicInteger(1);
   @Getter
-  private final Integer id;
   private final Hecho hecho;
   @Getter
   private final String justificacion;
-  @Getter @Setter //!! Getter creado para que checklist no joda.
+  @Getter
   private EstadoSolicitud estado;
   private final MetaDataSolicitudDeEliminacion metadata;
 
-  public SolicitudEliminacionDeHecho(Hecho hecho, @NonNull String justificacion, String nombreSolicitante) {
+  public SolicitudEliminacion(Hecho hecho, String justificacion, String nombreSolicitante) {
 
     if (!this.esFundamentada(justificacion)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
-    this.id = contadorID.getAndIncrement();
     this.hecho = hecho;
     this.justificacion = justificacion;
     this.estado = EstadoSolicitud.PENDIENTE;

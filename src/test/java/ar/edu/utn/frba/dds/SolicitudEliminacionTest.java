@@ -3,20 +3,20 @@ package ar.edu.utn.frba.dds;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacionDeHecho;
+import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.Set;
 
-public class SolicitudEliminacionDeHechoTest {
+public class SolicitudEliminacionTest {
 
   Coleccion unaColeccion;
   Fuente unaFuente;
   Hecho unHecho;
   String nombreUsuario;
-  SolicitudEliminacionDeHecho unaSolicitud;
+  SolicitudEliminacion unaSolicitud;
 
   @BeforeEach
   public void setUp() {
@@ -32,7 +32,7 @@ public class SolicitudEliminacionDeHechoTest {
     String justificacionValida = "A".repeat(500);
 
     nombreUsuario = "Manolo";
-    unaSolicitud = new SolicitudEliminacionDeHecho(unHecho, justificacionValida, nombreUsuario);
+    unaSolicitud = new SolicitudEliminacion(unHecho, justificacionValida, nombreUsuario);
   }
 
   @Test
@@ -65,7 +65,7 @@ public class SolicitudEliminacionDeHechoTest {
   @DisplayName("No es posible crear una solicitud de eliminación con una justificación invalida")
   public void testRequestTieneMenosDe500Caracteres() {
     String justificacionInvalida = "Justificación inválida";
-    Assertions.assertThrows(IllegalArgumentException.class, () -> new SolicitudEliminacionDeHecho(unHecho, justificacionInvalida, nombreUsuario));
+    Assertions.assertThrows(IllegalArgumentException.class, () -> new SolicitudEliminacion(unHecho, justificacionInvalida, nombreUsuario));
   }
 }
 

@@ -3,13 +3,13 @@ package ar.edu.utn.frba.dds.domain.entities.solicitudes;
 import java.time.LocalDate;
 
 public class MetaDataSolicitudDeEliminacion {
-  //? En un futuro quizás sea necesario agregar getters a los final.
-  private final LocalDate fechaSubida = LocalDate.now();
-  private final String nombreSolicitante; //TODO luego será un usuario
+  private final LocalDate fechaSubida;
   private LocalDate fechaEvaluacion;
+  private final String nombreSolicitante; //TODO luego será un usuario
   private String nombreEvaluador; //TODO luego será un usuario
 
   public MetaDataSolicitudDeEliminacion(String nombreSolicitante) {
+    this.fechaSubida = LocalDate.now();
     this.nombreSolicitante = nombreSolicitante;
   }
 

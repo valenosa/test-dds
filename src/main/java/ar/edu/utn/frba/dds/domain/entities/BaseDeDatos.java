@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.domain.entities;
 
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacionDeHecho;
+import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacion;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class BaseDeDatos {
   private static BaseDeDatos instancia;
 
   private final Map<String, Hecho> hechos; //<Titulo, Hecho>
-  private final Map<Integer, SolicitudEliminacionDeHecho> solicitudes;
+  private final Map<Integer, SolicitudEliminacion> solicitudes;
 
   private BaseDeDatos() {
     this.hechos = new HashMap<>();
@@ -95,21 +95,4 @@ public class BaseDeDatos {
     hechos.put(hecho.getTitulo(), hecho);
   }
 
-  /**
-   * Agrega una nueva solicitud de eliminación de hecho.
-   *
-   * @param solicitud Solicitud a agregar.
-   */
-  public void subirSolicitudDeEliminacion(SolicitudEliminacionDeHecho solicitud) {
-    solicitudes.put(solicitud.getId(), solicitud);
-  }
-
-  /**
-   * Elimina una solicitud de eliminación existente.
-   *
-   * @param solicitud Solicitud a eliminar.
-   */
-  public void eliminarSolicitudDeEliminacion(SolicitudEliminacionDeHecho solicitud) {
-    solicitudes.remove(solicitud.getId());
-  }
 }
