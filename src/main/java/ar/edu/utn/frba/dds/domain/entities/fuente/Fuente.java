@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.entities.fuente.estrategias;
+package ar.edu.utn.frba.dds.domain.entities.fuente;
 
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Origen;

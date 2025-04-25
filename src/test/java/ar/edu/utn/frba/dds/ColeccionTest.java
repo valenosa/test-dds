@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionCategoria;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionEntreFechas;
-import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
 import java.util.Set;

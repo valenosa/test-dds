@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.entities;
+package ar.edu.utn.frba.dds.domain.entities.hecho;
 
 import lombok.Getter;
 

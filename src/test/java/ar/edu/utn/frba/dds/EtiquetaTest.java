@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.Etiqueta;
+import ar.edu.utn.frba.dds.domain.entities.hecho.Etiqueta;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;

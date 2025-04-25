@@ -1,11 +1,5 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.BaseDeDatos;
-import ar.edu.utn.frba.dds.domain.entities.fuente.estrategias.Fuente;
-import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-
-import java.util.Set;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
