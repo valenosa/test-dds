@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.ImportadorCSV;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacion;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +22,7 @@ public class SolicitudEliminacionTest {
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_3.csv";
-    unaFuente = new Fuente(pathCSV);
+    unaFuente = new Fuente(new ImportadorCSV(pathCSV));
 
     unaColeccion = new Coleccion("Colección prueba", "Esto es una prueba", unaFuente);
     unaColeccion.calculateHechos();

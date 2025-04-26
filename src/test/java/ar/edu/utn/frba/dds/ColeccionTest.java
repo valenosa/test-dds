@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.domain.entities.colecciones.Coleccion;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionCategoria;
 import ar.edu.utn.frba.dds.domain.entities.colecciones.condiciones.CondicionEntreFechas;
 import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
+import ar.edu.utn.frba.dds.domain.entities.fuente.ImportadorCSV;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Categoria;
 import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ class ColeccionTest {
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    unaFuente = new Fuente(pathCSV);
+    unaFuente = new Fuente(new ImportadorCSV(pathCSV));
     unaColeccion = new Coleccion("Colección prueba", "Esto es una prueba", unaFuente);
   }
 
