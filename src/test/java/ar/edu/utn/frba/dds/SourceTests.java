@@ -1,34 +1,34 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.fuente.Fuente;
-import ar.edu.utn.frba.dds.domain.entities.fuente.ImportadorCSV;
-import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
+import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
+import ar.edu.utn.frba.dds.domain.entities.source.Source;
+import ar.edu.utn.frba.dds.domain.entities.source.ImporterCSV;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class FuenteTests {
+public class SourceTests {
 
-  Fuente unaFuente;
+  Source aSource;
 
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    unaFuente = new Fuente(new ImportadorCSV(pathCSV));
+    aSource = new Source(new ImporterCSV(pathCSV));
   }
 
 
   @Test
   @DisplayName("CSV - Los hechos se importan")
   public void importarCSV() {
-    Set<Hecho> hechos = unaFuente.getHechos();
+    Set<Fact> facts = aSource.getFacts();
 
     //Se valida que se generar la cantidad de hechos del sample_CSVtest_2
-    Assertions.assertEquals(5, hechos.size());
+    Assertions.assertEquals(5, facts.size());
 
     //Se valida que los datos fueron leidos y guardados de forma correcta
-    Assertions.assertTrue(hechos.stream().anyMatch((h)->h.getTitulo().equals("Caída de aeronave impacta en Olavarría")));
+    Assertions.assertTrue(facts.stream().anyMatch((h)->h.getTitle().equals("Caída de aeronave impacta en Olavarría")));
   }
 }
