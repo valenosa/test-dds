@@ -13,12 +13,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ImporterCSV implements Importer {
+public class CSVImporter implements Importer {
 
-  private final String archivePath;
+  private final String filePath;
 
-  public ImporterCSV(String archivePath) {
-    this.archivePath = archivePath;
+  public CSVImporter(String path) {
+    this.filePath = path;
   }
 
   @Override
@@ -28,7 +28,7 @@ public class ImporterCSV implements Importer {
 
     try (
         CSVReader reader = new CSVReader(
-            new InputStreamReader(new FileInputStream(this.archivePath), StandardCharsets.UTF_8)
+            new InputStreamReader(new FileInputStream(this.filePath), StandardCharsets.UTF_8)
         )
     ) {
 
@@ -41,12 +41,12 @@ public class ImporterCSV implements Importer {
         Category category = new Category(row[2]);
         Double latitude = Double.parseDouble(row[3]);
         Double longitude = Double.parseDouble(row[4]);
-        LocalDate dateEvent = null;
+        LocalDate eventDate = null;
         LocalDate uploadDate = LocalDate.now();
         Origin origin = Origin.DATASET;
 
         try {
-          dateEvent = LocalDate.parse(row[5], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+          eventDate = LocalDate.parse(row[5], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (Exception e) {
           System.out.println("Fecha inválida para row: " + Arrays.toString(row));
         }
@@ -58,7 +58,7 @@ public class ImporterCSV implements Importer {
             category,
             latitude,
             longitude,
-            dateEvent,
+            eventDate,
             uploadDate,
             origin);
 

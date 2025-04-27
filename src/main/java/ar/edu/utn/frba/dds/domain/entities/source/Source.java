@@ -10,8 +10,8 @@ public class Source {
   public Set<Fact> facts;
   private Importer importer;
 
-  public Source(Importer importer) {
-    importer = importer;
+  public Source(Importer importingStrategy) {
+    importer = importingStrategy;
     facts = importer.importFacts();
   }
 
