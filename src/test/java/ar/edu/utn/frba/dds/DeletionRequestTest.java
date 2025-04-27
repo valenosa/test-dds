@@ -4,20 +4,20 @@ import ar.edu.utn.frba.dds.domain.entities.collections.Collection;
 import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
 import ar.edu.utn.frba.dds.domain.entities.source.ImporterCSV;
-import ar.edu.utn.frba.dds.domain.entities.requests.RequestElimination;
+import ar.edu.utn.frba.dds.domain.entities.requests.DeletionRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.Set;
 
-public class RequestEliminationTest {
+public class DeletionRequestTest {
 
   Collection aCollection;
   Source aSource;
   Fact aFact;
   String userName;
-  RequestElimination aApplication;
+  DeletionRequest aApplication;
 
   @BeforeEach
   public void setUp() {
@@ -33,7 +33,7 @@ public class RequestEliminationTest {
     String validJustification = "A".repeat(500);
 
     userName = "Manolo";
-    aApplication = new RequestElimination(aFact, validJustification, userName);
+    aApplication = new DeletionRequest(aFact, validJustification, userName);
   }
 
   @Test
@@ -66,7 +66,7 @@ public class RequestEliminationTest {
   @DisplayName("No es posible crear una solicitud de eliminación con una justificación invalida")
   public void testRequestHasless500characters() {
     String invalidJustification = "Justificación inválida";
-    Assertions.assertThrows(IllegalArgumentException.class, () -> new RequestElimination(aFact, invalidJustification, userName));
+    Assertions.assertThrows(IllegalArgumentException.class, () -> new DeletionRequest(aFact, invalidJustification, userName));
   }
 }
 

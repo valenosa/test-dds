@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.requests;
 
-public enum StateRequest {
+public enum DeletionRequestState {
   PENDING,
   ACCEPTED,
   REJECTED

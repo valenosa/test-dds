@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.domain.entities;
 
 import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
-import ar.edu.utn.frba.dds.domain.entities.requests.RequestElimination;
+import ar.edu.utn.frba.dds.domain.entities.requests.DeletionRequest;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class BaseDeDatos {
   private static BaseDeDatos instancia;
 
   private final Map<String, Fact> hechos; //<Titulo, Hecho>
-  private final Map<Integer, RequestElimination> solicitudes;
+  private final Map<Integer, DeletionRequest> solicitudes;
 
   private BaseDeDatos() {
     this.hechos = new HashMap<>();

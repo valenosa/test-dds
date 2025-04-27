@@ -3,25 +3,25 @@ package ar.edu.utn.frba.dds.domain.entities.requests;
 import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
 import lombok.Getter;
 
-public class RequestElimination {
+public class DeletionRequest {
 
   @Getter
   private final Fact fact;
   @Getter
   private final String justification;
   @Getter
-  private StateRequest state;
-  private final MetaDataRequestOfElimination metadata;
+  private DeletionRequestState state;
+  private final DeletionRequestMetadata metadata;
 
-  public RequestElimination(Fact fact, String justification, String applicantName) {
+  public DeletionRequest(Fact fact, String justification, String applicantName) {
 
     if (!this.isJustificated(justification)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
     this.fact = fact;
     this.justification = justification;
-    this.state = StateRequest.PENDING;
-    this.metadata = new MetaDataRequestOfElimination(applicantName);
+    this.state = DeletionRequestState.PENDING;
+    this.metadata = new DeletionRequestMetadata(applicantName);
   }
 
   private boolean isJustificated(String justification) {
@@ -30,12 +30,12 @@ public class RequestElimination {
 
   public void accept(String evaluatorName) {
     this.metadata.registerEvaluation(evaluatorName);
-    this.state = StateRequest.ACCEPTED;
+    this.state = DeletionRequestState.ACCEPTED;
     fact.setDeleted(true);
   }
 
   public void reject(String evaluatorName) {
     this.metadata.registerEvaluation(evaluatorName);
-    this.state = StateRequest.REJECTED;
+    this.state = DeletionRequestState.REJECTED;
   }
 }
