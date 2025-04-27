@@ -9,7 +9,7 @@ import lombok.Getter;
 
 
 @Getter
-public class Collections {
+public class Collection {
   //-- Descriptivos
   private final String title;
   private final String description;
@@ -17,34 +17,34 @@ public class Collections {
   //-- Funcionales
   private final Source source;
   private Set<Fact> facts;
-  private final JudgmentBelonging judgmentBelonging;
+  private final BelongingCriteria belongingCriteria;
 
-  public Collections(String title, String description, Source source) {
+  public Collection(String title, String description, Source source) {
     this.title = title;
     this.description = description;
-    this.judgmentBelonging = new JudgmentBelonging();
+    this.belongingCriteria = new BelongingCriteria();
     this.source = source;
-    this.calculateFacts();
+    this.fetchFacts();
   }
 
   /**
    * Calcula en base a su criterio de pertenencia los hechos que pertenecen a la coleccion
    */
-  public void calculateFacts() {
-    Set<Fact> sourceFacts = this.source.getFacts();
-    this.facts = sourceFacts.stream().filter(this::belongs).collect(Collectors.toSet());
+  public void fetchFacts() {
+    Set<Fact> factSource = this.source.getFacts();
+    this.facts = factSource.stream().filter(this::belongsToCollection).collect(Collectors.toSet());
   }
 
-  private boolean belongs(Fact fact) {
-    return judgmentBelonging.fulfillConditions(fact) && !fact.isEliminated();
+  private boolean belongsToCollection(Fact fact) {
+    return belongingCriteria.isSatisfiedBy(fact) && !fact.isEliminated();
   }
 
   /**
    * Permite agregar condiciones al criterioDePertenencia manteniendo el encapsulamiento
    */
   public void addCondition(Condition condition, Condition... conditions) {
-    judgmentBelonging.addCondicion(condition, conditions);
-    this.calculateFacts();
+    belongingCriteria.addCondition(condition, conditions);
+    this.fetchFacts();
   }
 
   //TODO: getHechos(filtros...) como sobrecarga que permita obtener hechos filtrados

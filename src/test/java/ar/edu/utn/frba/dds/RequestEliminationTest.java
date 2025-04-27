@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.collections.Collections;
+import ar.edu.utn.frba.dds.domain.entities.collections.Collection;
 import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
 import ar.edu.utn.frba.dds.domain.entities.source.ImporterCSV;
@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class RequestEliminationTest {
 
-  Collections aCollections;
+  Collection aCollection;
   Source aSource;
   Fact aFact;
   String userName;
@@ -24,9 +24,9 @@ public class RequestEliminationTest {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_3.csv";
     aSource = new Source(new ImporterCSV(pathCSV));
 
-    aCollections = new Collections("Colección prueba", "Esto es una prueba", aSource);
-    aCollections.calculateFacts();
-    Set<Fact> facts = aCollections.getFacts();
+    aCollection = new Collection("Colección prueba", "Esto es una prueba", aSource);
+    aCollection.fetchFacts();
+    Set<Fact> facts = aCollection.getFacts();
 
     aFact = facts.iterator().next(); // Obtengo el primer hecho.
 
@@ -45,7 +45,7 @@ public class RequestEliminationTest {
     Assertions.assertFalse(aFact.isEliminated());
 
     //Se valida que se agrega a una coleccion
-    Assertions.assertTrue(aCollections.getFacts().contains(aFact));
+    Assertions.assertTrue(aCollection.getFacts().contains(aFact));
   }
 
   @Test
@@ -56,10 +56,10 @@ public class RequestEliminationTest {
     //Se valida que el hecho fue marcado como eliminado
     Assertions.assertTrue(aFact.isEliminated());
 
-    aCollections.calculateFacts();
+    aCollection.fetchFacts();
 
     //Se valida que no se agrega a una coleccion
-    Assertions.assertFalse(aCollections.getFacts().contains(aFact));
+    Assertions.assertFalse(aCollection.getFacts().contains(aFact));
   }
 
   @Test

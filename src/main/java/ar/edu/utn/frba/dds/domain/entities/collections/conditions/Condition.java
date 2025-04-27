@@ -4,5 +4,5 @@ import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
 
 public abstract class Condition {
 
-  public abstract boolean fulfills(Fact fact);
+  public abstract boolean isSatisfiedBy(Fact fact);
 }

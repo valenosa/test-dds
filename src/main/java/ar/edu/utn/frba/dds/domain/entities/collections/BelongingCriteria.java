@@ -5,11 +5,11 @@ import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JudgmentBelonging {
+public class BelongingCriteria {
 
   List<Condition> conditions;
 
-  public JudgmentBelonging() {
+  public BelongingCriteria() {
     conditions = new ArrayList<>();
   }
 
@@ -20,7 +20,7 @@ public class JudgmentBelonging {
     }
   }
 
-  public boolean fulfillConditions(Fact fact) {
-    return conditions.stream().allMatch(condition -> condition.fulfills(fact));
+  public boolean isSatisfiedBy(Fact fact) {
+    return conditions.stream().allMatch(condition -> condition.isSatisfiedBy(fact));
   }
 }
