@@ -13,6 +13,6 @@ public class UntilDateCondition extends Condition {
 
   @Override
   public boolean isSatisfiedBy(Fact fact) {
-    return fact.getDateEvent().isBefore(to);
+    return fact.getEventDate().isBefore(to);
   }
 }

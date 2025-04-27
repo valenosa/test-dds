@@ -19,20 +19,20 @@ public class Fact {
   private final Double latitude;
   private final Double longitude;
   //-- Fechas
-  private final LocalDate dateEvent;
+  private final LocalDate eventDate;
   private final LocalDate uploadDate;
   //-- Extras
   @Setter
-  private boolean eliminated;
+  private boolean deleted;
   private final Origin origin;
-  public Set<Tag> tags; //lo pongo public para usarlo en test
+  public Set<Tag> tags; //TODO pasar a private
 
   public Fact(String title,
               String description,
               Category category,
               Double latitude,
               Double longitude,
-              LocalDate dateEvent,
+              LocalDate eventDate,
               LocalDate uploadDate,
               Origin origin) {
     this.title = title;
@@ -40,10 +40,10 @@ public class Fact {
     this.category = category;
     this.latitude = latitude;
     this.longitude = longitude;
-    this.dateEvent = dateEvent;
+    this.eventDate = eventDate;
     this.uploadDate = uploadDate;
     this.origin = origin;
-    this.eliminated = false;
+    this.deleted = false;
     tags = new HashSet<>();
   }
 

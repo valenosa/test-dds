@@ -31,7 +31,7 @@ public class RequestElimination {
   public void accept(String evaluatorName) {
     this.metadata.registerEvaluation(evaluatorName);
     this.state = StateRequest.ACCEPTED;
-    fact.setEliminated(true);
+    fact.setDeleted(true);
   }
 
   public void reject(String evaluatorName) {

@@ -62,7 +62,7 @@ public class BaseDeDatos {
    */
   public Set<Fact> obtenerHechos(Set<String> nombresHechos) {
     return nombresHechos.stream().map(hechos::get).filter(
-        (hecho) -> !hecho.isEliminated()).collect(Collectors.toSet());
+        (hecho) -> !hecho.isDeleted()).collect(Collectors.toSet());
   }
 
   /**

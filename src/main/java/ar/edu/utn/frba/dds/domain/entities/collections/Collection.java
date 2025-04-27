@@ -36,7 +36,7 @@ public class Collection {
   }
 
   private boolean belongsToCollection(Fact fact) {
-    return belongingCriteria.isSatisfiedBy(fact) && !fact.isEliminated();
+    return belongingCriteria.isSatisfiedBy(fact) && !fact.isDeleted();
   }
 
   /**

@@ -42,7 +42,7 @@ public class RequestEliminationTest {
     aApplication.reject("Jaime");
 
     //Se valida que el hecho no fue marcado como eliminado
-    Assertions.assertFalse(aFact.isEliminated());
+    Assertions.assertFalse(aFact.isDeleted());
 
     //Se valida que se agrega a una coleccion
     Assertions.assertTrue(aCollection.getFacts().contains(aFact));
@@ -54,7 +54,7 @@ public class RequestEliminationTest {
     aApplication.accept("Tomás");
 
     //Se valida que el hecho fue marcado como eliminado
-    Assertions.assertTrue(aFact.isEliminated());
+    Assertions.assertTrue(aFact.isDeleted());
 
     aCollection.fetchFacts();
 

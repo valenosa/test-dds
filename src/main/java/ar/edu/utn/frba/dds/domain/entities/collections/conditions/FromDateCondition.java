@@ -13,6 +13,6 @@ public class FromDateCondition extends Condition {
 
   @Override
   public boolean isSatisfiedBy(Fact fact) {
-    return fact.getDateEvent().isAfter(from);
+    return fact.getEventDate().isAfter(from);
   }
 }
