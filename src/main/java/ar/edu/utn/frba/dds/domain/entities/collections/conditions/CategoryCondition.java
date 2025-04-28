@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.domain.entities.collections.conditions;
 
-import ar.edu.utn.frba.dds.domain.entities.fact.Category;
-import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
+import ar.edu.utn.frba.dds.domain.entities.report.Category;
+import ar.edu.utn.frba.dds.domain.entities.report.Report;
 
 public class CategoryCondition extends Condition {
   Category category;
@@ -11,11 +11,11 @@ public class CategoryCondition extends Condition {
   }
 
   @Override
-  public boolean isSatisfiedBy(Fact fact) {
+  public boolean isSatisfiedBy(Report report) {
     String conditionCategory = category.getName();
-    String factCategory = fact.getCategory().getName();
+    String reportCategory = report.getCategory().getName();
 
-    return conditionCategory.equals(factCategory);
+    return conditionCategory.equals(reportCategory);
   }
 
   // TODO: Se compara la cotegoria a partir del String, es correcto?

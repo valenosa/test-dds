@@ -1,15 +1,15 @@
 package ar.edu.utn.frba.dds.domain.entities.collections;
 
 import ar.edu.utn.frba.dds.domain.entities.collections.conditions.Condition;
-import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
+import ar.edu.utn.frba.dds.domain.entities.report.Report;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BelongingCriteria {
+public class CollectionCriteria {
 
   List<Condition> conditions;
 
-  public BelongingCriteria() {
+  public CollectionCriteria() {
     conditions = new ArrayList<>();
   }
 
@@ -20,7 +20,7 @@ public class BelongingCriteria {
     }
   }
 
-  public boolean isSatisfiedBy(Fact fact) {
-    return conditions.stream().allMatch(condition -> condition.isSatisfiedBy(fact));
+  public boolean isSatisfiedBy(Report report) {
+    return conditions.stream().allMatch(condition -> condition.isSatisfiedBy(report));
   }
 }

@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.domain.entities.source;
 
-import ar.edu.utn.frba.dds.domain.entities.fact.Category;
-import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
-import ar.edu.utn.frba.dds.domain.entities.fact.Origin;
+import ar.edu.utn.frba.dds.domain.entities.report.Category;
+import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.report.Origin;
 import com.opencsv.CSVReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -22,9 +22,9 @@ public class CSVImporter implements Importer {
   }
 
   @Override
-  public Set<Fact> importFacts() {
+  public Set<Report> importReports() {
 
-    Set<Fact> facts = new HashSet<>();
+    Set<Report> reports = new HashSet<>();
 
     try (
         CSVReader reader = new CSVReader(
@@ -52,7 +52,7 @@ public class CSVImporter implements Importer {
         }
 
 
-        Fact fact = new Fact(
+        Report report = new Report(
             title,
             description,
             category,
@@ -62,12 +62,12 @@ public class CSVImporter implements Importer {
             uploadDate,
             origin);
 
-        facts.add(fact);
+        reports.add(report);
       }
     } catch (Exception e) {
       e.printStackTrace(); //TODO Cambiar esto por un método de logging más robusto
     }
 
-    return facts;
+    return reports;
   }
 }

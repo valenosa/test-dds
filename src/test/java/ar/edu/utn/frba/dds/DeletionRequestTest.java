@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.collections.Collection;
-import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
+import ar.edu.utn.frba.dds.domain.entities.report.Report;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
 import ar.edu.utn.frba.dds.domain.entities.source.CSVImporter;
 import ar.edu.utn.frba.dds.domain.entities.requests.DeletionRequest;
@@ -15,7 +15,7 @@ public class DeletionRequestTest {
 
   Collection aCollection;
   Source aSource;
-  Fact aFact;
+  Report aReport;
   String userName;
   DeletionRequest aApplication;
 
@@ -25,15 +25,15 @@ public class DeletionRequestTest {
     aSource = new Source(new CSVImporter(pathCSV));
 
     aCollection = new Collection("Colección prueba", "Esto es una prueba", aSource);
-    aCollection.fetchFacts();
-    Set<Fact> facts = aCollection.getFacts();
+    aCollection.fetchReports();
+    Set<Report> reports = aCollection.getReports();
 
-    aFact = facts.iterator().next(); // Obtengo el primer hecho.
+    aReport = reports.iterator().next(); // Obtengo el primer hecho.
 
     String validJustification = "A".repeat(500);
 
     userName = "Manolo";
-    aApplication = new DeletionRequest(aFact, validJustification, userName);
+    aApplication = new DeletionRequest(aReport, validJustification, userName);
   }
 
   @Test
@@ -42,10 +42,10 @@ public class DeletionRequestTest {
     aApplication.reject("Jaime");
 
     //Se valida que el hecho no fue marcado como eliminado
-    Assertions.assertFalse(aFact.isDeleted());
+    Assertions.assertFalse(aReport.isDeleted());
 
     //Se valida que se agrega a una coleccion
-    Assertions.assertTrue(aCollection.getFacts().contains(aFact));
+    Assertions.assertTrue(aCollection.getReports().contains(aReport));
   }
 
   @Test
@@ -54,19 +54,19 @@ public class DeletionRequestTest {
     aApplication.accept("Tomás");
 
     //Se valida que el hecho fue marcado como eliminado
-    Assertions.assertTrue(aFact.isDeleted());
+    Assertions.assertTrue(aReport.isDeleted());
 
-    aCollection.fetchFacts();
+    aCollection.fetchReports();
 
     //Se valida que no se agrega a una coleccion
-    Assertions.assertFalse(aCollection.getFacts().contains(aFact));
+    Assertions.assertFalse(aCollection.getReports().contains(aReport));
   }
 
   @Test
   @DisplayName("No es posible crear una solicitud de eliminación con una justificación invalida")
   public void testRequestHasless500characters() {
     String invalidJustification = "Justificación inválida";
-    Assertions.assertThrows(IllegalArgumentException.class, () -> new DeletionRequest(aFact, invalidJustification, userName));
+    Assertions.assertThrows(IllegalArgumentException.class, () -> new DeletionRequest(aReport, invalidJustification, userName));
   }
 }
 

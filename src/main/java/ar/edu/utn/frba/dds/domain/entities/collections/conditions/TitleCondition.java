@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.collections.conditions;
 
-import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
+import ar.edu.utn.frba.dds.domain.entities.report.Report;
 
 public class TitleCondition extends Condition {
 
@@ -10,8 +10,8 @@ public class TitleCondition extends Condition {
     this.title = title;
   }
 
-  public boolean isSatisfiedBy(Fact fact) {
-    return this.title.equals(fact.getTitle());
+  public boolean isSatisfiedBy(Report report) {
+    return this.title.equals(report.getTitle());
   }
 
 }

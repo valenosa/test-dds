@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.fact.Category;
-import ar.edu.utn.frba.dds.domain.entities.fact.Fact;
-import ar.edu.utn.frba.dds.domain.entities.fact.Tag;
+import ar.edu.utn.frba.dds.domain.entities.report.Category;
+import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.report.Tag;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,18 +17,18 @@ public class TagTest {
     LocalDate dateEvent = LocalDate.of(2008, 8, 8);
     String description =  "Grave caída de aeronave ocurrió en las inmediaciones de Venado Tuerto, Santa Fe. El incidente destruyó viviendas y dejó a familias evacuadas. Autoridades nacionales se han puesto a disposición para brindar asistencia";
 
-    Fact fact1 = new Fact(title, description,new Category("Caída de aeronave"), -33.768051, -61.921032 , dateEvent, LocalDate.now(), null);
+    Report report1 = new Report(title, description,new Category("Caída de aeronave"), -33.768051, -61.921032 , dateEvent, LocalDate.now(), null);
 
     Tag tag1 = new Tag("Olavarría");
     Tag tag2 = new Tag("Grave");
 
-    fact1.addTag(tag1);
-    fact1.addTag(tag2);
+    report1.addTag(tag1);
+    report1.addTag(tag2);
 
 
-    Assertions.assertTrue(fact1.tags.contains(tag1));
-    Assertions.assertTrue(fact1.tags.contains(tag2));
-    Assertions.assertEquals(2, fact1.tags.size());
+    Assertions.assertTrue(report1.tags.contains(tag1));
+    Assertions.assertTrue(report1.tags.contains(tag2));
+    Assertions.assertEquals(2, report1.tags.size());
 
   }
 }
