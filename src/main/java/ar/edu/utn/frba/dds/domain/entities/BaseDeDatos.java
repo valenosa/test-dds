@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.domain.entities;
 
-import ar.edu.utn.frba.dds.domain.entities.hecho.Hecho;
-import ar.edu.utn.frba.dds.domain.entities.solicitudes.SolicitudEliminacion;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
+import ar.edu.utn.frba.dds.domain.entities.requests.DeletionRequest;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,8 +20,8 @@ public class BaseDeDatos {
   // Instancia única del Singleton.
   private static BaseDeDatos instancia;
 
-  private final Map<String, Hecho> hechos; //<Titulo, Hecho>
-  private final Map<Integer, SolicitudEliminacion> solicitudes;
+  private final Map<String, Event> hechos; //<Titulo, Hecho>
+  private final Map<Integer, DeletionRequest> solicitudes;
 
   private BaseDeDatos() {
     this.hechos = new HashMap<>();
@@ -44,12 +44,12 @@ public class BaseDeDatos {
   /**
    * Agrega un conjunto de nuevos hechos al sistema.
    *
-   * @param nuevosHechos Conjunto de hechos a agregar.
+   * @param nuevosEvents Conjunto de hechos a agregar.
    */
-  public void subirHechos(Set<Hecho> nuevosHechos) {
+  public void subirHechos(Set<Event> nuevosEvents) {
     hechos.putAll(
         //Set -> Map
-        nuevosHechos.stream().collect(Collectors.toMap(Hecho::getTitulo, Function.identity()))
+        nuevosEvents.stream().collect(Collectors.toMap(Event::getTitle, Function.identity()))
     );
   }
 
@@ -60,9 +60,9 @@ public class BaseDeDatos {
    * @param nombresHechos Títulos de los hechos a buscar.
    * @return Conjunto de hechos no eliminados.
    */
-  public Set<Hecho> obtenerHechos(Set<String> nombresHechos) {
+  public Set<Event> obtenerHechos(Set<String> nombresHechos) {
     return nombresHechos.stream().map(hechos::get).filter(
-        (hecho) -> !hecho.isEliminado()).collect(Collectors.toSet());
+        (hecho) -> !hecho.isDeleted()).collect(Collectors.toSet());
   }
 
   /**
@@ -71,7 +71,7 @@ public class BaseDeDatos {
    *
    * @return Conjunto de hechos no eliminados.
    */
-  public Set<Hecho> obtenerHechos() {
+  public Set<Event> obtenerHechos() {
     return new HashSet<>(hechos.values());
   }
 
@@ -81,7 +81,7 @@ public class BaseDeDatos {
    * @param tituloHecho Título del hecho.
    * @return Hecho correspondiente o null si no existe.
    */
-  public Hecho obtenerHecho(String tituloHecho) {
+  public Event obtenerHecho(String tituloHecho) {
     //TODO validar que el hecho no haya sido eliminado
     return hechos.get(tituloHecho);
   }
@@ -89,10 +89,10 @@ public class BaseDeDatos {
   /**
    * Actualiza o reemplaza un hecho en el sistema.
    *
-   * @param hecho Hecho actualizado.
+   * @param event Hecho actualizado.
    */
-  public void actualizarHecho(Hecho hecho) {
-    hechos.put(hecho.getTitulo(), hecho);
+  public void actualizarHecho(Event event) {
+    hechos.put(event.getTitle(), event);
   }
 
 }
