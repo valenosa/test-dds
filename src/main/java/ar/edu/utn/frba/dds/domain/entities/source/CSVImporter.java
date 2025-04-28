@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.domain.entities.source;
 
-import ar.edu.utn.frba.dds.domain.entities.report.Category;
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
-import ar.edu.utn.frba.dds.domain.entities.report.Origin;
+import ar.edu.utn.frba.dds.domain.entities.event.Category;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
+import ar.edu.utn.frba.dds.domain.entities.event.Origin;
 import com.opencsv.CSVReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -22,9 +22,9 @@ public class CSVImporter implements Importer {
   }
 
   @Override
-  public Set<Report> importReports() {
+  public Set<Event> importEvents() {
 
-    Set<Report> reports = new HashSet<>();
+    Set<Event> events = new HashSet<>();
 
     try (
         CSVReader reader = new CSVReader(
@@ -52,7 +52,7 @@ public class CSVImporter implements Importer {
         }
 
 
-        Report report = new Report(
+        Event event = new Event(
             title,
             description,
             category,
@@ -62,12 +62,12 @@ public class CSVImporter implements Importer {
             uploadDate,
             origin);
 
-        reports.add(report);
+        events.add(event);
       }
     } catch (Exception e) {
       e.printStackTrace(); //TODO Cambiar esto por un método de logging más robusto
     }
 
-    return reports;
+    return events;
   }
 }

@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.collections.conditions;
 
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import java.time.LocalDate;
 
 public class BetweenDatesCondition extends Condition {
@@ -14,7 +14,7 @@ public class BetweenDatesCondition extends Condition {
   }
 
   @Override
-  public boolean isSatisfiedBy(Report report) {
-    return fromDateCondition.isSatisfiedBy(report) && untilDateCondition.isSatisfiedBy(report);
+  public boolean isSatisfiedBy(Event event) {
+    return fromDateCondition.isSatisfiedBy(event) && untilDateCondition.isSatisfiedBy(event);
   }
 }

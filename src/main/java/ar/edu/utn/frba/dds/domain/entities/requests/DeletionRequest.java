@@ -1,24 +1,24 @@
 package ar.edu.utn.frba.dds.domain.entities.requests;
 
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import lombok.Getter;
 
 public class DeletionRequest {
 
   @Getter
-  private final Report report;
+  private final Event event;
   @Getter
   private final String justification;
   @Getter
   private DeletionRequestState state;
   private final DeletionRequestMetadata metadata;
 
-  public DeletionRequest(Report report, String justification, String applicantName) {
+  public DeletionRequest(Event event, String justification, String applicantName) {
 
     if (!this.isJustificated(justification)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
-    this.report = report;
+    this.event = event;
     this.justification = justification;
     this.state = DeletionRequestState.PENDING;
     this.metadata = new DeletionRequestMetadata(applicantName);
@@ -31,7 +31,7 @@ public class DeletionRequest {
   public void accept(String evaluatorName) {
     this.metadata.registerEvaluation(evaluatorName);
     this.state = DeletionRequestState.ACCEPTED;
-    report.setDeleted(true);
+    event.setDeleted(true);
   }
 
   public void reject(String evaluatorName) {

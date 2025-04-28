@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.entities.report;
+package ar.edu.utn.frba.dds.domain.entities.event;
 
 import lombok.Getter;
 

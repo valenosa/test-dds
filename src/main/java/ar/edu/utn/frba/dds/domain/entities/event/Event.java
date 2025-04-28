@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.entities.report;
+package ar.edu.utn.frba.dds.domain.entities.event;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 
 @Getter
-public class Report {
+public class Event {
 
   //-- Description
   @Getter
@@ -27,14 +27,14 @@ public class Report {
   private final Origin origin;
   public Set<Tag> tags; //TODO pasar a private
 
-  public Report(String title,
-                String description,
-                Category category,
-                Double latitude,
-                Double longitude,
-                LocalDate eventDate,
-                LocalDate uploadDate,
-                Origin origin) {
+  public Event(String title,
+               String description,
+               Category category,
+               Double latitude,
+               Double longitude,
+               LocalDate eventDate,
+               LocalDate uploadDate,
+               Origin origin) {
     this.title = title;
     this.description = description;
     this.category = category;

@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities;
 
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import ar.edu.utn.frba.dds.domain.entities.requests.DeletionRequest;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,7 +20,7 @@ public class BaseDeDatos {
   // Instancia única del Singleton.
   private static BaseDeDatos instancia;
 
-  private final Map<String, Report> hechos; //<Titulo, Hecho>
+  private final Map<String, Event> hechos; //<Titulo, Hecho>
   private final Map<Integer, DeletionRequest> solicitudes;
 
   private BaseDeDatos() {
@@ -44,12 +44,12 @@ public class BaseDeDatos {
   /**
    * Agrega un conjunto de nuevos hechos al sistema.
    *
-   * @param nuevosReports Conjunto de hechos a agregar.
+   * @param nuevosEvents Conjunto de hechos a agregar.
    */
-  public void subirHechos(Set<Report> nuevosReports) {
+  public void subirHechos(Set<Event> nuevosEvents) {
     hechos.putAll(
         //Set -> Map
-        nuevosReports.stream().collect(Collectors.toMap(Report::getTitle, Function.identity()))
+        nuevosEvents.stream().collect(Collectors.toMap(Event::getTitle, Function.identity()))
     );
   }
 
@@ -60,7 +60,7 @@ public class BaseDeDatos {
    * @param nombresHechos Títulos de los hechos a buscar.
    * @return Conjunto de hechos no eliminados.
    */
-  public Set<Report> obtenerHechos(Set<String> nombresHechos) {
+  public Set<Event> obtenerHechos(Set<String> nombresHechos) {
     return nombresHechos.stream().map(hechos::get).filter(
         (hecho) -> !hecho.isDeleted()).collect(Collectors.toSet());
   }
@@ -71,7 +71,7 @@ public class BaseDeDatos {
    *
    * @return Conjunto de hechos no eliminados.
    */
-  public Set<Report> obtenerHechos() {
+  public Set<Event> obtenerHechos() {
     return new HashSet<>(hechos.values());
   }
 
@@ -81,7 +81,7 @@ public class BaseDeDatos {
    * @param tituloHecho Título del hecho.
    * @return Hecho correspondiente o null si no existe.
    */
-  public Report obtenerHecho(String tituloHecho) {
+  public Event obtenerHecho(String tituloHecho) {
     //TODO validar que el hecho no haya sido eliminado
     return hechos.get(tituloHecho);
   }
@@ -89,10 +89,10 @@ public class BaseDeDatos {
   /**
    * Actualiza o reemplaza un hecho en el sistema.
    *
-   * @param report Hecho actualizado.
+   * @param event Hecho actualizado.
    */
-  public void actualizarHecho(Report report) {
-    hechos.put(report.getTitle(), report);
+  public void actualizarHecho(Event event) {
+    hechos.put(event.getTitle(), event);
   }
 
 }

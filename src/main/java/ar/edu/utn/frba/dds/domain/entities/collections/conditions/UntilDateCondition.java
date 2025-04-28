@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.domain.entities.collections.conditions;
 
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import java.time.LocalDate;
 
 public class UntilDateCondition extends Condition {
@@ -12,7 +12,7 @@ public class UntilDateCondition extends Condition {
   }
 
   @Override
-  public boolean isSatisfiedBy(Report report) {
-    return report.getEventDate().isBefore(to);
+  public boolean isSatisfiedBy(Event event) {
+    return event.getEventDate().isBefore(to);
   }
 }

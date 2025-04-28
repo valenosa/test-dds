@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.domain.entities.collections;
 
 import ar.edu.utn.frba.dds.domain.entities.collections.conditions.Condition;
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class CollectionCriteria {
     }
   }
 
-  public boolean isSatisfiedBy(Report report) {
-    return conditions.stream().allMatch(condition -> condition.isSatisfiedBy(report));
+  public boolean isSatisfiedBy(Event event) {
+    return conditions.stream().allMatch(condition -> condition.isSatisfiedBy(event));
   }
 }

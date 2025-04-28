@@ -3,10 +3,10 @@ package ar.edu.utn.frba.dds;
 import ar.edu.utn.frba.dds.domain.entities.collections.Collection;
 import ar.edu.utn.frba.dds.domain.entities.collections.conditions.CategoryCondition;
 import ar.edu.utn.frba.dds.domain.entities.collections.conditions.BetweenDatesCondition;
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
 import ar.edu.utn.frba.dds.domain.entities.source.CSVImporter;
-import ar.edu.utn.frba.dds.domain.entities.report.Category;
+import ar.edu.utn.frba.dds.domain.entities.event.Category;
 import java.time.LocalDate;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
@@ -30,30 +30,30 @@ class CollectionTest {
   @Test
   @DisplayName("Se pueden obtener hechos a partir de una colección")
   void testValidacionDeObtencionDeHechos() {
-    Set<Report> reports = aCollection.getReports();
+    Set<Event> events = aCollection.getEvents();
 
-    Assertions.assertEquals(5, reports.size());
+    Assertions.assertEquals(5, events.size());
   }
 
   @Test
   @DisplayName("Se aplicar Criterios de pertenencia")
   void testColllectionCriteria() {
     //Creo un set de hechos asociados
-    Set<Report> associatedReports;
+    Set<Event> associatedEvents;
 
     //Agrego condicion entreFechas y recalculo
     aCollection.addCondition(new BetweenDatesCondition(LocalDate.of(2000, 1, 1), LocalDate.of(2010, 1, 1)));
 
     //Ya tengo el los condiciones listos, me guardo los hechos de la colección
-    associatedReports = aCollection.getReports();
+    associatedEvents = aCollection.getEvents();
 
-    Assertions.assertEquals(3, associatedReports.size());
+    Assertions.assertEquals(3, associatedEvents.size());
 
     //Agrego condicion por categoria
     aCollection.addCondition(new CategoryCondition(new Category("Caída de aeronave")));
-    associatedReports = aCollection.getReports();
+    associatedEvents = aCollection.getEvents();
 
-    Assertions.assertEquals(2, associatedReports.size());
+    Assertions.assertEquals(2, associatedEvents.size());
 
   }
 

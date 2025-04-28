@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.entities.report;
+package ar.edu.utn.frba.dds.domain.entities.event;
 
 public enum Origin {
   DATASET,

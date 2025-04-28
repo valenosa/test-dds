@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.domain.entities.report.Report;
+import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
 import ar.edu.utn.frba.dds.domain.entities.source.CSVImporter;
 import java.util.Set;
@@ -23,12 +23,12 @@ public class SourceTests {
   @Test
   @DisplayName("CSV - Los hechos se importan")
   public void importarCSV() {
-    Set<Report> reports = aSource.getReports();
+    Set<Event> events = aSource.getEvents();
 
     //Se valida que se generar la cantidad de hechos del sample_CSVtest_2
-    Assertions.assertEquals(5, reports.size());
+    Assertions.assertEquals(5, events.size());
 
     //Se valida que los datos fueron leidos y guardados de forma correcta
-    Assertions.assertTrue(reports.stream().anyMatch((h)->h.getTitle().equals("Caída de aeronave impacta en Olavarría")));
+    Assertions.assertTrue(events.stream().anyMatch((h)->h.getTitle().equals("Caída de aeronave impacta en Olavarría")));
   }
 }
