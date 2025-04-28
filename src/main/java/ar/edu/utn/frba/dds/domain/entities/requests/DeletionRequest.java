@@ -6,7 +6,7 @@ import lombok.Getter;
 
 public class DeletionRequest {
 
-  private final Event event;
+  private Event event;
   @Getter private final String justification;
   @Getter private DeletionRequestState state;
 
@@ -16,12 +16,20 @@ public class DeletionRequest {
   @Getter private final String applicantName; //TODO luego será un usuario
   @Getter private String evaluatorName; //TODO luego será un usuario
 
+  private void setEvent(Event event) {
+    this.event = event;
+  }
+
+  private void markEventAsDeleted() {
+    this.event.setDeleted(true);
+  }
+
   public DeletionRequest(Event event, String justification, String applicantName) {
 
     if (!this.isJustified(justification)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
-    this.event = event;
+    this.setEvent(event);
     this.justification = justification;
     this.state = DeletionRequestState.PENDING;
 
@@ -36,7 +44,7 @@ public class DeletionRequest {
   public void accept(String evaluatorName) {
     this.registerEvaluation(evaluatorName);
     this.state = DeletionRequestState.ACCEPTED;
-    event.setDeleted(true);
+    this.markEventAsDeleted();
   }
 
   public void reject(String evaluatorName) {
