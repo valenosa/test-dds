@@ -3,21 +3,25 @@ package ar.edu.utn.frba.dds.domain.entities.collections;
 import ar.edu.utn.frba.dds.domain.entities.collections.conditions.Condition;
 import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 
 
-@Getter
 public class Collection {
   //-- Descriptivos
-  private final String title;
-  private final String description;
+  @Getter private final String title;
+  @Getter private final String description;
 
   //-- Funcionales
   private final Source source;
   private Set<Event> events;
   private final CollectionCriteria collectionCriteria;
+
+  public Set<Event> getEvents() {
+    return Collections.unmodifiableSet(events);
+  }
 
   public Collection(String title, String description, Source source) {
     this.title = title;
@@ -32,7 +36,8 @@ public class Collection {
    */
   public void fetchEvents() {
     Set<Event> eventSource = this.source.getEvents();
-    this.events = eventSource.stream().filter(this::belongsToCollection).collect(Collectors.toSet());
+    this.events =
+        eventSource.stream().filter(this::belongsToCollection).collect(Collectors.toSet());
   }
 
   private boolean belongsToCollection(Event event) {
@@ -46,6 +51,5 @@ public class Collection {
     collectionCriteria.addCondition(condition, conditions);
     this.fetchEvents();
   }
-
   //TODO: getHechos(filtros...) como sobrecarga que permita obtener hechos filtrados
 }

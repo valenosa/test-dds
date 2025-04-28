@@ -13,11 +13,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CSVImporter implements Importer {
+public class CsvImporter implements Importer {
 
   private final String filePath;
 
-  public CSVImporter(String path) {
+  public CsvImporter(String path) {
     this.filePath = path;
   }
 

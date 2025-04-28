@@ -2,7 +2,7 @@ package ar.edu.utn.frba.dds;
 
 import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
-import ar.edu.utn.frba.dds.domain.entities.source.CSVImporter;
+import ar.edu.utn.frba.dds.domain.entities.source.CsvImporter;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ public class SourceTests {
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    aSource = new Source(new CSVImporter(pathCSV));
+    aSource = new Source(new CsvImporter(pathCSV));
   }
 
 

@@ -1,21 +1,20 @@
 package ar.edu.utn.frba.dds.domain.entities.requests;
 
 import ar.edu.utn.frba.dds.domain.entities.event.Event;
-import lombok.Getter;
-
 import java.time.LocalDate;
+import lombok.Getter;
 
 public class DeletionRequest {
 
-  @Getter private final Event event;
+  private final Event event;
   @Getter private final String justification;
   @Getter private DeletionRequestState state;
 
-  private final LocalDate uploadDate;
-  private LocalDate evaluationDate;
+  @Getter private final LocalDate uploadDate;
+  @Getter private LocalDate evaluationDate;
 
-  private final String applicantName; //TODO luego será un usuario
-  private String evaluatorName; //TODO luego será un usuario
+  @Getter private final String applicantName; //TODO luego será un usuario
+  @Getter private String evaluatorName; //TODO luego será un usuario
 
   public DeletionRequest(Event event, String justification, String applicantName) {
 
