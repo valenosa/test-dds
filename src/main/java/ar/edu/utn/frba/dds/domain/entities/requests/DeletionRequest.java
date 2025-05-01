@@ -37,8 +37,8 @@ public class DeletionRequest {
     this.applicantName = applicantName;
   }
 
-  private boolean isArgumentValid(String justification) {
-    return justification.length() >= 500;
+  private boolean isArgumentValid(String argument) {
+    return argument.length() >= 500;
   }
 
   public void accept(String evaluatorName) {

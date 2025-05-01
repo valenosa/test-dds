@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class CsvImporter implements Importer {
 
-  // elimino el atributo filepath y le mando el path por parametro a importEvents
+
   @Override
   public Set<Event> importEvents(String path) {
 
