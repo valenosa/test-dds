@@ -15,8 +15,10 @@ public class SourceTests {
 
   @BeforeEach
   public void setUp() {
-    String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
-    aSource = new Source(new CsvImporter(pathCSV));
+    String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_3.csv";
+    CsvImporter csvImporter =  new CsvImporter(); // ya no recibe path
+    Set<Event> importedEvents = csvImporter.importEvents(pathCSV); // paso path como parametro
+    aSource = new Source(importedEvents); //agrego los hechos Importados a la fuente
   }
 
 
@@ -26,7 +28,7 @@ public class SourceTests {
     Set<Event> events = aSource.getEvents();
 
     //Se valida que se generar la cantidad de hechos del sample_CSVtest_2
-    Assertions.assertEquals(5, events.size());
+    Assertions.assertEquals(1, events.size());
 
     //Se valida que los datos fueron leidos y guardados de forma correcta
     Assertions.assertTrue(events.stream().anyMatch((h)->h.getTitle().equals("Caída de aeronave impacta en Olavarría")));
