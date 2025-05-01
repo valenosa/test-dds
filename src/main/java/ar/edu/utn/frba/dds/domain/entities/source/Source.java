@@ -8,11 +8,9 @@ public class Source {
 
   @Getter
   public Set<Event> events;
-  private Importer importer;
 
-  public Source(Importer importingStrategy) {
-    importer = importingStrategy;
-    events = importer.importEvents();
+  public Source(Set<Event> events) {
+    this.events = events;
   }
 
 }

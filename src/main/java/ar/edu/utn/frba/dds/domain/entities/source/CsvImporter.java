@@ -15,20 +15,15 @@ import java.util.Set;
 
 public class CsvImporter implements Importer {
 
-  private final String filePath;
-
-  public CsvImporter(String path) {
-    this.filePath = path;
-  }
-
+  // elimino el atributo filepath y le mando el path por parametro a importEvents
   @Override
-  public Set<Event> importEvents() {
+  public Set<Event> importEvents(String path) {
 
     Set<Event> events = new HashSet<>();
 
     try (
         CSVReader reader = new CSVReader(
-            new InputStreamReader(new FileInputStream(this.filePath), StandardCharsets.UTF_8)
+            new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8)
         )
     ) {
 
