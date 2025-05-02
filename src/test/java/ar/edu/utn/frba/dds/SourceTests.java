@@ -16,9 +16,7 @@ public class SourceTests {
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_3.csv";
-    CsvImporter csvImporter =  new CsvImporter(); // ya no recibe path
-    Set<Event> importedEvents = csvImporter.importEvents(pathCSV); // paso path como parametro
-    aSource = new Source(importedEvents); //agrego los hechos Importados a la fuente
+    aSource = new Source(pathCSV); //agrego los hechos Importados a la fuente
   }
 
 

@@ -5,7 +5,6 @@ import ar.edu.utn.frba.dds.domain.entities.collections.conditions.CategoryCondit
 import ar.edu.utn.frba.dds.domain.entities.collections.conditions.BetweenDatesCondition;
 import ar.edu.utn.frba.dds.domain.entities.event.Event;
 import ar.edu.utn.frba.dds.domain.entities.source.Source;
-import ar.edu.utn.frba.dds.domain.entities.source.CsvImporter;
 import ar.edu.utn.frba.dds.domain.entities.event.Category;
 import java.time.LocalDate;
 import java.util.Set;
@@ -22,10 +21,8 @@ class CollectionTest {
 
   @BeforeEach
   public void setUp() {
-    String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_3.csv";
-    CsvImporter csvImporter =  new CsvImporter(); // ya no recibe path
-    Set<Event> importedEvents = csvImporter.importEvents(pathCSV); // paso path como parametro
-    aSource = new Source(importedEvents); //agrego los hechos Importados a la fuente
+    String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_2.csv";
+    aSource = new Source(pathCSV);
     aCollection = new Collection("Colección prueba", "Esto es una prueba", aSource);
   }
 
@@ -34,12 +31,12 @@ class CollectionTest {
   void testValidacionDeObtencionDeHechos() {
     Set<Event> events = aCollection.getEvents();
 
-    Assertions.assertEquals(1, events.size());
+    Assertions.assertEquals(5, events.size());
   }
 
   @Test
   @DisplayName("Se aplicar Criterios de pertenencia")
-  void testColllectionCriteria() {
+  void testCollectionCriteria() {
     //Creo un set de hechos asociados
     Set<Event> associatedEvents;
 
@@ -49,13 +46,13 @@ class CollectionTest {
     //Ya tengo el los condiciones listos, me guardo los hechos de la colección
     associatedEvents = aCollection.getEvents();
 
-    Assertions.assertEquals(1, associatedEvents.size());
+    Assertions.assertEquals(3, associatedEvents.size());
 
     //Agrego condicion por categoria
     aCollection.addCondition(new CategoryCondition(new Category("Caída de aeronave")));
     associatedEvents = aCollection.getEvents();
 
-    Assertions.assertEquals(1, associatedEvents.size());
+    Assertions.assertEquals(2, associatedEvents.size());
 
   }
 
