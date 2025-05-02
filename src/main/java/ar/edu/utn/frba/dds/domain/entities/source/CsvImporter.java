@@ -12,12 +12,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.NonNull;
 
 public class CsvImporter implements Importer {
 
 
-  @Override
-  public Set<Event> importEvents(String path) {
+  public static Set<Event> importEvents(@NonNull String path) {
 
     Set<Event> events = new HashSet<>();
 
