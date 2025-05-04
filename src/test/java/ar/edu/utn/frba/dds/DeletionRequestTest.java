@@ -22,8 +22,7 @@ public class DeletionRequestTest {
   @BeforeEach
   public void setUp() {
     String pathCSV = "./src/test/java/ar/edu/utn/frba/dds/resources/CSV/sample_CSVtest_3.csv";
-    aSource = new Source(new CsvImporter(pathCSV));
-
+    aSource = new Source(pathCSV);
     aCollection = new Collection("Colección prueba", "Esto es una prueba", aSource);
     aCollection.fetchEvents();
     Set<Event> events = aCollection.getEvents();

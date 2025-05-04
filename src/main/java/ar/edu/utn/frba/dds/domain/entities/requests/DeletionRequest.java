@@ -7,7 +7,7 @@ import lombok.Getter;
 public class DeletionRequest {
 
   private Event event;
-  @Getter private final String justification;
+  @Getter private final String argument;
   @Getter private DeletionRequestState state;
 
   @Getter private final LocalDate uploadDate;
@@ -24,21 +24,21 @@ public class DeletionRequest {
     this.event.setDeleted(true);
   }
 
-  public DeletionRequest(Event event, String justification, String applicantName) {
+  public DeletionRequest(Event event, String argument, String applicantName) {
 
-    if (!this.isJustified(justification)) {
+    if (!this.isArgumentValid(argument)) {
       throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
     }
     this.setEvent(event);
-    this.justification = justification;
+    this.argument = argument;
     this.state = DeletionRequestState.PENDING;
 
     this.uploadDate = LocalDate.now();
     this.applicantName = applicantName;
   }
 
-  private boolean isJustified(String justification) {
-    return justification.length() >= 500;
+  private boolean isArgumentValid(String argument) {
+    return argument.length() >= 500;
   }
 
   public void accept(String evaluatorName) {

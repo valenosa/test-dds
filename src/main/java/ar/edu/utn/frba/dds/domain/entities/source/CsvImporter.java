@@ -12,23 +12,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.NonNull;
 
 public class CsvImporter implements Importer {
 
-  private final String filePath;
 
-  public CsvImporter(String path) {
-    this.filePath = path;
-  }
-
-  @Override
-  public Set<Event> importEvents() {
+  public static Set<Event> importEvents(@NonNull String path) {
 
     Set<Event> events = new HashSet<>();
 
     try (
         CSVReader reader = new CSVReader(
-            new InputStreamReader(new FileInputStream(this.filePath), StandardCharsets.UTF_8)
+            new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8)
         )
     ) {
 
