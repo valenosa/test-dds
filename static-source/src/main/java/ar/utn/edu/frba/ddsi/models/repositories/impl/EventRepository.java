@@ -1,7 +1,7 @@
-package ar.utn.edu.frba.ddsi.models.entities.repositories.impl;
+package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.repositories.IEventRepository;
+import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,4 +35,11 @@ public class EventRepository implements IEventRepository {
     return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
   }
 
+  public Event findById(Long eventId){
+    return events.get(eventId);
+  }
+
+  public void delete(Long eventId){
+  this.findById(eventId).setDeleted(true);
+  }
 }
