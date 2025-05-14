@@ -15,7 +15,7 @@ public class EventRepository implements IEventRepository {
   private final AtomicLong idGenerator = new AtomicLong(1);
 
   @Override
-  public Event save(Event event) {
+  public void save(Event event) {
     if(event.getId() == null){
       Long id = idGenerator.getAndIncrement();
       event.setId(id);
@@ -23,7 +23,6 @@ public class EventRepository implements IEventRepository {
     } else {
       events.put(event.getId(), event);
     }
-    return event;
   }
 
   @Override

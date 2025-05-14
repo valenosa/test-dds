@@ -17,17 +17,20 @@ public class Event {
   private final String title;
   private final String description;
   private final Category category;
+
   //-- Ubicacion
   private final Double latitude;
   private final Double longitude;
+
   //-- Fechas
   private final LocalDate eventDate;
   private final LocalDate uploadDate;
+
   //-- Extras
   @Setter
   private boolean deleted;
   private final Origin origin;
-  public Set<Tag> tags; //TODO pasar a private
+  public Set<Tag> tags;
 
   public Event(String title,
                String description,
