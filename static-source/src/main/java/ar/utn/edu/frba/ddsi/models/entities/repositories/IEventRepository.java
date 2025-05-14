@@ -1,0 +1,10 @@
+package ar.utn.edu.frba.ddsi.models.entities.repositories;
+
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import java.util.List;
+
+public interface IEventRepository {
+  Event save(Event event);
+  List<Event> findAll();
+  List<Event> findByDeleted(boolean deleted);
+}

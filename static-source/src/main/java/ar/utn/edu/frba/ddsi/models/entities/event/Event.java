@@ -10,8 +10,10 @@ import lombok.Setter;
 @Getter
 public class Event {
 
+  @Setter
+  private Long id;
+
   //-- Description
-  @Getter
   private final String title;
   private final String description;
   private final Category category;
