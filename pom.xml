@@ -11,7 +11,8 @@
 	<groupId>ar.utn.edu.frba.ddsi</groupId>
 	<artifactId>metamapa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>MetaMapa</name>
+    <packaging>pom</packaging>
+    <name>MetaMapa</name>
 	<description>MetaMapa</description>
 	<url/>
 	<licenses>
@@ -20,7 +21,10 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+    <modules>
+        <module>static-source</module>
+    </modules>
+    <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
