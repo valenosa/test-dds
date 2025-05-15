@@ -25,7 +25,7 @@ public class DeletionRequestService implements IDeletionRequestService {
     //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = deletionRequestRepository.getById(deletionRequestId);
-    if(deletionRequest==null) throw new NotFoundException("Deletion request not found - ID: " + deletionRequestId);
+    if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + deletionRequestId);
 
     eventRepository.delete(deletionRequest.getEventId());
     deletionRequest.registerEvaluation(evaluatorName);
@@ -39,7 +39,7 @@ public class DeletionRequestService implements IDeletionRequestService {
     //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = deletionRequestRepository.getById(deletionRequestId);
-    if(deletionRequest==null) throw new NotFoundException("Deletion request not found - ID: " + deletionRequestId);
+    if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + deletionRequestId);
 
     deletionRequest.registerEvaluation(evaluatorName);
     deletionRequest.setState(DeletionRequestState.REJECTED);
@@ -49,7 +49,7 @@ public class DeletionRequestService implements IDeletionRequestService {
   }
 
   @Override
-  public void create(DeletionRequestInputDTO deletionRequestInputDTO){
+  public void create(DeletionRequestInputDTO deletionRequestInputDTO) {
     //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = DeletionRequest.from(deletionRequestInputDTO);
