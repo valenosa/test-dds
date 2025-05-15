@@ -27,6 +27,11 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
+  public void save(Set<Event> events) {
+    events.forEach(this::save);
+  }
+
+  @Override
   public List<Event> findAll() {
     return new ArrayList<>(events.values());
   }

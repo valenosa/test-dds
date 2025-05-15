@@ -1,18 +1,26 @@
 package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Source {
 
   @Getter
   @Setter
   private Long id;
 
+  @Autowired
+  private CsvImporter csvImporter;
+
   @Getter
-  public Set<Long> events;
+  public Set<Long> eventsIds;
   private final String path;
 
   public static Source from(SourceInputDTO dto) {
@@ -21,10 +29,12 @@ public class Source {
 
   public Source(String path) {
     this.path = path;
-    this.update();
   }
 
-  public void update() {
-    //this.events = CsvImporter.importEvents(this.path);
+  public Set<Event> importEvents() {
+    Set<Event> events = this.csvImporter.importEvents(this.path);
+    this.eventsIds = events.stream().map(Event::getId).collect(Collectors.toSet());
+
+    return events;
   }
 }

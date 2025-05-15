@@ -8,6 +8,7 @@ import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +23,21 @@ public class SourceService implements ISourceService {
 
   @Override
   public void create(SourceInputDTO sourceInputDTO) {
+
     Source source = Source.from(sourceInputDTO);
+
+    Set<Event> importedEvents = source.importEvents();
+    eventRepository.save(importedEvents);
+
     sourceRepository.save(source);
   }
 
   @Override
-  public List<Event> findEventsBySource(Long idSource) {
+  public List<Event> findEventsBySource(Long sourceId) {
 
-    Source source = sourceRepository.findById(idSource);
-    if (source == null) throw new NotFoundException("Source not found - ID: " + idSource);
+    Source source = sourceRepository.findById(sourceId);
+    if (source == null) throw new NotFoundException("Source not found - ID: " + sourceId);
 
-    return eventRepository.findAll(source.getEvents());
+    return eventRepository.findAll(source.getEventsIds());
   }
 }

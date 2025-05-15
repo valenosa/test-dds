@@ -5,7 +5,9 @@ import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DeletionRequestRepository implements IDeletionRequestRepository {
   Map<Long, DeletionRequest> deletionRequests = new HashMap<>();
   private final AtomicLong idGenerator = new AtomicLong(1);
