@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.dtos.input.DeletionRequestInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
