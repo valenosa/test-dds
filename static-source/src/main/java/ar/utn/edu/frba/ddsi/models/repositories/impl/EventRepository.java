@@ -16,7 +16,7 @@ public class EventRepository implements IEventRepository {
 
   @Override
   public void save(Event event) {
-    if(event.getId() == null){
+    if (event.getId() == null) {
       Long id = idGenerator.getAndIncrement();
       event.setId(id);
       events.put(id, event);
@@ -35,11 +35,11 @@ public class EventRepository implements IEventRepository {
     return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
   }
 
-  public Event findById(Long eventId){
+  public Event findById(Long eventId) {
     return events.get(eventId);
   }
 
-  public void delete(Long eventId){
-  this.findById(eventId).setDeleted(true);
+  public void delete(Long eventId) {
+    this.findById(eventId).setDeleted(true);
   }
 }
