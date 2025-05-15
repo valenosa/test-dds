@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,11 @@ public class EventRepository implements IEventRepository {
   @Override
   public List<Event> findAll() {
     return new ArrayList<>(events.values());
+  }
+
+  @Override
+  public List<Event> findAll(Set<Long> ids) {
+    return ids.stream().map(id -> events.get(id)).toList();
   }
 
   @Override
