@@ -50,7 +50,4 @@ public class EventRepository implements IEventRepository {
     return events.get(eventId);
   }
 
-  public void delete(Long eventId) {
-    this.findById(eventId).setDeleted(true);
-  }
 }

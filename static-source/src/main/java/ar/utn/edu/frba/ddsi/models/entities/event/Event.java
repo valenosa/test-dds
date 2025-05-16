@@ -27,7 +27,6 @@ public class Event {
   private final LocalDate uploadDate;
 
   //-- Extras
-  @Setter
   private boolean deleted;
   private final Origin origin;
   public Set<Tag> tags;
@@ -57,6 +56,11 @@ public class Event {
     if (tagsAdded != null) {
       tags.addAll(Set.of(tagsAdded));
     }
+  }
+
+  public void markAsDeleted() {
+
+    this.deleted = true;
   }
 
 }
