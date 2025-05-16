@@ -1,8 +1,8 @@
-package ar.utn.edu.frba.ddsi.models.entities.dtos.input;
+package ar.utn.edu.frba.ddsi.models.dtos.input;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class DeletionRequestInputDTO {
   Long eventId;
   String argument;

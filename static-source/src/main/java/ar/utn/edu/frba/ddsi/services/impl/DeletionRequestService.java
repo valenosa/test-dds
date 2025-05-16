@@ -1,6 +1,9 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.dtos.input.DeletionRequestInputDTO;
+import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
+import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestEvaluationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestInputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
@@ -20,25 +23,32 @@ public class DeletionRequestService implements IDeletionRequestService {
 
 
   @Override
-  public void accept(Long deletionRequestId, String evaluatorName) {
+  public void accept(DeletionRequestEvaluationDTO deletionRequestEvaluationDTO) {
     //TODO: Validar si el usuario puede realizar esta peticion
 
-    DeletionRequest deletionRequest = deletionRequestRepository.getById(deletionRequestId);
+    DeletionRequest deletionRequest = deletionRequestRepository.getById(deletionRequestEvaluationDTO.getDeletionRequestId());
+    if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + deletionRequestEvaluationDTO.getDeletionRequestId());
 
-    eventRepository.delete(deletionRequest.getEventId());
-    deletionRequest.registerEvaluation(evaluatorName);
+    Event event = eventRepository.findById(deletionRequest.getEventId());
+    if (event == null) throw new NotFoundException("Event not found - ID: " + deletionRequest.getEventId());
+
+    event.markAsDeleted();
+    eventRepository.save(event);
+
+    deletionRequest.registerEvaluation(deletionRequestEvaluationDTO.getEvaluatorName());
     deletionRequest.setState(DeletionRequestState.ACCEPTED);
 
     deletionRequestRepository.save(deletionRequest);
   }
 
   @Override
-  public void reject(Long deletionRequestId, String evaluatorName) {
+  public void reject(DeletionRequestEvaluationDTO deletionRequestEvaluationDTO) {
     //TODO: Validar si el usuario puede realizar esta peticion
 
-    DeletionRequest deletionRequest = deletionRequestRepository.getById(deletionRequestId);
+    DeletionRequest deletionRequest = deletionRequestRepository.getById(deletionRequestEvaluationDTO.getDeletionRequestId());
+    if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + deletionRequestEvaluationDTO.getDeletionRequestId());
 
-    deletionRequest.registerEvaluation(evaluatorName);
+    deletionRequest.registerEvaluation(deletionRequestEvaluationDTO.getEvaluatorName());
     deletionRequest.setState(DeletionRequestState.REJECTED);
 
     deletionRequestRepository.save(deletionRequest);
@@ -46,7 +56,7 @@ public class DeletionRequestService implements IDeletionRequestService {
   }
 
   @Override
-  public void create(DeletionRequestInputDTO deletionRequestInputDTO){
+  public void create(DeletionRequestInputDTO deletionRequestInputDTO) {
     //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = DeletionRequest.from(deletionRequestInputDTO);

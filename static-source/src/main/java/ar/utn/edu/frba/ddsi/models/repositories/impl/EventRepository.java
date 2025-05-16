@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public class EventRepository implements IEventRepository {
 
   @Override
   public void save(Event event) {
-    if(event.getId() == null){
+    if (event.getId() == null) {
       Long id = idGenerator.getAndIncrement();
       event.setId(id);
       events.put(id, event);
@@ -26,8 +27,18 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
+  public void save(Set<Event> events) {
+    events.forEach(this::save);
+  }
+
+  @Override
   public List<Event> findAll() {
     return new ArrayList<>(events.values());
+  }
+
+  @Override
+  public List<Event> findAll(Set<Long> ids) {
+    return ids.stream().map(id -> events.get(id)).toList();
   }
 
   @Override
@@ -35,11 +46,8 @@ public class EventRepository implements IEventRepository {
     return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
   }
 
-  public Event findById(Long eventId){
+  public Event findById(Long eventId) {
     return events.get(eventId);
   }
 
-  public void delete(Long eventId){
-  this.findById(eventId).setDeleted(true);
-  }
 }
