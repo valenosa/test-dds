@@ -59,7 +59,7 @@ public class DeletionRequestService implements IDeletionRequestService {
   public void create(DeletionRequestInputDTO deletionRequestInputDTO) {
     //TODO: Validar si el usuario puede realizar esta peticion
 
-    DeletionRequest deletionRequest = DeletionRequest.from(deletionRequestInputDTO);
+    DeletionRequest deletionRequest = DeletionRequest.from(deletionRequestCreationDTO);
 
     deletionRequestRepository.save(deletionRequest);
   }
