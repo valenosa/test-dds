@@ -3,6 +3,7 @@ package ar.utn.edu.frba.ddsi.services.impl;
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestEvaluationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestInputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
@@ -28,7 +29,12 @@ public class DeletionRequestService implements IDeletionRequestService {
     DeletionRequest deletionRequest = deletionRequestRepository.getById(deletionRequestEvaluationDTO.getDeletionRequestId());
     if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + deletionRequestEvaluationDTO.getDeletionRequestId());
 
-    eventRepository.delete(deletionRequest.getEventId());
+    Event event = eventRepository.findById(deletionRequest.getEventId());
+    if (event == null) throw new NotFoundException("Event not found - ID: " + deletionRequest.getEventId());
+
+    event.markAsDeleted();
+    eventRepository.save(event);
+
     deletionRequest.registerEvaluation(deletionRequestEvaluationDTO.getEvaluatorName());
     deletionRequest.setState(DeletionRequestState.ACCEPTED);
 
