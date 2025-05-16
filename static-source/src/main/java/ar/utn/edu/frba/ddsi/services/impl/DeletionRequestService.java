@@ -2,7 +2,7 @@ package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestEvaluationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
@@ -56,7 +56,7 @@ public class DeletionRequestService implements IDeletionRequestService {
   }
 
   @Override
-  public void create(DeletionRequestInputDTO deletionRequestInputDTO) {
+  public void create(DeletionRequestCreationDTO deletionRequestCreationDTO) {
     //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = DeletionRequest.from(deletionRequestCreationDTO);

@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.request;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class DeletionRequest {
   private final String applicantName; //TODO: Esto deberia ser un usuario
   private String evaluatorName; //TODO: Esto deberia ser un usuario
 
-  public static DeletionRequest from(DeletionRequestInputDTO dto) {
+  public static DeletionRequest from(DeletionRequestCreationDTO dto) {
     return new DeletionRequest(dto.getEventId(), dto.getArgument(), dto.getApplicantName());
   }
 
