@@ -1,3 +1,9 @@
+# Diagrama de Clases
+![Diagrama de clases](diagramas/DiagramaDeClases.jpg)
+
+# Casos de Uso
+![Caso de Uso](diagramas/DiagramaCasosDeUso.jpg)
+
 # java-base-project
 
 Esta es una plantilla de proyecto diseñada para: 
