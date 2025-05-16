@@ -2,9 +2,9 @@ package ar.utn.edu.frba.ddsi.services;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestEvaluationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.DeletionRequestOutputDTO;
 
 public interface IDeletionRequestService {
-  void accept(DeletionRequestEvaluationDTO deletionRequestEvaluationDTO);
-  void reject(DeletionRequestEvaluationDTO deletionRequestEvaluationDTO);
-  void create(DeletionRequestCreationDTO deletionRequestCreationDTO);
+  DeletionRequestOutputDTO evaluate(DeletionRequestEvaluationDTO deletionRequestEvaluationDTO);
+  DeletionRequestOutputDTO create(DeletionRequestCreationDTO deletionRequestCreationDTO);
 }
