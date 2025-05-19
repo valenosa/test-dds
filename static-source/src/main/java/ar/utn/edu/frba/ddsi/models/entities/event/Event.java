@@ -37,7 +37,6 @@ public class Event {
                Double latitude,
                Double longitude,
                LocalDate eventDate,
-               LocalDate uploadDate,
                Origin origin) {
     this.title = title;
     this.description = description;
@@ -45,7 +44,7 @@ public class Event {
     this.latitude = latitude;
     this.longitude = longitude;
     this.eventDate = eventDate;
-    this.uploadDate = uploadDate;
+    this.uploadDate = LocalDate.now();
     this.origin = origin;
     this.deleted = false;
     tags = new HashSet<>();
