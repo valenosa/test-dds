@@ -1,8 +1,8 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.IImporter;
 import com.opencsv.CSVReader;
 import java.io.FileInputStream;
@@ -37,7 +37,6 @@ public class CsvImporter implements IImporter {
         Double latitude = Double.parseDouble(row[3]);
         Double longitude = Double.parseDouble(row[4]);
         LocalDate eventDate = null;
-        LocalDate uploadDate = LocalDate.now();
         Origin origin = Origin.DATASET;
 
         try {
@@ -53,7 +52,6 @@ public class CsvImporter implements IImporter {
             latitude,
             longitude,
             eventDate,
-            uploadDate,
             origin);
 
         events.add(event);

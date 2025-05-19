@@ -1,4 +1,4 @@
-package ar.utn.edu.frba.ddsi.models.entities.event;
+package ar.utn.edu.frba.ddsi.models.entities.event.values;
 
 import lombok.Getter;
 

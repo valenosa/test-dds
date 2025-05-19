@@ -1,5 +1,8 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
