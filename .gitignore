@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Application properties ###
+proxy-source/src/main/resources/application.properties
+
