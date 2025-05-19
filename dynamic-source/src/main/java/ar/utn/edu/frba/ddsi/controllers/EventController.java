@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
 import ar.utn.edu.frba.ddsi.services.impl.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +18,13 @@ public class EventController {
   private EventService eventService;
 
   @PostMapping
-  public void createEvent(@RequestBody EventCreationDTO event) {
-    eventService.save(event);
-    //TODO: tengo que borrar que el save sobreescriba viejos hechos?
+  public void createEvent(@RequestBody EventCreationDTO eventDto) {
+    eventService.save(eventDto);
   }
 
   @PutMapping
-  public void updateEvent(@RequestBody EventCreationDTO event) {
-    //TODO
+  public void updateEvent(@RequestBody EventUpdateDTO eventDto) {
+    eventService.update(eventDto);
   }
 
 }

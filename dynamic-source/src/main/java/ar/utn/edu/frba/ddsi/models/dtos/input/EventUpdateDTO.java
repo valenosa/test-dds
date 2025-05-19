@@ -5,7 +5,8 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class EventCreationDTO {
+public class EventUpdateDTO {
+  Long eventId;
   String contributor; //TODO: Esto deberia ser un usuario
 
   String title;
@@ -15,3 +16,4 @@ public class EventCreationDTO {
   Double longitude;
   LocalDate eventDate;
 }
+

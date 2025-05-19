@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,21 +16,21 @@ public class Event {
   private Long id;
 
   //-- Description
-  private final String title;
-  private final String description;
-  private final Category category;
+  private String title;
+  private String description;
+  private Category category;
 
   //-- Ubicacion
-  private final Double latitude;
-  private final Double longitude;
+  private Double latitude;
+  private Double longitude;
 
   //-- Fechas
-  private final LocalDate eventDate;
-  private final LocalDate uploadDate;
+  private LocalDate eventDate;
+  private LocalDate uploadDate;
 
   //-- Dynamic Source Specific
   @Setter
-  private String user; //ESTO LO AGREGO ACA O HAGO UNA ESTRUCTURA APARTE CON {HECHO,USUARIO}? //TODO: Esto deberia ser un usuario
+  private String contributor; //TODO: Esto deberia ser un usuario
 
   //-- Extras
   private boolean deleted;
@@ -47,9 +48,8 @@ public class Event {
         Origin.CONTRIBUTOR
     );
 
-    if(dto.getUser() != null){
-      event.user = dto.getUser();
-    }
+    // TODO: Revisar tema Contributor anonimo
+    event.contributor = dto.getContributor();
 
     return event;
   }
@@ -71,6 +71,15 @@ public class Event {
     this.origin = origin;
     this.deleted = false;
     tags = new HashSet<>();
+  }
+
+  public void updateWith(EventUpdateDTO dto){
+    this.title = dto.getTitle();
+    this.description = dto.getDescription();
+    this.category = dto.getCategory();
+    this.latitude = dto.getLatitude();
+    this.longitude = dto.getLongitude();
+    this.eventDate = dto.getEventDate();
   }
 
   public void addTag(Tag tag, Tag... tagsAdded) {
