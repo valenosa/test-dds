@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.dtos.input;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import java.time.LocalDate;
 import lombok.Data;
 

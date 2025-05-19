@@ -2,6 +2,10 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,8 +33,10 @@ public class Event {
   private LocalDate uploadDate;
 
   //-- Dynamic Source Specific
-  @Setter
-  private String contributor; //TODO: Esto deberia ser un usuario
+  private final String contributor; //TODO: Esto deberia ser un usuario
+  @Setter private SubmissionState state;
+  @Setter private String suggestion;
+
 
   //-- Extras
   private boolean deleted;
@@ -38,20 +44,16 @@ public class Event {
   public Set<Tag> tags;
 
   public static Event from(EventCreationDTO dto){
-    Event event = new Event(
+    return new Event(
         dto.getTitle(),
         dto.getDescription(),
         dto.getCategory(),
         dto.getLatitude(),
         dto.getLongitude(),
         dto.getEventDate(),
-        Origin.CONTRIBUTOR
+        Origin.CONTRIBUTOR,
+        dto.getContributor()
     );
-
-    // TODO: Revisar tema Contributor anonimo
-    event.contributor = dto.getContributor();
-
-    return event;
   }
 
   public Event(String title,
@@ -60,7 +62,8 @@ public class Event {
                Double latitude,
                Double longitude,
                LocalDate eventDate,
-               Origin origin) {
+               Origin origin,
+               String contributor) {
     this.title = title;
     this.description = description;
     this.category = category;
@@ -69,7 +72,10 @@ public class Event {
     this.eventDate = eventDate;
     this.uploadDate = LocalDate.now();
     this.origin = origin;
+    this.contributor = contributor;
+
     this.deleted = false;
+    this.state = SubmissionState.PENDING;
     tags = new HashSet<>();
   }
 
@@ -90,8 +96,11 @@ public class Event {
   }
 
   public void markAsDeleted() {
-
     this.deleted = true;
+  }
+
+  public boolean valid() {
+    return !this.deleted && (this.state == SubmissionState.ACCEPTED || this.state == SubmissionState.ACCEPTED_WITH_SUGGESTIONS);
   }
 
 }

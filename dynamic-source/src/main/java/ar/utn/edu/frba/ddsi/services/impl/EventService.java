@@ -6,6 +6,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.time.LocalDate;
@@ -21,7 +22,11 @@ public class EventService implements IEventService {
   IEventRepository eventRepository;
 
   @Override
-  public List<EventOutputDTO> getEvents() {
+  public List<EventOutputDTO> getEvents(SubmissionState state) {
+
+    if (state != null) {
+      return eventRepository.findByState(state).stream().map(EventOutputDTO :: from).collect(Collectors.toList());
+    }
     return eventRepository.findAll().stream().map(EventOutputDTO :: from).collect(Collectors.toList());
   }
 

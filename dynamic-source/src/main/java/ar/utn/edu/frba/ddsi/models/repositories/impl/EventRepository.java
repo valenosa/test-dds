@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,14 +27,15 @@ public class EventRepository implements IEventRepository {
     }
   }
 
+  //Trae los events aceptados y no eliminados
   @Override
   public List<Event> findAll() {
-    return new ArrayList<>(events.values());
+    return events.values().stream().filter(Event :: valid).toList();
   }
 
   @Override
-  public List<Event> findByDeleted(boolean deleted) {
-    return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
+  public List<Event> findByState(SubmissionState state) {
+    return events.values().stream().filter(e -> e.getState() == state).toList();
   }
 
   public Event findById(Long eventId) {
