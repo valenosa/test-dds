@@ -23,6 +23,7 @@
 	</developers>
     <modules>
         <module>static-source</module>
+        <module>proxy-source</module>
     </modules>
     <scm>
 		<connection/>
