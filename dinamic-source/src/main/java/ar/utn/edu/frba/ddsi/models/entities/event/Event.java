@@ -1,5 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,10 +27,32 @@ public class Event {
   private final LocalDate eventDate;
   private final LocalDate uploadDate;
 
+  //-- Dinamic Source Specific
+  @Setter
+  private String user; //ESTO LO AGREGO ACA O HAGO UNA ESTRUCTURA APARTE CON {HECHO,USUARIO}? //TODO: Esto deberia ser un usuario
+
   //-- Extras
   private boolean deleted;
   private final Origin origin;
   public Set<Tag> tags;
+
+  public static Event from(EventCreationDTO dto){
+    Event event = new Event(
+        dto.getTitle(),
+        dto.getDescription(),
+        dto.getCategory(),
+        dto.getLatitude(),
+        dto.getLongitude(),
+        dto.getEventDate(),
+        Origin.CONTRIBUTOR
+    );
+
+    if(dto.getUser() != null){
+      event.user = dto.getUser();
+    }
+
+    return event;
+  }
 
   public Event(String title,
                String description,
@@ -37,7 +60,6 @@ public class Event {
                Double latitude,
                Double longitude,
                LocalDate eventDate,
-               LocalDate uploadDate,
                Origin origin) {
     this.title = title;
     this.description = description;
@@ -45,7 +67,7 @@ public class Event {
     this.latitude = latitude;
     this.longitude = longitude;
     this.eventDate = eventDate;
-    this.uploadDate = uploadDate;
+    this.uploadDate = LocalDate.now();
     this.origin = origin;
     this.deleted = false;
     tags = new HashSet<>();

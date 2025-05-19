@@ -1,0 +1,11 @@
+package ar.utn.edu.frba.ddsi.services;
+
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import java.util.List;
+
+public interface IEventService {
+  public List<EventOutputDTO> getEvents();
+  public EventOutputDTO getEventById(Long id);
+  public void save(EventCreationDTO dto);
+}
