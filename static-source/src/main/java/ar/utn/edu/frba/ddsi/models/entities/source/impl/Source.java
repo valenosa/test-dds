@@ -1,7 +1,8 @@
-package ar.utn.edu.frba.ddsi.models.entities.source;
+package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Source {
+public class Source implements IEventSource {
 
   @Getter
   @Setter
@@ -31,7 +32,8 @@ public class Source {
     this.path = path;
   }
 
-  public Set<Event> importEvents() {
+  @Override
+  public Set<Event> fetchEvents() {
     Set<Event> events = this.csvImporter.importEvents(this.path);
     this.eventsIds = events.stream().map(Event::getId).collect(Collectors.toSet());
 

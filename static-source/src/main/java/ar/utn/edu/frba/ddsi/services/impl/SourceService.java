@@ -5,7 +5,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.source.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
@@ -29,7 +29,7 @@ public class SourceService implements ISourceService {
 
     Source source = Source.from(dto);
 
-    Set<Event> importedEvents = source.importEvents();
+    Set<Event> importedEvents = source.fetchEvents();
     eventRepository.save(importedEvents);
 
     sourceRepository.save(source);

@@ -1,8 +1,9 @@
-package ar.utn.edu.frba.ddsi.models.entities.source;
+package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.source.IImporter;
 import com.opencsv.CSVReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
