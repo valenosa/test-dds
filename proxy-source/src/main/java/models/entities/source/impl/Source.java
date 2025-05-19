@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import models.dtos.input.SourceInputDTO;
 import models.entities.event.Event;
-import models.entities.source.apis.APIFactory;
 import models.entities.source.apis.IAPI;
 import models.entities.source.IEventSource;
 import org.springframework.stereotype.Component;
@@ -18,14 +17,10 @@ public class Source implements IEventSource {
   @Setter
   private Long id;
 
-  private IAPI api;
+  private final IAPI api;
 
   @Getter
   public Set<Long> eventsIds;
-
-  public static Source from(SourceInputDTO dto) {
-    return new Source(APIFactory.createAPI(dto));
-  }
 
   public Source(IAPI api) {
     this.api = api;
