@@ -27,7 +27,7 @@ public class Event {
   private final LocalDate eventDate;
   private final LocalDate uploadDate;
 
-  //-- Dinamic Source Specific
+  //-- Dynamic Source Specific
   @Setter
   private String user; //ESTO LO AGREGO ACA O HAGO UNA ESTRUCTURA APARTE CON {HECHO,USUARIO}? //TODO: Esto deberia ser un usuario
 

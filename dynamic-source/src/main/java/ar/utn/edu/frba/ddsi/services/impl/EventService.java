@@ -28,6 +28,8 @@ public class EventService implements IEventService {
 
   @Override
   public void save(EventCreationDTO dto) {
+    //TODO: Validar si el usuario puede realizar esta peticion
+
     eventRepository.save(Event.from(dto));
   }
 }
