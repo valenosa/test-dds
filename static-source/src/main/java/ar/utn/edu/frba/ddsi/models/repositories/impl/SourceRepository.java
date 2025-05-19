@@ -2,7 +2,9 @@ package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
@@ -22,6 +24,11 @@ public class SourceRepository implements ISourceRepository {
     } else {
       sources.put(source.getId(), source);
     }
+  }
+
+  @Override
+  public List<Source> findAll() {
+    return new ArrayList<>(sources.values());
   }
 
   @Override

@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface ISourceService {
   SourceOutputDTO create(SourceInputDTO sourceInputDTO);
+  List<Long> getSources();
+  List<EventOutputDTO> getEvents();
   List<EventOutputDTO> findEventsBySource(Long id);
 }

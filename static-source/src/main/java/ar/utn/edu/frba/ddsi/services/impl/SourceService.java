@@ -11,6 +11,7 @@ import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,16 @@ public class SourceService implements ISourceService {
     sourceRepository.save(source);
 
     return SourceOutputDTO.from(source);
+  }
+
+  @Override
+  public List<Long> getSources() {
+    return sourceRepository.findAll().stream().map(Source::getId).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<EventOutputDTO> getEvents() {
+    return eventRepository.findAll().stream().map(EventOutputDTO::from).collect(Collectors.toList());
   }
 
   @Override
