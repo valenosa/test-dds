@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Controller("api/submissionRequest")
+@Controller("api/submission")
 public class SubmissionRequestController {
 
   @Autowired
@@ -21,7 +21,7 @@ public class SubmissionRequestController {
   @Autowired
   ISubmissionReviewService submissionReviewService;
 
-  @GetMapping
+  @GetMapping("/event")
   public List<EventOutputDTO> getPendingEvents() {
     return eventService.getEvents(SubmissionState.PENDING);
   }
