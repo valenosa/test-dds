@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/events")
+@RequestMapping("api/event")
 public class EventController {
 
   @Autowired
   private EventService eventService;
 
-  @PostMapping("/api/events")
+  @PostMapping
   public void submitEvent(@RequestBody EventCreationDTO eventDto) {
     eventService.save(eventDto);
   }
 
-  @PutMapping("/api/events")
+  @PutMapping
   public void updateEvent(@RequestBody EventUpdateDTO eventDto) {
     eventService.update(eventDto);
   }
