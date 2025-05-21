@@ -1,0 +1,18 @@
+package ar.utn.edu.frba.ddsi.models.entities.collections.conditions;
+
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import java.time.LocalDate;
+
+public class FromDateCondition extends Condition {
+
+  LocalDate from;
+
+  public FromDateCondition(LocalDate from) {
+    this.from = from;
+  }
+
+  @Override
+  public boolean isSatisfiedBy(Event event) {
+    return event.getEventDate().isAfter(from);
+  }
+}
