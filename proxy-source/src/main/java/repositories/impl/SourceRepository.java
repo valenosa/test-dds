@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import jakarta.annotation.PostConstruct;
+import models.entities.source.apis.impl.NaturalDisastersAPI;
 import models.entities.source.impl.Source;
 import org.springframework.stereotype.Repository;
 import repositories.ISourceRepository;
@@ -35,5 +37,10 @@ public class SourceRepository implements ISourceRepository {
   @Override
   public Source findById(Long sourceId) {
     return sources.get(sourceId);
+  }
+
+  @PostConstruct
+  public void init(){
+    //TODO Instanciar las fuentes que vienen ""por defecto"" (NaturalDisasters, etc.)
   }
 }
