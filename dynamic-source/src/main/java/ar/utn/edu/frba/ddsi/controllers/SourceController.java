@@ -17,7 +17,7 @@ public class SourceController {
   @Autowired
   IEventService eventService;
 
-  @GetMapping("/events")
+  @GetMapping("/api/events")
   public List<EventOutputDTO> getEvents(@RequestParam(required = false) SubmissionState state) {
     return eventService.getEvents(state);
   }

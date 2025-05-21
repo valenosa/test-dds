@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Controller("api/submission")
+@Controller("/api/submission")
 public class SubmissionRequestController {
 
   @Autowired
@@ -21,12 +21,12 @@ public class SubmissionRequestController {
   @Autowired
   ISubmissionReviewService submissionReviewService;
 
-  @GetMapping("/event")
+  @GetMapping("/api/events")
   public List<EventOutputDTO> getPendingEvents() {
     return eventService.getEvents(SubmissionState.PENDING);
   }
 
-  @PutMapping
+  @PutMapping("/api/events")
   public void evaluateEvent(@RequestBody SubmissionEvaluationDTO eventDto) {
     submissionReviewService.evaluate(eventDto);
   }
