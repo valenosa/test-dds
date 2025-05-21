@@ -19,9 +19,6 @@ public class Source implements IEventSource {
 
   private final IAPI api;
 
-  @Getter
-  public Set<Long> eventsIds;
-
   public Source(IAPI api) {
     this.api = api;
   }
@@ -29,7 +26,6 @@ public class Source implements IEventSource {
   @Override
   public Set<Event> fetchEvents() {
     Set<Event> events = this.api.importEvents();
-    this.eventsIds = events.stream().map(Event::getId).collect(Collectors.toSet());
 
     return events;
   }
