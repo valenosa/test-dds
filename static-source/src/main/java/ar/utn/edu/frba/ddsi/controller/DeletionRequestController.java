@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/deletion-requests")
+@RequestMapping("/api/submissions")
 public class DeletionRequestController {
 
   private final DeletionRequestService deletionRequestService;
@@ -20,12 +20,12 @@ public class DeletionRequestController {
     this.deletionRequestService = deletionRequestService;
   }
 
-  @PostMapping
+  @PostMapping("/api/submissions")
   public DeletionRequestOutputDTO create(@RequestBody DeletionRequestCreationDTO dto) {
     return deletionRequestService.create(dto);
   }
 
-  @PutMapping
+  @PutMapping("/api/submissions")
   public DeletionRequestOutputDTO evaluate(@RequestBody DeletionRequestEvaluationDTO dto) {
     return deletionRequestService.evaluate(dto);
   }
