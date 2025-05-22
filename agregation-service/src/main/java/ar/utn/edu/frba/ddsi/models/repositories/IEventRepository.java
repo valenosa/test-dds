@@ -10,4 +10,5 @@ public interface IEventRepository {
   List<Event> findAll();
   List<Event> findByDeleted(boolean deleted);
   Event findById(Long eventId);
+  List<Event> findById(Set<Long> eventIds);
 }

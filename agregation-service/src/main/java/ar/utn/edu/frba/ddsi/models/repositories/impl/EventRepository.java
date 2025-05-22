@@ -39,4 +39,8 @@ public class EventRepository implements IEventRepository {
     return events.get(eventId);
   }
 
+  @Override
+  public List<Event> findById(Set<Long> eventIds) {
+    return eventIds.stream().map(id -> events.get(id)).toList();
+  }
 }
