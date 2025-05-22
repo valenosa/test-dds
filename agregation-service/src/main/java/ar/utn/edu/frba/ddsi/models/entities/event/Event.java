@@ -14,8 +14,10 @@ import java.util.Set;
 @Getter
 public class Event {
 
-  @Setter
-  private Long id;
+  //-- Identificador
+  @Setter  private Long id;
+  private final Long sourceId;
+  private final Origin origin;
 
   //-- Description
   private final String title;
@@ -30,9 +32,8 @@ public class Event {
   private final LocalDate eventDate;
   private final LocalDate uploadDate;
 
-  //-- Extras
+  //-- Funcionales
   private boolean deleted;
-  private final Origin origin;
   public Set<Tag> tags;
 
   public Event(String title,
@@ -41,7 +42,7 @@ public class Event {
                Double latitude,
                Double longitude,
                LocalDate eventDate,
-               Origin origin) {
+               Origin origin, Long sourceId) {
     this.title = title;
     this.description = description;
     this.category = category;
@@ -50,19 +51,12 @@ public class Event {
     this.eventDate = eventDate;
     this.uploadDate = LocalDate.now();
     this.origin = origin;
+    this.sourceId = sourceId;
     this.deleted = false;
     tags = new HashSet<>();
   }
 
-  public void addTag(Tag tag, Tag... tagsAdded) {
-    tags.add(tag);
-    if (tagsAdded != null) {
-      tags.addAll(Set.of(tagsAdded));
-    }
-  }
-
   public void markAsDeleted() {
-
     this.deleted = true;
   }
 
