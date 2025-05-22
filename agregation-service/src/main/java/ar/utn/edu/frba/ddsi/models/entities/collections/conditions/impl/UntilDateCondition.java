@@ -4,7 +4,7 @@ import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDate;
 
-public class UntilDateCondition extends Condition {
+public class UntilDateCondition implements Condition {
 
   LocalDate to;
 

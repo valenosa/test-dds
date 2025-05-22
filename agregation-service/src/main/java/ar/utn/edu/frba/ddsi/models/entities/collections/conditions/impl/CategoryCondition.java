@@ -4,7 +4,7 @@ import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
-public class CategoryCondition extends Condition {
+public class CategoryCondition implements Condition {
   Category category;
 
   public CategoryCondition(Category category) {

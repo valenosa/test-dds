@@ -3,7 +3,7 @@ package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
-public class TitleCondition extends Condition {
+public class TitleCondition implements Condition {
 
   String title;
 
@@ -11,6 +11,7 @@ public class TitleCondition extends Condition {
     this.title = title;
   }
 
+  @Override
   public boolean isSatisfiedBy(Event event) {
     return this.title.equals(event.getTitle());
   }

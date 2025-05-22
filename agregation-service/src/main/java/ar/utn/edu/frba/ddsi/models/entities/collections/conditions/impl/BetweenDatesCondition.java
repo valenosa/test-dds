@@ -5,7 +5,7 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
 import java.time.LocalDate;
 
-public class BetweenDatesCondition extends Condition {
+public class BetweenDatesCondition implements Condition {
 
   Condition fromDateCondition;
   Condition untilDateCondition;

@@ -4,7 +4,7 @@ import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDate;
 
-public class FromDateCondition extends Condition {
+public class FromDateCondition implements Condition {
 
   LocalDate from;
 
