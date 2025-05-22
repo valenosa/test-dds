@@ -3,29 +3,22 @@ package ar.utn.edu.frba.ddsi.models.entities.collections;
 import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import java.util.Collections;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
-
+@Getter
 public class Collection {
 
-  @Getter @Setter
+  @Setter
   private String handler;
 
-  //-- Descriptivos
-  @Getter private final String title;
-  @Getter private final String description;
+  private final String title;
+  private final String description;
 
-  //-- Funcionales
-  // private final Source source;
-  private Set<Event> events;
+  private Set<Long> sourceIds;
+  private Set<Long> eventsIds;
   private final CollectionCriteria collectionCriteria;
-
-  public Set<Event> getEvents() {
-    return Collections.unmodifiableSet(events);
-  }
 
   public static Collection from(CollectionCreationDTO dto) {
     CollectionCriteria collectionCriteria = CollectionCriteria.from(dto.getConditions());

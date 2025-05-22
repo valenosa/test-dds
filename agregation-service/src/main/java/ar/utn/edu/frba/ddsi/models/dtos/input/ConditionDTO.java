@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class ConditionDTO {
   ConditionType conditionType;
-  Object conditionValue;
+  Object conditionValue; // Depende del ConditionType se castea a un tipo de dato (Category,String,LocalDate)
 }
