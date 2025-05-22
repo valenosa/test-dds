@@ -1,0 +1,31 @@
+package ar.utn.edu.frba.ddsi.controller;
+
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.services.impl.EventService;
+import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequestMapping("/api/events")
+public class EventController {
+
+  private final EventService eventService;
+
+  public EventController(EventService eventService) {
+    this.eventService = eventService;
+  }
+
+  @GetMapping
+  public List<EventOutputDTO> getEvents() {
+    return eventService.getEvents();
+  }
+
+  @GetMapping("/{sourceID}")
+  public List<EventOutputDTO> getEventsBySourceId(@PathVariable("sourceID") Long sourceId) {
+    return eventService.getEventsBySource(sourceId);
+  }
+}

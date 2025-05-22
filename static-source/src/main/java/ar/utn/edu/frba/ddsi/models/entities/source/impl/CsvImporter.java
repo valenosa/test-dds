@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CsvImporter implements IImporter {
 
-  public Set<Event> importEvents(String path) {
+  public Set<Event> importEvents(String path, Long sourceId) {
     Set<Event> events = new HashSet<>();
 
     try (
@@ -52,7 +52,8 @@ public class CsvImporter implements IImporter {
             latitude,
             longitude,
             eventDate,
-            origin);
+            origin,
+            sourceId);
 
         events.add(event);
       }
