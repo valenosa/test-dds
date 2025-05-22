@@ -37,7 +37,7 @@ public class CsvImporter implements IImporter {
         Double latitude = Double.parseDouble(row[3]);
         Double longitude = Double.parseDouble(row[4]);
         LocalDate eventDate = null;
-        Origin origin = Origin.DATASET;
+        Origin origin = Origin.STATIC;
 
         try {
           eventDate = LocalDate.parse(row[5], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
