@@ -1,8 +1,8 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections;
 
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
+import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.util.Collections;
 import java.util.Set;
 import lombok.Getter;
@@ -27,11 +27,16 @@ public class Collection {
     return Collections.unmodifiableSet(events);
   }
 
-  public Collection(String title, String description, Source source) {
+  public static Collection from(CollectionCreationDTO dto) {
+    CollectionCriteria collectionCriteria = CollectionCriteria.from(dto.getConditions());
+
+    return new Collection(dto.getTitulo(), dto.getDescription(), collectionCriteria);
+  }
+
+  public Collection(String title, String description, CollectionCriteria collectionCriteria) {
     this.title = title;
     this.description = description;
-    this.collectionCriteria = new CollectionCriteria();
-    //this.source = source;
+    this.collectionCriteria = collectionCriteria;
     this.fetchEvents();
   }
 
@@ -51,7 +56,7 @@ public class Collection {
   /**
    * Permite agregar condiciones al criterioDePertenencia manteniendo el encapsulamiento
    */
-  public void addCondition(Condition condition, Condition... conditions) {
+  public void addCondition(ICondition condition, ICondition... conditions) {
     collectionCriteria.addCondition(condition, conditions);
     this.fetchEvents();
   }

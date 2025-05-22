@@ -1,10 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDate;
 
-public class FromDateCondition implements Condition {
+public class FromDateCondition implements ICondition {
 
   LocalDate from;
 

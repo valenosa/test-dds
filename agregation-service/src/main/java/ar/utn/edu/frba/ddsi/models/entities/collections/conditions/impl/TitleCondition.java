@@ -1,9 +1,9 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
-public class TitleCondition implements Condition {
+public class TitleCondition implements ICondition {
 
   String title;
 

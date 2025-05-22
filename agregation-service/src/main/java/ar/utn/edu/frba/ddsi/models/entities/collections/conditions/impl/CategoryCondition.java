@@ -1,10 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
-public class CategoryCondition implements Condition {
+public class CategoryCondition implements ICondition {
   Category category;
 
   public CategoryCondition(Category category) {

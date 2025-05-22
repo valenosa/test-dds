@@ -1,14 +1,14 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
 import java.time.LocalDate;
 
-public class BetweenDatesCondition implements Condition {
+public class BetweenDatesCondition implements ICondition {
 
-  Condition fromDateCondition;
-  Condition untilDateCondition;
+  ICondition fromDateCondition;
+  ICondition untilDateCondition;
 
   public BetweenDatesCondition(LocalDate from, LocalDate to) {
     fromDateCondition = new FromDateCondition(from);
