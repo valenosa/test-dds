@@ -32,7 +32,7 @@ public class Event {
   private final LocalDate uploadDate;
 
   //-- Funcionales
-  @Setter private boolean deleted;
+  private boolean deleted;
   public Set<Tag> tags;
 
   public Event(String title,
@@ -53,5 +53,9 @@ public class Event {
     this.sourceId = sourceId;
     this.deleted = false;
     tags = new HashSet<>();
+  }
+
+  public void deleteEvent(){
+    this.deleted = true;
   }
 }

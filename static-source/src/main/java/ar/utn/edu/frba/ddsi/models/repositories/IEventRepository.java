@@ -6,10 +6,15 @@ import java.util.Set;
 
 public interface IEventRepository {
   void save(Event event);
+
   void save(Set<Event> events);
 
   List<Event> findAll();
+
   Event findById(Long eventId);
+
   List<Event> findBySourceId(Long sourceId);
+
   List<Event> findByDeleted(boolean deleted);
+
 }

@@ -1,6 +1,8 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
+import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.util.List;
@@ -21,5 +23,15 @@ public class EventService implements IEventService {
   @Override
   public List<EventOutputDTO> getEventsBySource(Long sourceId) {
     return eventRepository.findBySourceId(sourceId).stream().map(EventOutputDTO::from).toList();
+  }
+
+  @Override
+  public EventOutputDTO deleteEvent(Long eventId) {
+    Event event = eventRepository.findById(eventId);
+    if (event == null) throw new NotFoundException("Event not found - Id: " + eventId);
+
+    event.deleteEvent();
+    eventRepository.save(event);
+    return EventOutputDTO.from(event);
   }
 }

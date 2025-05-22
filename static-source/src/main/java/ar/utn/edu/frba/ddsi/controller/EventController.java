@@ -3,6 +3,7 @@ package ar.utn.edu.frba.ddsi.controller;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.EventService;
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +28,10 @@ public class EventController {
   @GetMapping("/{sourceID}")
   public List<EventOutputDTO> getEventsBySourceId(@PathVariable("sourceID") Long sourceId) {
     return eventService.getEventsBySource(sourceId);
+  }
+
+  @DeleteMapping("/{eventId}")
+  public EventOutputDTO deleteEvent(@PathVariable("eventId") Long eventId) {
+    return eventService.deleteEvent(eventId);
   }
 }
