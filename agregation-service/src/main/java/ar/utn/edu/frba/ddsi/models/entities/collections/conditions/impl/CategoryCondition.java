@@ -1,5 +1,6 @@
-package ar.utn.edu.frba.ddsi.models.entities.collections.conditions;
+package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
