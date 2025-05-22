@@ -6,9 +6,14 @@ import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.util.Collections;
 import java.util.Set;
 import lombok.Getter;
+import lombok.Setter;
 
 
 public class Collection {
+
+  @Getter @Setter
+  private String handler;
+
   //-- Descriptivos
   @Getter private final String title;
   @Getter private final String description;
