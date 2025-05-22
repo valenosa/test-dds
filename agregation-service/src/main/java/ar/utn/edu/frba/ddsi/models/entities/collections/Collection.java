@@ -2,10 +2,9 @@ package ar.utn.edu.frba.ddsi.models.entities.collections;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.Condition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.util.Collections;
 import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.Getter;
 
 
@@ -15,7 +14,7 @@ public class Collection {
   @Getter private final String description;
 
   //-- Funcionales
-  private final Source source;
+  // private final Source source;
   private Set<Event> events;
   private final CollectionCriteria collectionCriteria;
 
@@ -27,7 +26,7 @@ public class Collection {
     this.title = title;
     this.description = description;
     this.collectionCriteria = new CollectionCriteria();
-    this.source = source;
+    //this.source = source;
     this.fetchEvents();
   }
 
@@ -35,9 +34,9 @@ public class Collection {
    * Calcula en base a su criterio de pertenencia los hechos que pertenecen a la coleccion
    */
   public void fetchEvents() {
-    Set<Event> eventSource = this.source.fetchEvents();
-    this.events =
-        eventSource.stream().filter(this::belongsToCollection).collect(Collectors.toSet());
+//    Set<Event> eventSource = this.source.fetchEvents();
+//    this.events =
+//        eventSource.stream().filter(this::belongsToCollection).collect(Collectors.toSet());
   }
 
   private boolean belongsToCollection(Event event) {

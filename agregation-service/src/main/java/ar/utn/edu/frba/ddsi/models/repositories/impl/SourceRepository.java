@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,13 +18,9 @@ public class SourceRepository implements ISourceRepository {
 
   @Override
   public void save(Source source) {
-    if (source.getId() == null) {
       Long id = idGenerator.getAndIncrement();
       source.setId(id);
       sources.put(id, source);
-    } else {
-      sources.put(source.getId(), source);
-    }
   }
 
   @Override
@@ -34,6 +30,6 @@ public class SourceRepository implements ISourceRepository {
 
   @Override
   public Source findById(Long sourceId){
-    return sources.get(sourceId) ;
-  };
+    return sources.get(sourceId);
+  }
 }
