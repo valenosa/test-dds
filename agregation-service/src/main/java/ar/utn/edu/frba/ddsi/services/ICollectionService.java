@@ -10,4 +10,5 @@ public interface ICollectionService {
     void create(CollectionCreationDTO collectionDto);
     List<CollectionOutputDTO> getCollections();
     List<EventOutputDTO> getEventsFromCollection(String handler);
+    void refreshCollections();
 }

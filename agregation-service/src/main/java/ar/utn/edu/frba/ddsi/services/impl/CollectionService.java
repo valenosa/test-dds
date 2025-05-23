@@ -22,40 +22,42 @@ import org.springframework.stereotype.Service;
 @Service
 public class CollectionService implements ICollectionService {
 
-    @Autowired
-    EventRepository eventRepository;
+  @Autowired
+  EventRepository eventRepository;
 
-    @Autowired
-    ICollectionRepository collectionRepository;
+  @Autowired
+  ICollectionRepository collectionRepository;
 
-    @Override
-    public void create(CollectionCreationDTO collectionDto) {
-        Collection collection = Collection.from(collectionDto);
-        collectionRepository.save(collection);
-    }
+  @Override
+  public void create(CollectionCreationDTO collectionDto) {
+    Collection collection = Collection.from(collectionDto);
+    collectionRepository.save(collection);
+  }
 
-    @Override
-    public List<CollectionOutputDTO> getCollections() {
-        return collectionRepository.findAll().stream().map(CollectionOutputDTO::from).toList();
-    }
+  @Override
+  public List<CollectionOutputDTO> getCollections() {
+    return collectionRepository.findAll().stream().map(CollectionOutputDTO::from).toList();
+  }
 
-    @Override
-    public List<EventOutputDTO> getEventsFromCollection(String handler) {
-        Collection collection = collectionRepository.findByHandler(handler);
-        if (collection == null) throw new NotFoundException("Collection not found - Handler:" + handler);
+  @Override
+  public List<EventOutputDTO> getEventsFromCollection(String handler) {
+    Collection collection = collectionRepository.findByHandler(handler);
+    if (collection == null) throw new NotFoundException("Collection not found - Handler:" + handler);
 
-        Set<EventKey> eventsIds = collection.getEventsIds();
+    Set<EventKey> eventsIds = collection.getEventsIds();
 
-        List<Event> events = eventRepository.findAllById(eventsIds);
-        return events.stream().map(EventOutputDTO::from).toList();
-    }
+    List<Event> events = eventRepository.findAllById(eventsIds);
+    return events.stream().map(EventOutputDTO::from).toList();
+  }
 
+  @Override
+  public void refreshCollections() {
+    List<Collection> allCollections = collectionRepository.findAll();
+    allCollections.forEach(this::refreshCollection);
+  }
 
-//  private List<EventOutputDTO> getEventsFromCollection(String handler) {
-//    Collection collection = collectionRepository.findByHandler(handler);
-//    if (collection == null) throw new NotFoundException("Collection not found - Handler: " + handler);
+  private void refreshCollection(Collection collection) {
 
-//    List<Event> events = eventRepository.findById(collection.getEventsIds());
-//    return events.stream().map(EventOutputDTO::from).toList();
-//  }
+  }
 }
+
