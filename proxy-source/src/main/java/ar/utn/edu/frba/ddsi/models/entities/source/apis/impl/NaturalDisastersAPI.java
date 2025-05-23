@@ -1,12 +1,16 @@
-package models.entities.source.apis.impl;
+package ar.utn.edu.frba.ddsi.models.entities.source.apis.impl;
 
-import models.entities.event.Event;
-import models.entities.source.apis.IAPI;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
+import ar.utn.edu.frba.ddsi.models.external.LoginRequest;
+import ar.utn.edu.frba.ddsi.models.external.LoginResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Set;
 
+@Component
 public class NaturalDisastersAPI implements IAPI {
 
   private final String accessToken;
@@ -23,15 +27,19 @@ public class NaturalDisastersAPI implements IAPI {
     this.accessToken = login(email, password);
   }
 
-  public String login(String email, String password) {
+  private String login(String email, String password) {
     //TODO Obtener accessToken
-    return "";
+    return webClient.post()
+        .uri("/api/login")
+        .bodyValue(new LoginRequest(email, password))
+        .retrieve()
+        .bodyToMono(LoginResponse.class)
+        .map(LoginResponse::getAccessToken)
+        .block();
   }
-
 
   @Override
   public Set<Event> importEvents() {
-    //TODO Importar eventos en base a cada API
-    return Set.of();
+    return null;
   }
 }
