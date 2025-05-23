@@ -1,4 +1,4 @@
-package models.entities.event;
+package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -29,7 +29,6 @@ public class Event {
 
   //-- Funcionales
   private boolean deleted;
-  public Set<Tag> tags;
 
   public Event(String title,
                String description,
@@ -47,7 +46,6 @@ public class Event {
     this.uploadDate = LocalDate.now(); //TODO Debería ser esto o created_at de la API?
     this.origin = origin;
     this.deleted = false;
-    tags = new HashSet<>();
   }
 
   public void deleteEvent(){

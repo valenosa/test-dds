@@ -1,10 +1,10 @@
-package services.impl;
+package ar.utn.edu.frba.ddsi.services.impl;
 
-import models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositories.ISourceRepository;
-import services.ISourceService;
+import ar.utn.edu.frba.ddsi.repositories.ISourceRepository;
+import ar.utn.edu.frba.ddsi.services.ISourceService;
 
 import java.util.List;
 

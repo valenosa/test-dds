@@ -1,6 +1,6 @@
-package repositories;
+package ar.utn.edu.frba.ddsi.repositories;
 
-import models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 
 import java.util.List;
 

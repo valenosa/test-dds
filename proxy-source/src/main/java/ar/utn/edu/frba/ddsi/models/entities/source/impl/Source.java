@@ -1,13 +1,12 @@
-package models.entities.source.impl;
+package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
 import java.util.Set;
-import java.util.stream.Collectors;
+
 import lombok.Getter;
 import lombok.Setter;
-import models.dtos.input.SourceInputDTO;
-import models.entities.event.Event;
-import models.entities.source.apis.IAPI;
-import models.entities.source.IEventSource;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
+import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,12 +1,11 @@
-package models.dtos.output;
+package ar.utn.edu.frba.ddsi.models.dtos.output;
 
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Data;
-import models.entities.event.Event;
-import models.entities.event.Origin;
-import models.entities.event.Tag;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
 
 
 @Data
@@ -21,7 +20,6 @@ public class EventOutputDTO {
   Double longitude;
   LocalDate eventDate;
   LocalDate uploadDate;
-  Set<String> tags;
 
   public static EventOutputDTO from(Event event) {
     EventOutputDTO dto = new EventOutputDTO();
@@ -35,7 +33,6 @@ public class EventOutputDTO {
     dto.setLongitude(event.getLongitude());
     dto.setEventDate(event.getEventDate());
     dto.setUploadDate(event.getUploadDate());
-    dto.setTags(event.getTags().stream().map(Tag::getName).collect(Collectors.toSet())); //TODO: Verificar si esta bien pasar Set<nombre> o tenemos que pasar Set<Id> o un Set<DTO>
     return dto;
   }
 
