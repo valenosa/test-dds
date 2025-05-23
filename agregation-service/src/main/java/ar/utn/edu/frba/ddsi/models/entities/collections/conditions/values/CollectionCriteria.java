@@ -1,7 +1,6 @@
-package ar.utn.edu.frba.ddsi.models.entities.collections;
+package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.ConditionDTO;
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.util.List;
 

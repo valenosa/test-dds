@@ -1,4 +1,4 @@
-package ar.utn.edu.frba.ddsi.models.entities.collections.conditions;
+package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl.CategoryCondition;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl.FromDateCondition;

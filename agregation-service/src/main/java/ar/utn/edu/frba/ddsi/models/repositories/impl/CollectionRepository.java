@@ -25,6 +25,11 @@ public class CollectionRepository implements ICollectionRepository {
   }
 
   @Override
+  public void saveAll(List<Collection> collections) {
+    collections.forEach(this::save);
+  }
+
+  @Override
   public List<Collection> findAll() {
     return new ArrayList<>(collections.values());
   }

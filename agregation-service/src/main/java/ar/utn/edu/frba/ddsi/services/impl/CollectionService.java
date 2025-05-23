@@ -9,13 +9,11 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
 import ar.utn.edu.frba.ddsi.models.repositories.ICollectionRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
-import ar.utn.edu.frba.ddsi.models.repositories.impl.EventRepository;
 import ar.utn.edu.frba.ddsi.services.ICollectionService;
 
 import java.util.List;
 import java.util.Set;
 
-import ar.utn.edu.frba.ddsi.services.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class CollectionService implements ICollectionService {
 
   @Autowired
-  EventRepository eventRepository;
+  IEventRepository eventRepository;
 
   @Autowired
   ICollectionRepository collectionRepository;
@@ -52,11 +50,16 @@ public class CollectionService implements ICollectionService {
 
   @Override
   public void refreshCollections() {
-    List<Collection> allCollections = collectionRepository.findAll();
-    allCollections.forEach(this::refreshCollection);
+    List<Collection> allColections = collectionRepository.findAll();
+
+    allColections.forEach(this::refreshCollection);
+    collectionRepository.saveAll(allColections);
   }
 
   private void refreshCollection(Collection collection) {
+    //Necesito Recuperar los eventos que pertenezcan a una source en especifico (Recordar que los SourceIds pueden estar duplicados entre Tipos de source (PROXY,STATIC,DYNAMIC))
+    //Puede que tener un idEvent asignado por el agragador y despues usar cono Id Source los capos (Origin y SourceId)
+    //List<Event> newEvents = eventRepository.findNewOrModifiedBySources(collection.getSourceIds());
 
   }
 }

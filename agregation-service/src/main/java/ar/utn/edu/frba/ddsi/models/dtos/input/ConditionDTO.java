@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.dtos.input;
 
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ConditionType;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.ConditionType;
 import lombok.Data;
 
 @Data

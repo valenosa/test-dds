@@ -1,9 +1,11 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.CollectionCriteria;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +19,7 @@ public class Collection {
   private final String title;
   private final String description;
 
-  private Set<Long> sourceIds;
+  private Set<SourceKey> sourceIds;
   private Set<EventKey> eventsIds;
   private final CollectionCriteria collectionCriteria;
 
@@ -31,28 +33,23 @@ public class Collection {
     this.title = title;
     this.description = description;
     this.collectionCriteria = collectionCriteria;
-    this.fetchEvents();
   }
 
-  /**
-   * Calcula en base a su criterio de pertenencia los hechos que pertenecen a la coleccion
-   */
-  public void fetchEvents() {
-//    Set<Event> eventSource = this.source.fetchEvents();
-//    this.events =
-//        eventSource.stream().filter(this::belongsToCollection).collect(Collectors.toSet());
+  public void refreshCollection(List<Event> newOrModifiedEvents){
+      newOrModifiedEvents.forEach(this::addOrRemove);
   }
 
-  private boolean belongsToCollection(Event event) {
-    return collectionCriteria.isSatisfiedBy(event) && !event.isDeleted();
+  private void addOrRemove(Event event) {
+    boolean belongsToCollection = collectionCriteria.isSatisfiedBy(event);
+
+    if(belongsToCollection){
+      eventsIds.add(event.getId());
+    }
+    else {
+      //Si tras una modificacion deja de estar includo se elimina
+      eventsIds.remove(event.getId());
+    }
   }
 
-  /**
-   * Permite agregar condiciones al criterioDePertenencia manteniendo el encapsulamiento
-   */
-  public void addCondition(ICondition condition, ICondition... conditions) {
-    collectionCriteria.addCondition(condition, conditions);
-    this.fetchEvents();
-  }
   //TODO: getHechos(filtros...) como sobrecarga que permita obtener hechos filtrados
 }

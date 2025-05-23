@@ -26,13 +26,8 @@ public class EventRepository implements IEventRepository {
         return eventIds.stream().map(id -> events.get(id)).toList();
     }
 
-    //  @Override
-//  public List<Event> findByDeleted(boolean deleted) {
-//    return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
-//  }
-//
-//  public Event findById(Long eventId) {
-//    return events.get(eventId);
-//  }
-//
+    @Override
+    public List<Event> findByNewOrModified() {
+        return events.values().stream().filter(Event::isNewOrModified).toList();
+    }
 }

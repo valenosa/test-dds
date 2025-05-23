@@ -11,4 +11,5 @@ public interface IEventRepository {
 
   List<Event> findAll();
   List<Event> findAllById(Set<EventKey> eventIds);
+  List<Event> findByNewOrModified();
 }

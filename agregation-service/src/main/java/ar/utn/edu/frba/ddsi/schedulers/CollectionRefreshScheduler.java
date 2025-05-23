@@ -13,7 +13,7 @@ public class CollectionRefreshScheduler {
 
     @Scheduled(cron = "${collection.refresh.cron}")
     public void refreshCollections() {
-
+        //TODO: ACTUALIZAR LAS FUENTES
         collectionService.refreshCollections();
     }
 }
