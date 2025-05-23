@@ -1,5 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
@@ -36,12 +37,33 @@ public class Event {
   private boolean deleted;
   public Set<Tag> tags;
 
+  public static Event from(EventInputDTO dto){
+
+    EventKey eventKey = new EventKey(dto.getId(),dto.getOrigin());
+
+    Event event = new Event(
+        dto.getTitle(),
+        dto.getDescription(),
+        new Category(dto.getCategory()), //TODO: Ver que onda esto por ahora hardcodeo pera poder continuar
+        dto.getLatitude(),
+        dto.getLongitude(),
+        dto.getEventDate(),
+        dto.getUploadDate(),
+        dto.getSourceId()
+    );
+
+    event.setId(eventKey);
+
+    return event;
+  }
+
   public Event(String title,
                String description,
                Category category,
                Double latitude,
                Double longitude,
                LocalDate eventDate,
+               LocalDate uploadDate,
                Long sourceId) {
     this.title = title;
     this.description = description;
@@ -49,7 +71,7 @@ public class Event {
     this.latitude = latitude;
     this.longitude = longitude;
     this.eventDate = eventDate;
-    this.uploadDate = LocalDate.now();
+    this.uploadDate = uploadDate;
     this.sourceId = sourceId;
     this.deleted = false;
     tags = new HashSet<>();

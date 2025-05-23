@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
  @Data
  public class EventOutputDTO {
    Long id;
+   Long sourceId;
+   Origin origin;
    String title;
    String description;
    String category;
@@ -20,12 +22,13 @@ import java.util.stream.Collectors;
    Double longitude;
    LocalDate eventDate;
    LocalDate uploadDate;
-   Origin origin;
    Set<String> tags;
 
    public static EventOutputDTO from(Event event) {
      EventOutputDTO dto = new EventOutputDTO();
-     dto.setId(event.getId());
+     dto.setId(event.getId().getEventId());
+     dto.setSourceId(event.getSourceId());
+     dto.setOrigin(event.getId().getEventOrigin());
      dto.setTitle(event.getTitle());
      dto.setDescription(event.getDescription());
      dto.setCategory(event.getCategory().getName()); //TODO: Verificar si esta bien pasar nombre o tenemos que pasar Id o un DTO
@@ -33,7 +36,6 @@ import java.util.stream.Collectors;
      dto.setLongitude(event.getLongitude());
      dto.setEventDate(event.getEventDate());
      dto.setUploadDate(event.getUploadDate());
-     dto.setOrigin(event.getOrigin()); //TODO: Verificar si esta bien pasar el ENUM
      dto.setTags(event.getTags().stream().map(Tag::getName).collect(Collectors.toSet())); //TODO: Verificar si esta bien pasar Set<nombre> o tenemos que pasar Set<Id> o un Set<DTO>
      return dto;
    }
