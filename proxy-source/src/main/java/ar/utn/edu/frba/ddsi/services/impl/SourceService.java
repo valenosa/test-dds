@@ -21,6 +21,8 @@ public class SourceService implements ISourceService {
         .stream()
         //Obtengo todos los elementos (ya filtrados por modificación) de todas las fuentes
         .flatMap(source -> source.fetchEvents().stream())
+        //Filtro los que hayan sido modificados
+        .filter(Event::isModified)
         //Los transformo a DTO
         .map(EventOutputDTO::from)
         .toList();
