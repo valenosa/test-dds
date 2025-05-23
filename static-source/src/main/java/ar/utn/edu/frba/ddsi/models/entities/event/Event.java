@@ -2,10 +2,7 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +30,6 @@ public class Event {
 
   //-- Funcionales
   private boolean deleted;
-  public Set<Tag> tags;
 
   public Event(String title,
                String description,
@@ -52,10 +48,9 @@ public class Event {
     this.origin = origin;
     this.sourceId = sourceId;
     this.deleted = false;
-    tags = new HashSet<>();
   }
 
-  public void deleteEvent(){
+  public void markAsDeleted(){
     this.deleted = true;
   }
 }
