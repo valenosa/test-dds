@@ -18,6 +18,7 @@ public class EventController {
         this.eventService = eventService;
     }
 
+    // TODO: Agregar opcion para añadir filtros vía params.
     @GetMapping
     public List<EventOutputDTO> getEvents(){
         return eventService.getEvents();
