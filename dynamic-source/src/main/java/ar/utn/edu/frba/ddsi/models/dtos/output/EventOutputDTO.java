@@ -2,10 +2,7 @@
 
  import ar.utn.edu.frba.ddsi.models.entities.event.Event;
  import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
- import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
  import java.time.LocalDate;
- import java.util.Set;
- import java.util.stream.Collectors;
  import lombok.Data;
 
 
@@ -20,7 +17,6 @@
    LocalDate eventDate;
    LocalDate uploadDate;
    Origin origin;
-   Set<String> tags;
 
    public static EventOutputDTO from(Event event) {
      EventOutputDTO dto = new EventOutputDTO();
@@ -33,7 +29,6 @@
      dto.setEventDate(event.getEventDate());
      dto.setUploadDate(event.getUploadDate());
      dto.setOrigin(event.getOrigin()); //TODO: Verificar si esta bien pasar el ENUM
-     dto.setTags(event.getTags().stream().map(Tag::getName).collect(Collectors.toSet())); //TODO: Verificar si esta bien pasar Set<nombre> o tenemos que pasar Set<Id> o un Set<DTO>
      return dto;
    }
 

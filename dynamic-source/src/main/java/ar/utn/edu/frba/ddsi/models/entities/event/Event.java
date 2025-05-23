@@ -5,10 +5,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +13,9 @@ import lombok.Setter;
 @Getter
 public class Event {
 
-  @Setter
-  private Long id;
+  //-- Identificador
+  @Setter private Long id;
+  private final Origin origin;
 
   //-- Description
   private String title;
@@ -30,18 +28,15 @@ public class Event {
 
   //-- Fechas
   private LocalDate eventDate;
-  private LocalDate uploadDate;
+  private final LocalDate uploadDate;
 
-  //-- Dynamic Source Specific
+  //-- Submmision (Dynamic-Source)
   private final String contributor; //TODO: Esto deberia ser un usuario
   @Setter private SubmissionState state;
   @Setter private String suggestion;
 
-
   //-- Extras
   private boolean deleted;
-  private final Origin origin;
-  public Set<Tag> tags;
 
   public static Event from(EventCreationDTO dto){
     return new Event(
@@ -51,7 +46,7 @@ public class Event {
         dto.getLatitude(),
         dto.getLongitude(),
         dto.getEventDate(),
-        Origin.CONTRIBUTOR,
+        Origin.DYNAMIC,
         dto.getContributor()
     );
   }
@@ -76,7 +71,6 @@ public class Event {
 
     this.deleted = false;
     this.state = SubmissionState.PENDING;
-    tags = new HashSet<>();
   }
 
   public void updateWith(EventUpdateDTO dto){
@@ -86,13 +80,6 @@ public class Event {
     this.latitude = dto.getLatitude();
     this.longitude = dto.getLongitude();
     this.eventDate = dto.getEventDate();
-  }
-
-  public void addTag(Tag tag, Tag... tagsAdded) {
-    tags.add(tag);
-    if (tagsAdded != null) {
-      tags.addAll(Set.of(tagsAdded));
-    }
   }
 
   public void markAsDeleted() {
