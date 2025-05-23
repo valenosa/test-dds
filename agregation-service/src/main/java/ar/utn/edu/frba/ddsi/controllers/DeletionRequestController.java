@@ -7,7 +7,7 @@ import ar.utn.edu.frba.ddsi.services.impl.DeletionRequestService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/submissions") //?Submission
+@RequestMapping("/api/deletion-request")
 public class DeletionRequestController {
 
   private final DeletionRequestService deletionRequestService;
@@ -16,12 +16,12 @@ public class DeletionRequestController {
     this.deletionRequestService = deletionRequestService;
   }
 
-  @PostMapping("/api/submissions")
+  @PostMapping
   public DeletionRequestOutputDTO create(@RequestBody DeletionRequestCreationDTO dto) {
     return deletionRequestService.create(dto);
   }
 
-  @PutMapping("/api/submissions")
+  @PutMapping
   public DeletionRequestOutputDTO evaluate(@RequestBody DeletionRequestEvaluationDTO dto) {
     return deletionRequestService.evaluate(dto);
   }
