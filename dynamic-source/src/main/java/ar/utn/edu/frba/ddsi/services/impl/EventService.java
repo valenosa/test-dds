@@ -27,6 +27,7 @@ public class EventService implements IEventService {
 
     //Actualizo que el evento ya fue enviado
     events.forEach(e-> e.setNewOrModified(false));
+    eventRepository.save(events);
 
     return events.stream().map(EventOutputDTO :: from).toList();
   }
