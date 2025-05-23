@@ -23,7 +23,7 @@ public class SubmissionRequestController {
 
   @GetMapping("/event")
   public List<EventOutputDTO> getPendingEvents() {
-    return eventService.getEvents(SubmissionState.PENDING);
+    return eventService.getPendingEvents();
   }
 
   @PutMapping

@@ -11,7 +11,6 @@ import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +21,19 @@ public class EventService implements IEventService {
   IEventRepository eventRepository;
 
   @Override
-  public List<EventOutputDTO> getEvents(SubmissionState state) {
+  public List<EventOutputDTO> getEvents() {
 
-    if (state != null) {
-      return eventRepository.findByState(state).stream().map(EventOutputDTO :: from).collect(Collectors.toList());
-    }
-    return eventRepository.findAll().stream().map(EventOutputDTO :: from).collect(Collectors.toList());
+    List<Event> events = eventRepository.findAll().stream().filter(e-> !e.isValid() && e.isModified()).toList();
+
+    //Actualizo que el evento ya fue enviado
+    events.forEach(e-> e.setModified(false));
+
+    return events.stream().map(EventOutputDTO :: from).toList();
   }
 
   @Override
-  public EventOutputDTO getEventById(Long id) {
-    return EventOutputDTO.from(eventRepository.findById(id));
+  public List<EventOutputDTO> getPendingEvents() {
+    return eventRepository.findAll().stream().filter(e-> e.getState() == SubmissionState.PENDING).map(EventOutputDTO :: from).toList();
   }
 
   @Override
