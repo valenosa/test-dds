@@ -3,7 +3,6 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import lombok.Getter;
 import lombok.Setter;
