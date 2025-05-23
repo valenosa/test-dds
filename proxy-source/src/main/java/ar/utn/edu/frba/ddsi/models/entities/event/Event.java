@@ -28,6 +28,7 @@ public class Event {
   private final LocalDate uploadDate;
 
   //-- Funcionales
+  @Setter private boolean modified;
   private boolean deleted;
 
   public Event(String title,
@@ -45,6 +46,7 @@ public class Event {
     this.eventDate = eventDate;
     this.uploadDate = LocalDate.now(); //TODO Debería ser esto o created_at de la API?
     this.origin = origin;
+    this.modified = true;
     this.deleted = false;
   }
 

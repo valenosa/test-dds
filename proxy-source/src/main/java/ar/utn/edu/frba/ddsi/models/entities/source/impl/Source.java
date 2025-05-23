@@ -25,7 +25,8 @@ public class Source implements IEventSource {
   @Override
   public Set<Event> fetchEvents() {
     Set<Event> events = this.api.importEvents();
-
+    //TODO Actualizar lastUpdate = LocalDate.now()
+    //TODO validar updated_at con lastUpdate y dado el caso poner event.isModified(true)
     return events;
   }
 }

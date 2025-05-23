@@ -28,7 +28,6 @@ public class NaturalDisastersAPI implements IAPI {
   }
 
   private String login(String email, String password) {
-    //TODO Obtener accessToken
     return webClient.post()
         .uri("/api/login")
         .bodyValue(new LoginRequest(email, password))
@@ -40,6 +39,7 @@ public class NaturalDisastersAPI implements IAPI {
 
   @Override
   public Set<Event> importEvents() {
+    //TODO Devolver eventos
     return null;
   }
 }
