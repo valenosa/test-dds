@@ -23,10 +23,10 @@ public class EventService implements IEventService {
   @Override
   public List<EventOutputDTO> getEvents() {
 
-    List<Event> events = eventRepository.findAll().stream().filter(e-> !e.isValid() && e.isModified()).toList();
+    List<Event> events = eventRepository.findAll().stream().filter(e-> !e.isValid() && e.isNewOrModified()).toList();
 
     //Actualizo que el evento ya fue enviado
-    events.forEach(e-> e.setModified(false));
+    events.forEach(e-> e.setNewOrModified(false));
 
     return events.stream().map(EventOutputDTO :: from).toList();
   }

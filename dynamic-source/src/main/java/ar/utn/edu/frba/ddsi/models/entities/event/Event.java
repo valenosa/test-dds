@@ -37,7 +37,7 @@ public class Event {
 
   //-- Extras
   @Setter
-  private boolean modified;
+  private boolean newOrModified;
   private boolean deleted;
 
   public static Event from(EventCreationDTO dto){
@@ -71,7 +71,7 @@ public class Event {
     this.origin = origin;
     this.contributor = contributor;
 
-    this.modified = true;
+    this.newOrModified = true;
     this.deleted = false;
     this.state = SubmissionState.PENDING;
   }
@@ -83,10 +83,8 @@ public class Event {
     this.latitude = dto.getLatitude();
     this.longitude = dto.getLongitude();
     this.eventDate = dto.getEventDate();
-    this.setModified(true);
+    this.setNewOrModified(true);
   }
-
-  public void markAsModified() {this.modified = true;}
 
   public boolean isValid() {
     return !this.deleted && (this.state == SubmissionState.ACCEPTED || this.state == SubmissionState.ACCEPTED_WITH_SUGGESTIONS);
