@@ -1,5 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,12 @@ public class EventRepository implements IEventRepository {
         return new ArrayList<>(events.values());
     }
 
-//  @Override
+    @Override
+    public List<Event> findAllById(Set<Long> eventIds) {
+        return eventIds.stream().map(id -> events.get(id)).toList();
+    }
+
+    //  @Override
 //  public List<Event> findByDeleted(boolean deleted) {
 //    return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
 //  }
@@ -37,7 +43,4 @@ public class EventRepository implements IEventRepository {
 //    return events.get(eventId);
 //  }
 //
-//  @Override
-//  public List<Event> findById(Set<Long> eventIds) {
-//    return eventIds.stream().map(id -> events.get(id)).toList();
 }

@@ -7,5 +7,7 @@ import java.util.Set;
 
 public interface IEventRepository {
   void save(Event event);
+
   List<Event> findAll();
+  List<Event> findAllById(Set<Long> eventIds);
 }

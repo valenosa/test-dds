@@ -7,7 +7,7 @@ import ar.utn.edu.frba.ddsi.services.impl.DeletionRequestService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/submissions")
+@RequestMapping("/api/submissions") //?Submission
 public class DeletionRequestController {
 
   private final DeletionRequestService deletionRequestService;
