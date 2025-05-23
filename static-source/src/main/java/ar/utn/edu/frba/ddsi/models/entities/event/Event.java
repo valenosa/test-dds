@@ -29,7 +29,8 @@ public class Event {
   private final LocalDate uploadDate;
 
   //-- Funcionales
-  private boolean modified;
+  @Setter
+  private boolean newOrModified;
   private boolean deleted;
 
   public Event(String title,
@@ -48,7 +49,7 @@ public class Event {
     this.uploadDate = LocalDate.now();
     this.origin = origin;
     this.sourceId = sourceId;
-    this.modified = true;
+    this.newOrModified = true;
     this.deleted = false;
   }
 
