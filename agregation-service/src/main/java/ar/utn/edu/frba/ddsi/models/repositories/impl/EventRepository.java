@@ -9,38 +9,35 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class EventRepository implements IEventRepository {
-  Map<Long, Event> events = new HashMap<>();
-  private final AtomicLong idGenerator = new AtomicLong(1);
+    Map<Long, Event> events = new HashMap<>();
+    private final AtomicLong idGenerator = new AtomicLong(1);
 
-  @Override
-  public void save(Event event) {
-    if (event.getId() == null) {
-      Long id = idGenerator.getAndIncrement();
-      event.setId(id);
-      events.put(id, event);
-    } else {
-      events.put(event.getId(), event);
+    @Override
+    public void save(Event event) {
+        if (event.getId() == null) {
+            Long id = idGenerator.getAndIncrement();
+            event.setId(id);
+            events.put(id, event);
+        } else {
+            events.put(event.getId(), event);
+        }
     }
-  }
 
+    @Override
+    public List<Event> findAll() {
+        return new ArrayList<>(events.values());
+    }
 
-  @Override
-  public List<Event> findAll() {
-    return new ArrayList<>(events.values());
-  }
-
-
-  @Override
-  public List<Event> findByDeleted(boolean deleted) {
-    return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
-  }
-
-  public Event findById(Long eventId) {
-    return events.get(eventId);
-  }
-
-  @Override
-  public List<Event> findById(Set<Long> eventIds) {
-    return eventIds.stream().map(id -> events.get(id)).toList();
-  }
+//  @Override
+//  public List<Event> findByDeleted(boolean deleted) {
+//    return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
+//  }
+//
+//  public Event findById(Long eventId) {
+//    return events.get(eventId);
+//  }
+//
+//  @Override
+//  public List<Event> findById(Set<Long> eventIds) {
+//    return eventIds.stream().map(id -> events.get(id)).toList();
 }

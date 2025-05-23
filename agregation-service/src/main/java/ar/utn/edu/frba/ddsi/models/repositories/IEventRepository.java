@@ -8,7 +8,4 @@ import java.util.Set;
 public interface IEventRepository {
   void save(Event event);
   List<Event> findAll();
-  List<Event> findByDeleted(boolean deleted);
-  Event findById(Long eventId);
-  List<Event> findById(Set<Long> eventIds);
 }
