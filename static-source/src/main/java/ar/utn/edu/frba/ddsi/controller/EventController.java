@@ -25,11 +25,6 @@ public class EventController {
     return eventService.getEvents();
   }
 
-  @GetMapping("/{sourceID}")
-  public List<EventOutputDTO> getEventsBySourceId(@PathVariable("sourceID") Long sourceId) {
-    return eventService.getEventsBySource(sourceId);
-  }
-
   @DeleteMapping("/{eventId}")
   public EventOutputDTO deleteEvent(@PathVariable("eventId") Long eventId) {
     return eventService.deleteEvent(eventId);

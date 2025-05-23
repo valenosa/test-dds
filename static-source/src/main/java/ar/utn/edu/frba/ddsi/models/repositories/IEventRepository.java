@@ -13,8 +13,6 @@ public interface IEventRepository {
 
   Event findById(Long eventId);
 
-  List<Event> findBySourceId(Long sourceId);
-
   List<Event> findByDeleted(boolean deleted);
 
 }

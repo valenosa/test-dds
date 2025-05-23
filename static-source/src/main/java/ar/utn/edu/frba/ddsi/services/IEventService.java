@@ -5,6 +5,5 @@ import java.util.List;
 
 public interface IEventService {
   List<EventOutputDTO> getEvents();
-  List<EventOutputDTO> getEventsBySource(Long sourceId);
   EventOutputDTO deleteEvent(Long eventId);
 }

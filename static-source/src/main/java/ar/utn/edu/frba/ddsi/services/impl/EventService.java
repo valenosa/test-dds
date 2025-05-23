@@ -17,12 +17,12 @@ public class EventService implements IEventService {
 
   @Override
   public List<EventOutputDTO> getEvents() {
-    return eventRepository.findAll().stream().map(EventOutputDTO::from).toList();
-  }
-
-  @Override
-  public List<EventOutputDTO> getEventsBySource(Long sourceId) {
-    return eventRepository.findBySourceId(sourceId).stream().map(EventOutputDTO::from).toList();
+    return eventRepository
+        .findAll()
+        .stream()
+        .filter(e-> (!e.isDeleted() && e.isModified()))
+        .map(EventOutputDTO::from)
+        .toList();
   }
 
   @Override
