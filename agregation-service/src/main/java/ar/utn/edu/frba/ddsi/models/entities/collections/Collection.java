@@ -3,6 +3,7 @@ package ar.utn.edu.frba.ddsi.models.entities.collections;
 import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class Collection {
   private final String description;
 
   private Set<Long> sourceIds;
-  private Set<Long> eventsIds;
+  private Set<EventKey> eventsIds;
   private final CollectionCriteria collectionCriteria;
 
   public static Collection from(CollectionCreationDTO dto) {

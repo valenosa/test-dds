@@ -6,6 +6,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.CollectionOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.Collection;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
 import ar.utn.edu.frba.ddsi.models.repositories.ICollectionRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.impl.EventRepository;
@@ -43,7 +44,7 @@ public class CollectionService implements ICollectionService {
         Collection collection = collectionRepository.findByHandler(handler);
         if (collection == null) throw new NotFoundException("Collection not found - Handler:" + handler);
 
-        Set<Long> eventsIds = collection.getEventsIds();
+        Set<EventKey> eventsIds = collection.getEventsIds();
 
         List<Event> events = eventRepository.findAllById(eventsIds);
         return events.stream().map(EventOutputDTO::from).toList();

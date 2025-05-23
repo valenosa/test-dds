@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import lombok.Getter;
@@ -15,9 +16,8 @@ import java.util.Set;
 public class Event {
 
   //-- Identificador
-  @Setter  private Long id;
+  @Setter  private EventKey id;
   private final Long sourceId;
-  private final Origin origin;
 
   //-- Description
   private final String title;
@@ -42,7 +42,7 @@ public class Event {
                Double latitude,
                Double longitude,
                LocalDate eventDate,
-               Origin origin, Long sourceId) {
+               Long sourceId) {
     this.title = title;
     this.description = description;
     this.category = category;
@@ -50,7 +50,6 @@ public class Event {
     this.longitude = longitude;
     this.eventDate = eventDate;
     this.uploadDate = LocalDate.now();
-    this.origin = origin;
     this.sourceId = sourceId;
     this.deleted = false;
     tags = new HashSet<>();
