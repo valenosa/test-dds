@@ -33,6 +33,7 @@ public class Event {
   private final LocalDate uploadDate;
 
   //-- Funcionales
+  private boolean newOrModified;
   private boolean deleted;
   public Set<Tag> tags;
 
@@ -72,6 +73,7 @@ public class Event {
     this.eventDate = eventDate;
     this.uploadDate = uploadDate;
     this.sourceId = sourceId;
+    this.newOrModified = true;
     this.deleted = false;
     tags = new HashSet<>();
   }
