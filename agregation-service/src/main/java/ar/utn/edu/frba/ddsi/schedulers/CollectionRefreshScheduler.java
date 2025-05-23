@@ -1,19 +1,18 @@
 package ar.utn.edu.frba.ddsi.schedulers;
 
-import jakarta.annotation.PostConstruct;
+import ar.utn.edu.frba.ddsi.services.ICollectionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CollectionRefreshScheduler {
 
-    @PostConstruct
-    public void startExecution(){
-        //Actualizar coll
-    }
+    @Autowired
+    ICollectionService collectionService;
 
     @Scheduled(cron = "${collection.refresh.cron}")
     public void refreshCollections() {
-        //Actualizar coll
+        collectionService.refreshCollections();
     }
 }
