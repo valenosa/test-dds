@@ -3,9 +3,8 @@
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
+import java.time.LocalDateTime;
 import lombok.Data;
-
-import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,15 +19,15 @@ import java.util.stream.Collectors;
    String category;
    Double latitude;
    Double longitude;
-   LocalDate eventDate;
-   LocalDate uploadDate;
+   LocalDateTime eventDate;
+   LocalDateTime uploadDate;
    Set<String> tags;
 
    public static EventOutputDTO from(Event event) {
      EventOutputDTO dto = new EventOutputDTO();
-     dto.setId(event.getId().getEventId());
+     dto.setId(event.getId());
      dto.setSourceId(event.getSourceId());
-     dto.setOrigin(event.getId().getEventOrigin());
+     dto.setOrigin(event.getSourceEventOrigin());
      dto.setTitle(event.getTitle());
      dto.setDescription(event.getDescription());
      dto.setCategory(event.getCategory().getName()); //TODO: Verificar si esta bien pasar nombre o tenemos que pasar Id o un DTO

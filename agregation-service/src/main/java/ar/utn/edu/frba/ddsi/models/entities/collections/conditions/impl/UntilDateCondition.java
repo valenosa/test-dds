@@ -2,13 +2,13 @@ package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UntilDateCondition implements ICondition {
 
-  LocalDate to;
+  LocalDateTime to;
 
-  public UntilDateCondition(LocalDate to) {
+  public UntilDateCondition(LocalDateTime to) {
     this.to = to;
   }
 

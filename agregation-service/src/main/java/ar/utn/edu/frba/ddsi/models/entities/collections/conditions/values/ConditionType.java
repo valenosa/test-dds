@@ -5,7 +5,7 @@ import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl.FromDate
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl.TitleCondition;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl.UntilDateCondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public enum ConditionType {
 
@@ -26,14 +26,14 @@ public enum ConditionType {
   FROM_DATE{
     @Override
     public ICondition toCondition(Object conditionValue) {
-      return new FromDateCondition((LocalDate) conditionValue);
+      return new FromDateCondition((LocalDateTime) conditionValue);
     }
   },
 
   TO_DATE{
     @Override
     public ICondition toCondition(Object conditionValue) {
-      return new UntilDateCondition((LocalDate) conditionValue);
+      return new UntilDateCondition((LocalDateTime) conditionValue);
     }
   };
 

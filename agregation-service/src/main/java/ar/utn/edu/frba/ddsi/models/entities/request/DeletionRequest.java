@@ -1,10 +1,9 @@
 package ar.utn.edu.frba.ddsi.models.entities.request;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 public class DeletionRequest {
@@ -17,8 +16,8 @@ public class DeletionRequest {
   @Setter
   private DeletionRequestState state;
 
-  private final LocalDate uploadDate;
-  private LocalDate evaluationDate;
+  private final LocalDateTime uploadDate;
+  private LocalDateTime evaluationDate;
 
   private final String applicantName; //TODO: Esto deberia ser un usuario
   private String evaluatorName; //TODO: Esto deberia ser un usuario
@@ -34,7 +33,7 @@ public class DeletionRequest {
     this.eventId = eventId;
     this.argument = argument;
     this.state = DeletionRequestState.PENDING;
-    this.uploadDate = LocalDate.now();
+    this.uploadDate = LocalDateTime.now();
     this.applicantName = applicantName;
   }
 
@@ -43,7 +42,7 @@ public class DeletionRequest {
   }
 
   public void registerEvaluation(String evaluatorName) {
-    this.evaluationDate = LocalDate.now();
+    this.evaluationDate = LocalDateTime.now();
     this.evaluatorName = evaluatorName;
   }
 }

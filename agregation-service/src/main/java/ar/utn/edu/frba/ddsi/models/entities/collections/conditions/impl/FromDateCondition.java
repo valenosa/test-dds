@@ -2,13 +2,13 @@ package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.ICondition;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class FromDateCondition implements ICondition {
 
-  LocalDate from;
+  LocalDateTime from;
 
-  public FromDateCondition(LocalDate from) {
+  public FromDateCondition(LocalDateTime from) {
     this.from = from;
   }
 
