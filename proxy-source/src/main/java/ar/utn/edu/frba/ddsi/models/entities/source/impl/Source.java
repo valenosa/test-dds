@@ -1,6 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +27,9 @@ public class Source implements IEventSource {
   }
 
   @Override
-  public Set<Event> fetchEvents() {
-    Set<Event> events = this.api.importEvents();
-    //TODO Actualizar lastUpdate = LocalDate.now()
-    //TODO validar updated_at con lastUpdate y dado el caso poner event.isModified(true)
-    return events;
+  public Set<Event> importEvents(LocalDateTime lastUpdate) {
+    return this.api.importEvents(lastUpdate);
   }
+
 }
 
