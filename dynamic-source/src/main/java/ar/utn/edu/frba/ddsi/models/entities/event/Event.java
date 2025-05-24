@@ -5,7 +5,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,8 +27,8 @@ public class Event {
   private Double longitude;
 
   //-- Fechas
-  private LocalDate eventDate;
-  private final LocalDate uploadDate;
+  private LocalDateTime eventDate;
+  private final LocalDateTime uploadDate;
 
   //-- Submmision (Dynamic-Source)
   private final String contributor; //TODO: Esto deberia ser un usuario
@@ -37,7 +37,6 @@ public class Event {
 
   //-- Extras
   @Setter
-  private boolean newOrModified;
   private boolean deleted;
 
   public static Event from(EventCreationDTO dto){
@@ -58,7 +57,7 @@ public class Event {
                Category category,
                Double latitude,
                Double longitude,
-               LocalDate eventDate,
+               LocalDateTime eventDate,
                Origin origin,
                String contributor) {
     this.title = title;
@@ -67,11 +66,9 @@ public class Event {
     this.latitude = latitude;
     this.longitude = longitude;
     this.eventDate = eventDate;
-    this.uploadDate = LocalDate.now();
+    this.uploadDate = LocalDateTime.now();
     this.origin = origin;
     this.contributor = contributor;
-
-    this.newOrModified = true;
     this.deleted = false;
     this.state = SubmissionState.PENDING;
   }
@@ -83,11 +80,14 @@ public class Event {
     this.latitude = dto.getLatitude();
     this.longitude = dto.getLongitude();
     this.eventDate = dto.getEventDate();
-    this.setNewOrModified(true);
   }
 
-  public boolean isValid() {
-    return !this.deleted && (this.state == SubmissionState.ACCEPTED || this.state == SubmissionState.ACCEPTED_WITH_SUGGESTIONS);
+  public boolean isAccepted() {
+    return this.state == SubmissionState.ACCEPTED || this.state == SubmissionState.ACCEPTED_WITH_SUGGESTIONS;
+  }
+
+  public boolean isPending() {
+    return this.state == SubmissionState.PENDING;
   }
 
 }
