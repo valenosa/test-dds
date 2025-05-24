@@ -1,8 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.dtos.input;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
-import java.time.LocalDate;
-import java.util.Set;
+import java.time.LocalDate;;
 import lombok.Data;
 
 @Data

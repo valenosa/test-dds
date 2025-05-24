@@ -2,46 +2,41 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
+import lombok.Setter;
 
 @Getter
 public class Event {
 
-  //-- Identificador
-  @Setter  private EventKey id;
-  private final Long sourceId;
+  //-- Internal Id
+  @Setter private Long id;
 
-  //-- Description
+  //-- Exteral Ids
+  private final Long sourceId;
+  private final Long inSourceEventId;
+  private final Origin sourceEventOrigin;
+
+  //-- Event Info
   private final String title;
   private final String description;
   private final Category category;
-
-  //-- Ubicacion
   private final Double latitude;
   private final Double longitude;
-
-  //-- Fechas
   private final LocalDate eventDate;
-  private final LocalDate uploadDate;
 
   //-- Funcionales
-  private boolean newOrModified;
-  private boolean deleted;
   public Set<Tag> tags;
+  private final LocalDate uploadDate;
+  private boolean deleted;
 
   public static Event from(EventInputDTO dto){
-
-    EventKey eventKey = new EventKey(dto.getId(),dto.getOrigin());
-
-    Event event = new Event(
+    return new Event(
         dto.getTitle(),
         dto.getDescription(),
         new Category(dto.getCategory()), //TODO: Ver que onda esto por ahora hardcodeo pera poder continuar
@@ -49,12 +44,10 @@ public class Event {
         dto.getLongitude(),
         dto.getEventDate(),
         dto.getUploadDate(),
-        dto.getSourceId()
+        dto.getSourceId(),
+        dto.getId(),
+        dto.getOrigin()
     );
-
-    event.setId(eventKey);
-
-    return event;
   }
 
   public Event(String title,
@@ -64,7 +57,10 @@ public class Event {
                Double longitude,
                LocalDate eventDate,
                LocalDate uploadDate,
-               Long sourceId) {
+               Long sourceId,
+               Long inSourceEventId,
+               Origin sourceEventOrigin) {
+    //Information
     this.title = title;
     this.description = description;
     this.category = category;
@@ -72,8 +68,13 @@ public class Event {
     this.longitude = longitude;
     this.eventDate = eventDate;
     this.uploadDate = uploadDate;
+
+    //External Id
     this.sourceId = sourceId;
-    this.newOrModified = true;
+    this.inSourceEventId = inSourceEventId;
+    this.sourceEventOrigin = sourceEventOrigin;
+
+    //Functional
     this.deleted = false;
     tags = new HashSet<>();
   }

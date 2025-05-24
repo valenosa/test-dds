@@ -1,33 +1,36 @@
 package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.EventKey;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
+import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
 public class EventRepository implements IEventRepository {
-    Map<EventKey, Event> events = new HashMap<>();
+    Map<Long, Event> events = new HashMap<>();
+    private final AtomicLong idGenerator = new AtomicLong(1);
 
     @Override
     public void save(Event event) {
-        events.put(event.getId(), event);
+        //Internal Id
+        if (event.getId() == null) {
+            Long id = idGenerator.getAndIncrement();
+            event.setId(id);
+            events.put(id, event);
+        } else {
+            events.put(event.getId(), event);
+        }
     }
 
     @Override
     public List<Event> findAll() {
-        return new ArrayList<>(events.values());
+        return events.values().stream().toList();
     }
 
     @Override
-    public List<Event> findAllById(Set<EventKey> eventIds) {
-        return eventIds.stream().map(id -> events.get(id)).toList();
-    }
-
-    @Override
-    public List<Event> findByNewOrModified() {
-        return events.values().stream().filter(Event::isNewOrModified).toList();
+    public Event findById(Long id) {
+        return events.get(id);
     }
 }
