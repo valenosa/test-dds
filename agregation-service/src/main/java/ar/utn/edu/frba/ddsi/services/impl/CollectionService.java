@@ -10,9 +10,12 @@ import ar.utn.edu.frba.ddsi.models.repositories.ICollectionRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.ICollectionService;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +29,18 @@ public class CollectionService implements ICollectionService {
   ICollectionRepository collectionRepository;
 
   @Override
-  public void create(CollectionCreationDTO collectionDto) {
-    Collection collection = Collection.from(collectionDto);
+  public void create( CollectionCreationDTO collectionDto) {
+    Collection collection = this.fillCollection(Collection.from(collectionDto));
+
     collectionRepository.save(collection);
+  }
+
+  private Collection fillCollection(Collection collection) {
+
+    List<Event> sourceEvents = collection.getSourceIds().stream().map(eventRepository::findBySourceKey).flatMap(List::stream).toList();
+    collection.refresh(sourceEvents);
+
+    return collection;
   }
 
   @Override
@@ -48,19 +60,22 @@ public class CollectionService implements ICollectionService {
     return events.stream().map(EventOutputDTO::from).toList();
   }
 
-  @Override
-  public void refreshCollections() {
-    List<Collection> allColections = collectionRepository.findAll();
 
-    allColections.forEach(this::refreshCollection);
-    collectionRepository.saveAll(allColections);
+  @Override
+  public void refreshCollections(LocalDateTime lastUpdate) {
+    List<Event> newOrModifiedEvents = eventRepository.findAfterDate(lastUpdate);
+    collectionRepository.findAll().forEach(col -> refreshCollection(col,newOrModifiedEvents));
   }
 
-  private void refreshCollection(Collection collection) {
-    //Necesito Recuperar los eventos que pertenezcan a una source en especifico (Recordar que los SourceIds pueden estar duplicados entre Tipos de source (PROXY,STATIC,DYNAMIC))
-    //Puede que tener un idEvent asignado por el agragador y despues usar cono Id Source los capos (Origin y SourceId)
-    //List<Event> newEvents = eventRepository.findNewOrModifiedBySources(collection.getSourceIds());
+  private void refreshCollection(Collection collection, List<Event> newOrModifiedEvents) {
+    List<Event> newEventsFromCollectionSources = newOrModifiedEvents.stream()
+        .filter(event -> collection.getSourceIds().stream()
+            .anyMatch(event::isFromSource))
+        .toList();
 
+    collection.refresh(newEventsFromCollectionSources);
+
+    collectionRepository.save(collection);
   }
 }
 

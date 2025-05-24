@@ -2,6 +2,7 @@ package ar.utn.edu.frba.ddsi.models.dtos.input;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import java.time.LocalDate;;
+import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
@@ -14,6 +15,6 @@ public class EventInputDTO {
     String category;
     Double latitude;
     Double longitude;
-    LocalDate eventDate;
-    LocalDate uploadDate;
+    LocalDateTime eventDate;
+    LocalDateTime uploadDate;
 }

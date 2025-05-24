@@ -32,10 +32,11 @@ public class Collection {
     this.title = title;
     this.description = description;
     this.collectionCriteria = collectionCriteria;
+    //TODO: Agregar las sourceIds
   }
 
-  public void refreshCollection(List<Event> newOrModifiedEvents){
-      newOrModifiedEvents.forEach(this::addOrRemove);
+  public void refresh(List<Event> newEvents) {
+    newEvents.forEach(this::addOrRemove);
   }
 
   private void addOrRemove(Event event) {
@@ -49,6 +50,4 @@ public class Collection {
       eventsIds.remove(event.getId());
     }
   }
-
-  //TODO: getHechos(filtros...) como sobrecarga que permita obtener hechos filtrados
 }

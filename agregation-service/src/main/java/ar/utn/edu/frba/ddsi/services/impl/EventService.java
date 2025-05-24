@@ -16,6 +16,6 @@ public class EventService implements IEventService {
 
     @Override
     public List<EventOutputDTO> getEvents() {
-        return eventRepository.findAll().stream().map(EventOutputDTO::from).toList();
+        return eventRepository.findByDeleted(false).stream().map(EventOutputDTO::from).toList();
     }
 }

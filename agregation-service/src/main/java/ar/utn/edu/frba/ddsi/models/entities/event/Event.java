@@ -1,9 +1,12 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -28,11 +31,11 @@ public class Event {
   private final Category category;
   private final Double latitude;
   private final Double longitude;
-  private final LocalDate eventDate;
+  private final LocalDateTime eventDate;
 
   //-- Funcionales
   public Set<Tag> tags;
-  private final LocalDate uploadDate;
+  private final LocalDateTime uploadDate;
   private boolean deleted;
 
   public static Event from(EventInputDTO dto){
@@ -55,8 +58,8 @@ public class Event {
                Category category,
                Double latitude,
                Double longitude,
-               LocalDate eventDate,
-               LocalDate uploadDate,
+               LocalDateTime eventDate,
+               LocalDateTime uploadDate,
                Long sourceId,
                Long inSourceEventId,
                Origin sourceEventOrigin) {
@@ -81,6 +84,13 @@ public class Event {
 
   public void markAsDeleted() {
     this.deleted = true;
+  }
+
+  public boolean isFromSource(SourceKey sourceKey) {
+    return
+        Objects.equals(this.sourceId, sourceKey.getSourceId())
+            &&
+            Objects.equals(this.sourceEventOrigin, sourceKey.getSourceType());
   }
 
 }
