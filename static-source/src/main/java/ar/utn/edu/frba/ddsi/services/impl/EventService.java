@@ -5,10 +5,8 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.IEventService;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +17,13 @@ public class EventService implements IEventService {
   IEventRepository eventRepository;
 
   @Override
-  public List<EventOutputDTO> getEvents() {
+  public List<EventOutputDTO> getEvents(LocalDateTime lastUpdate) {
 
-    Set<Event> events = eventRepository.findAll().stream().filter(e-> (!e.isDeleted() && e.isNewOrModified())).collect(Collectors.toSet());
+    if (lastUpdate != null) {
+      return eventRepository.findAfterDate(lastUpdate).stream().map(EventOutputDTO::from).toList();
+    }
 
-    //Actualizo que los eventos ya fueron enviados
-    events.forEach(e-> e.setNewOrModified(false));
-    eventRepository.save(events);
-
-    return events.stream().map(EventOutputDTO::from).toList();
+    return eventRepository.findByDeleted(false).stream().map(EventOutputDTO::from).toList();
   }
 
   @Override

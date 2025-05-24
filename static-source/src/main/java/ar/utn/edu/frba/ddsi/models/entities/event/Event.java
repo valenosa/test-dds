@@ -2,7 +2,7 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,8 +25,8 @@ public class Event {
   private final Double longitude;
 
   //-- Fechas
-  private final LocalDate eventDate;
-  private final LocalDate uploadDate;
+  private final LocalDateTime eventDate;
+  private final LocalDateTime uploadDate;
 
   //-- Funcionales
   @Setter
@@ -38,7 +38,7 @@ public class Event {
                Category category,
                Double latitude,
                Double longitude,
-               LocalDate eventDate,
+               LocalDateTime eventDate,
                Origin origin, Long sourceId) {
     this.title = title;
     this.description = description;
@@ -46,7 +46,7 @@ public class Event {
     this.latitude = latitude;
     this.longitude = longitude;
     this.eventDate = eventDate;
-    this.uploadDate = LocalDate.now();
+    this.uploadDate = LocalDateTime.now();
     this.origin = origin;
     this.sourceId = sourceId;
     this.newOrModified = true;

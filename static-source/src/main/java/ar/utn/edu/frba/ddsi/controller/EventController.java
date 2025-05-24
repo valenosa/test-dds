@@ -2,11 +2,13 @@ package ar.utn.edu.frba.ddsi.controller;
 
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.EventService;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -21,8 +23,8 @@ public class EventController {
   }
 
   @GetMapping
-  public List<EventOutputDTO> getEvents() {
-    return eventService.getEvents();
+  public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate ) {
+    return eventService.getEvents(lastUpdate);
   }
 
   @DeleteMapping("/{eventId}")

@@ -28,8 +28,8 @@ public class SourceService implements ISourceService {
     Source source = Source.from(dto);
 
     Set<Event> importedEvents = source.importEvents();
-    eventRepository.save(importedEvents);
 
+    importedEvents.forEach(eventRepository::save);
     sourceRepository.save(source);
 
     return SourceOutputDTO.from(source);
