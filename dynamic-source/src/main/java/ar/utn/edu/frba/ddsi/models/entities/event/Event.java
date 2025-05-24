@@ -28,7 +28,7 @@ public class Event {
 
   //-- Fechas
   private LocalDateTime eventDate;
-  private final LocalDateTime uploadDate;
+  private LocalDateTime uploadDate;
 
   //-- Submmision (Dynamic-Source)
   private final String contributor; //TODO: Esto deberia ser un usuario
@@ -80,6 +80,9 @@ public class Event {
     this.latitude = dto.getLatitude();
     this.longitude = dto.getLongitude();
     this.eventDate = dto.getEventDate();
+
+    //Actualiza fecha de carga a la fecha de modificacion
+    this.uploadDate = LocalDateTime.now();
   }
 
   public boolean isAccepted() {
