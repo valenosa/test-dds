@@ -11,13 +11,13 @@ import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.IDeletionRequestService;
-import ar.utn.edu.frba.ddsi.services.SpamDetector;
+import ar.utn.edu.frba.ddsi.models.entities.spamDetector.ISpamDetector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DeletionRequestService implements IDeletionRequestService, SpamDetector {
+public class DeletionRequestService implements IDeletionRequestService, ISpamDetector {
 
   @Autowired
   private IDeletionRequestRepository deletionRequestRepository;
