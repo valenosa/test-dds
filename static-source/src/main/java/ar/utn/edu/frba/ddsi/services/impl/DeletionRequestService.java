@@ -1,7 +1,6 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
-import ar.utn.edu.frba.ddsi.exceptions.SpamException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestEvaluationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.DeletionRequestOutputDTO;
@@ -11,13 +10,11 @@ import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.IDeletionRequestService;
-import ar.utn.edu.frba.ddsi.models.entities.spamDetector.ISpamDetector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
-public class DeletionRequestService implements IDeletionRequestService, ISpamDetector {
+public class DeletionRequestService implements IDeletionRequestService {
 
   @Autowired
   private IDeletionRequestRepository deletionRequestRepository;
@@ -29,8 +26,7 @@ public class DeletionRequestService implements IDeletionRequestService, ISpamDet
     //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = deletionRequestRepository.getById(evaluation.getDeletionRequestId());
-    if (deletionRequest == null)
-      throw new NotFoundException("Deletion request not found - ID: " + evaluation.getDeletionRequestId());
+    if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + evaluation.getDeletionRequestId());
 
     Event event = eventRepository.findById(deletionRequest.getEventId());
     if (event == null) throw new NotFoundException("Event not found - ID: " + deletionRequest.getEventId());
@@ -50,8 +46,7 @@ public class DeletionRequestService implements IDeletionRequestService, ISpamDet
     //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = deletionRequestRepository.getById(evaluation.getDeletionRequestId());
-    if (deletionRequest == null)
-      throw new NotFoundException("Deletion request not found - ID: " + evaluation.getDeletionRequestId());
+    if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + evaluation.getDeletionRequestId());
 
     deletionRequest.registerEvaluation(evaluation.getEvaluatorName());
     deletionRequest.setState(DeletionRequestState.REJECTED);
@@ -62,24 +57,8 @@ public class DeletionRequestService implements IDeletionRequestService, ISpamDet
   }
 
   @Override
-  public boolean isSpam(long eventId, String argument) { // Nota: lo puse public porque lo requiere la interfaz.
-    List<DeletionRequest> deletionRequests = deletionRequestRepository.getByEventId(eventId);
-
-    for (DeletionRequest deletionRequest : deletionRequests) {
-      if (deletionRequest.getArgument().equals(argument)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  @Override
   public DeletionRequestOutputDTO create(DeletionRequestCreationDTO deletionRequestCreationDTO) {
-
-    if (isSpam(deletionRequestCreationDTO.getEventId(), deletionRequestCreationDTO.getArgument())) {
-      throw new SpamException("Deletion request deleted due to spam.");
-    }
+    //TODO: Validar si el usuario puede realizar esta peticion
 
     DeletionRequest deletionRequest = DeletionRequest.from(deletionRequestCreationDTO);
 
