@@ -66,7 +66,6 @@ public class DeletionRequestService implements IDeletionRequestService {
   @Override
   public DeletionRequestOutputDTO create(DeletionRequestCreationDTO drDTO) {
 
-    //TODO: verificar si es spam
     if (spamDetector.isSpam(drDTO.getEventId(), drDTO.getArgument())) {
       throw new SpamException("Error: deletion request denied due to spam.");
     }
