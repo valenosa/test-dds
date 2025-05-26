@@ -23,7 +23,15 @@ public class CsvImporter implements IImporter {
     return "CSV";
   }
 
-  public Set<Event> importEvents(String path, Long sourceId) {
+  public Set<Event> importEvents(String fileName, Long sourceId) {
+
+    String path;
+    try {
+      path = getClass().getClassLoader().getResource("CSV/" + fileName).getPath();
+    } catch (Exception e) {
+      throw new RuntimeException("No se pudo encontrar el archivo: " + fileName, e);
+    }
+
     Set<Event> events = new HashSet<>();
 
     try (
