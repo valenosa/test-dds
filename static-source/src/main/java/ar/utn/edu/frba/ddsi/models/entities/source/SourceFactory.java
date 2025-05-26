@@ -1,9 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.CsvImporter;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,6 +20,6 @@ public class SourceFactory {
 
   public Source createFrom(SourceInputDTO dto) {
     IImporter importer = importers.get(dto.getImportStrategy());
-    return new Source(dto.getPath(), importer);
+    return new Source(dto.getFileName(), importer);
   }
 }
