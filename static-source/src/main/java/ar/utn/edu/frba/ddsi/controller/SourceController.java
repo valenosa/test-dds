@@ -4,6 +4,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.SourceService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,11 @@ public class SourceController {
   @GetMapping
   public List<Long> getSources() {
     return sourceService.getSources();
+  }
+
+  @PostMapping("{id}/import")
+  public void importSourceEvents(@PathVariable Long id) {
+    sourceService.importSourceEvents(id);
   }
 
 }

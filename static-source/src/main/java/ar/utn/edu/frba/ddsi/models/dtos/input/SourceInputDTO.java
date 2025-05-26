@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class SourceInputDTO {
+  @JsonProperty("file_name")
   String fileName;
   @JsonProperty("import_strategy")
   String importStrategy;

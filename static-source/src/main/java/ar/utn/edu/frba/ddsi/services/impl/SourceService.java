@@ -1,5 +1,6 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
+import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
@@ -31,9 +32,6 @@ public class SourceService implements ISourceService {
 
     Source source = sourceFactory.createFrom(dto);
 
-    Set<Event> importedEvents = source.importEvents();
-
-    importedEvents.forEach(eventRepository::save);
     sourceRepository.save(source);
 
     return SourceOutputDTO.from(source);
@@ -42,5 +40,16 @@ public class SourceService implements ISourceService {
   @Override
   public List<Long> getSources() {
     return sourceRepository.findAll().stream().map(Source::getId).collect(Collectors.toList());
+  }
+
+  public void importSourceEvents(Long id) {
+    Source source = sourceRepository.findById(id);
+    if (source == null) {
+      throw new NotFoundException("Source not found - ID: " + id);
+    }
+
+    Set<Event> importedEvents = source.importEvents();
+
+    importedEvents.forEach(eventRepository::save);
   }
 }

@@ -17,7 +17,6 @@ public class Source implements IEventSource {
   @Setter
   private Long id;
 
-
   private IImporter importer;
 
   private final String path;
@@ -29,6 +28,6 @@ public class Source implements IEventSource {
 
   @Override
   public Set<Event> importEvents() {
-    return this.importer.importEvents(this.path, id);
+    return this.importer.importEvents(this.path, this.id);
   }
 }
