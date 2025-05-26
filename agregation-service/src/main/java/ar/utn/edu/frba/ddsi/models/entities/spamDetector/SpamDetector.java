@@ -1,7 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.spamDetector;
 
-import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,13 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class SpamDetector implements ISpamDetector {
-
-  @Autowired
-  private IDeletionRequestRepository deletionRequestRepository;
 
   private final Set<String> SPANISH_STOPWORDS = Set.of(
       "a", "al", "algo", "algunas", "algunos", "ante", "antes", "como", "con", "contra",
@@ -33,18 +29,13 @@ public class SpamDetector implements ISpamDetector {
   );
 
   @Override
-  public boolean isSpam(long eventId, String argument) {
+  public boolean isSpam(List<DeletionRequest> eventDeletionRequests, String argument) {
     String[] processedArgument = preprocess(argument);
 
-    // Get all the arguments from dr of the same event.
-    List<String[]> processedEventArguments = deletionRequestRepository.getByEventId(eventId).stream()
+    // Get all the arguments from dr's of the same event.
+    List<String[]> processedEventArguments = eventDeletionRequests.stream()
         .map(dr -> preprocess(dr.getArgument()))
         .collect(Collectors.toList());
-
-    // If there aren't previous DR, can't be spam.
-    if (processedEventArguments.isEmpty()) {
-      return false;
-    }
 
     processedEventArguments.add(processedArgument); // include given argument to calculate idf.
 
