@@ -7,27 +7,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ar.utn.edu.frba.ddsi.services.impl.SourceService;
+import ar.utn.edu.frba.ddsi.services.impl.EventService;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/source")
-public class SourceController {
+@RequestMapping("/events")
+public class EventController {
 
   @Autowired
-  private SourceService sourceService;
+  private EventService eventService;
 
-  @GetMapping("/events")
+  @GetMapping
   public List<EventOutputDTO> getEvents(@RequestBody(required = false) LocalDateTime lastUpdate) { //TODO LocalDateTime -> ZonedDateTime
-    return sourceService.getEvents(lastUpdate);
+    return eventService.getEvents(lastUpdate);
   }
 
+  //TODO Pasar a SourceController
   @PostMapping("/meta-mapa")
   public void create() {
-    // TODO Crear fuente proxy de tipo metaMapa
+    //TODO Crear fuente proxy de tipo metaMapa
   }
 
   //TODO getEventsByAPI?

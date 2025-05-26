@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class SourceService implements ISourceService {
+public class EventService implements ISourceService {
 
   @Autowired
   ISourceRepository sourceRepository;
