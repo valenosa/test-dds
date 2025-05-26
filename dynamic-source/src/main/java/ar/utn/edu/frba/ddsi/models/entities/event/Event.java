@@ -93,4 +93,7 @@ public class Event {
     return this.state == SubmissionState.PENDING;
   }
 
+  public void markAsDeleted() {
+    this.deleted = true;
+  }
 }

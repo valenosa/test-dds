@@ -59,4 +59,14 @@ public class EventService implements IEventService {
     event.updateWith(dto);
     eventRepository.save(event);
   }
+
+  @Override
+  public EventOutputDTO deleteEvent(Long eventId) {
+    Event event = eventRepository.findById(eventId);
+    if (event == null) throw new NotFoundException("Event not found - Id: " + eventId);
+
+    event.markAsDeleted();
+    eventRepository.save(event);
+    return EventOutputDTO.from(event);
+  }
 }

@@ -7,11 +7,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IEventService {
-  public List<EventOutputDTO> getEvents(LocalDateTime lastUpdate);
+  List<EventOutputDTO> getEvents(LocalDateTime lastUpdate);
 
-  public List<EventOutputDTO> getPendingEvents();
+  List<EventOutputDTO> getPendingEvents();
 
-  public void save(EventCreationDTO dto);
+  void save(EventCreationDTO dto);
 
-  public void update(EventUpdateDTO dto);
+  void update(EventUpdateDTO dto);
+
+  EventOutputDTO deleteEvent(Long eventId);
 }
