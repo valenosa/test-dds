@@ -16,4 +16,12 @@ public interface IEventRepository {
   List<Event> findAfterDate(LocalDateTime lastUpdate);
 
   List<Event> findBySourceKey(SourceKey sourceKey);
+
+  List<Event> findFiltered(
+      String category,
+      LocalDateTime untilUploadDate,
+      LocalDateTime fromUploadDate,
+      LocalDateTime untilEventDate,
+      LocalDateTime fromEventDate
+  );
 }

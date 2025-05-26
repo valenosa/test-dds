@@ -45,4 +45,15 @@ public class EventRepository implements IEventRepository {
   public List<Event> findBySourceKey(SourceKey sourceKey) {
     return this.findByDeleted(false).stream().filter(e-> e.isFromSource(sourceKey)).toList();
   }
+
+  @Override
+  public List<Event> findFiltered(String category, LocalDateTime untilUploadDate, LocalDateTime fromUploadDate, LocalDateTime untilEventDate, LocalDateTime fromEventDate) {
+    return this.findByDeleted(false).stream()
+        .filter(e -> (category == null || e.getCategory().getName().equals(category)))
+        .filter(e -> (untilUploadDate == null || e.getUploadDate().isBefore(untilUploadDate)))
+        .filter(e -> (fromUploadDate == null || e.getUploadDate().isAfter(fromUploadDate)))
+        .filter(e -> (untilEventDate == null || e.getEventDate().isBefore(untilEventDate)))
+        .filter(e -> (fromEventDate == null || e.getEventDate().isAfter(fromEventDate)))
+        .toList();
+  }
 }
