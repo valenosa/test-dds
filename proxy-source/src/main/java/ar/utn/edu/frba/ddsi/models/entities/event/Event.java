@@ -32,7 +32,8 @@ public class Event {
   //-- Funcionales
   private boolean deleted;
 
-  public Event(String title,
+  public Event(Long id,
+               String title,
                String description,
                Category category,
                Double latitude,
@@ -40,6 +41,7 @@ public class Event {
                LocalDateTime eventDate,
                LocalDateTime updateDate,
                Origin origin) {
+    this.id = id;
     this.title = title;
     this.description = description;
     this.category = category;
@@ -54,6 +56,7 @@ public class Event {
   public static Event from(ExternalDisasterDTO externalDisaster) {
     //TODO crear evento. Debería tener updated_at
     return new Event(
+        externalDisaster.getId(),
         externalDisaster.getTitulo(),
         externalDisaster.getDescripcion(),
         new Category(externalDisaster.getCategoria()),

@@ -2,22 +2,25 @@ package ar.utn.edu.frba.ddsi.models.external;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.ExternalDisasterDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class EventPage {
-  private Set<ExternalDisasterDTO> data;
+  @JsonProperty("data")
+  private List<ExternalDisasterDTO> data;
+
+  @JsonProperty("next_page_url")
   private String next_page_url;
 
-  public Set<Event> getEvents(LocalDateTime lastUpdate) {
+  public List<Event> getEvents(LocalDateTime lastUpdate) {
     //TODO Manejar caso data null
     return data
         .stream()
         .map(Event::from)
         .filter(event -> lastUpdate == null || event.isOutdated(lastUpdate))
-        .collect(Collectors.toSet());
+        .toList();
   }
 
   public String getNextPageUrl() {
