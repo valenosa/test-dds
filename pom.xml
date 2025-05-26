@@ -23,6 +23,7 @@
 	</developers>
     <modules>
         <module>static-source</module>
+        <module>dynamic-source</module>
     </modules>
     <scm>
 		<connection/>
