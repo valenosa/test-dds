@@ -3,6 +3,7 @@ package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class Source implements IEventSource {
   }
 
   @Override
-  public Set<Event> importEvents(LocalDateTime lastUpdate) {
+  public List<Event> importEvents(LocalDateTime lastUpdate) {
     return this.api.importEvents(lastUpdate);
   }
 

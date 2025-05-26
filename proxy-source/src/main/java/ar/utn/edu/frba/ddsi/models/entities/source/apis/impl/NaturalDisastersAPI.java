@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -42,8 +44,8 @@ public class NaturalDisastersAPI implements IAPI {
   }
 
   @Override
-  public Set<Event> importEvents(LocalDateTime lastUpdate) {
-    Set<Event> events = new HashSet<>();
+  public List<Event> importEvents(LocalDateTime lastUpdate) {
+    List<Event> events = new ArrayList<>();
     int currentPage = 1;
 
     while (true) {
