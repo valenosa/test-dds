@@ -5,5 +5,6 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.util.Set;
 
 public interface IImporter {
-  Set<Event> importEvents(String path);
+  Set<Event> importEvents(String path, Long sourceId);
+  String getType();
 }

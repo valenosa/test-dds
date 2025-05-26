@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -18,7 +19,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class CsvImporter implements IImporter {
 
-  public Set<Event> importEvents(String path) {
+  public String getType() {
+    return "CSV";
+  }
+
+  public Set<Event> importEvents(String fileName, Long sourceId) {
+
+    String path;
+    try {
+      path = getClass().getClassLoader().getResource("CSV/" + fileName).getPath();
+    } catch (Exception e) {
+      throw new RuntimeException("No se pudo encontrar el archivo: " + fileName, e);
+    }
+
     Set<Event> events = new HashSet<>();
 
     try (
@@ -36,11 +49,11 @@ public class CsvImporter implements IImporter {
         Category category = new Category(row[2]);
         Double latitude = Double.parseDouble(row[3]);
         Double longitude = Double.parseDouble(row[4]);
-        LocalDate eventDate = null;
-        Origin origin = Origin.DATASET;
+        LocalDateTime eventDate = null;
+        Origin origin = Origin.STATIC;
 
         try {
-          eventDate = LocalDate.parse(row[5], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+          eventDate = LocalDate.parse(row[5], DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay(); //TODO: Los csv tienen LocalDateTime o LocalDate?
         } catch (Exception e) {
           System.out.println("Invalid Date in row: " + Arrays.toString(row));
         }
@@ -52,7 +65,8 @@ public class CsvImporter implements IImporter {
             latitude,
             longitude,
             eventDate,
-            origin);
+            origin,
+            sourceId);
 
         events.add(event);
       }

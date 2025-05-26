@@ -2,9 +2,9 @@ package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.source.SourceFactory;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
@@ -24,13 +24,13 @@ public class SourceService implements ISourceService {
   @Autowired
   private IEventRepository eventRepository;
 
+  @Autowired
+  private SourceFactory sourceFactory;
+
   @Override
   public SourceOutputDTO create(SourceInputDTO dto) {
 
-    Source source = Source.from(dto);
-
-    Set<Event> importedEvents = source.fetchEvents();
-    eventRepository.save(importedEvents);
+    Source source = sourceFactory.createFrom(dto);
 
     sourceRepository.save(source);
 
@@ -42,27 +42,14 @@ public class SourceService implements ISourceService {
     return sourceRepository.findAll().stream().map(Source::getId).collect(Collectors.toList());
   }
 
-  @Override
-  public List<EventOutputDTO> getEvents() {
-    return eventRepository.findAll().stream().map(EventOutputDTO::from).collect(Collectors.toList());
-  }
-
-  @Override
-  public List<EventOutputDTO> findEventsBySource(Long sourceId) {
-
-    Source source = sourceRepository.findById(sourceId);
+  public void importSourceEvents(Long id) {
+    Source source = sourceRepository.findById(id);
     if (source == null) {
-      throw new NotFoundException("Source not found - ID: " + sourceId);
+      throw new NotFoundException("Source not found - ID: " + id);
     }
 
-    List<Event> events = eventRepository.findAll(source.getEventsIds());
-    List<EventOutputDTO> eventsOutput = events.stream().map(this::eventOutputDTO).toList();
+    Set<Event> importedEvents = source.importEvents();
 
-    return eventsOutput;
-
-  }
-
-  private EventOutputDTO eventOutputDTO(Event event){
-    return EventOutputDTO.from(event);
+    importedEvents.forEach(eventRepository::save);
   }
 }

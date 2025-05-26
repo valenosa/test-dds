@@ -2,11 +2,10 @@ package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
@@ -27,23 +26,13 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
-  public void save(Set<Event> events) {
-    events.forEach(this::save);
-  }
-
-  @Override
-  public List<Event> findAll() {
-    return new ArrayList<>(events.values());
-  }
-
-  @Override
-  public List<Event> findAll(Set<Long> ids) {
-    return ids.stream().map(id -> events.get(id)).toList();
-  }
-
-  @Override
   public List<Event> findByDeleted(boolean deleted) {
     return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
+  }
+
+  @Override
+  public List<Event> findAfterDate(LocalDateTime lastUpdate) {
+    return this.findByDeleted(false).stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
   }
 
   public Event findById(Long eventId) {
