@@ -43,7 +43,7 @@ public class Event {
     return new Event(
         dto.getTitle(),
         dto.getDescription(),
-        dto.getCategory(),
+        new Category(dto.getCategory()), //TODO: Manejar Categorias
         dto.getLatitude(),
         dto.getLongitude(),
         dto.getEventDate(),
@@ -76,7 +76,7 @@ public class Event {
   public void updateWith(EventUpdateDTO dto){
     this.title = dto.getTitle();
     this.description = dto.getDescription();
-    this.category = dto.getCategory();
+    this.category = new Category(dto.getCategory()); //TODO: Manejar Categorias
     this.latitude = dto.getLatitude();
     this.longitude = dto.getLongitude();
     this.eventDate = dto.getEventDate();

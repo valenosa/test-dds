@@ -1,6 +1,5 @@
 package ar.utn.edu.frba.ddsi.models.dtos.input;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import java.time.LocalDateTime;
 import lombok.Data;
 
@@ -11,7 +10,7 @@ public class EventUpdateDTO {
 
   String title;
   String description;
-  Category category;
+  String category;
   Double latitude;
   Double longitude;
   LocalDateTime eventDate;

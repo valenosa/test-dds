@@ -2,17 +2,18 @@ package ar.utn.edu.frba.ddsi.controllers;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SubmissionEvaluationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import ar.utn.edu.frba.ddsi.services.ISubmissionReviewService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller("api/submission")
+@RestController
+@RequestMapping("api/submission")
 public class SubmissionRequestController {
 
   @Autowired
