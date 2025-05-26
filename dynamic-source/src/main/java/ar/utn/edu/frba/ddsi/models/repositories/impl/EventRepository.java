@@ -26,13 +26,28 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
+  public List<Event> findAll() {
+    return events.values().stream().toList();
+  }
+
+  @Override
   public List<Event> findByDeleted(boolean deleted) {
     return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
   }
 
   @Override
+  public List<Event> findByAccepted(){
+    return this.findByDeleted(false).stream().filter(Event:: isAccepted).toList();
+  }
+
+  @Override
+  public List<Event> findByPending() {
+    return events.values().stream().filter(Event::isPending).toList();
+  }
+
+  @Override
   public List<Event> findAfterDate(LocalDateTime lastUpdate) {
-    return this.findByDeleted(false).stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
+    return this.findByAccepted().stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
   }
 
   public Event findById(Long eventId) {

@@ -24,6 +24,7 @@
     <modules>
         <module>static-source</module>
         <module>proxy-source</module>
+        <module>dynamic-source</module>
     </modules>
     <scm>
 		<connection/>
