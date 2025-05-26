@@ -7,7 +7,6 @@ import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +95,7 @@ class EventRepositoryTest {
         Origin.STATIC,
         3L
     );
+
     eventRepository.save(event3);
 
     var event = eventRepository.findById(3L);
@@ -104,10 +104,16 @@ class EventRepositoryTest {
 
     var events = eventRepository.findByDeleted(false);
 
+    var deletedEvents = eventRepository.findByDeleted(true);
+
     assertNotNull(events);
     assertEquals(2, events.size());
     assertEquals(event1, events.get(0));
     assertEquals(event2, events.get(1));
+
+    assertNotNull(deletedEvents);
+    assertEquals(1, deletedEvents.size());
+    assertEquals(event3, deletedEvents.get(0));
   }
 
 }
