@@ -1,8 +1,8 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +10,10 @@ import lombok.Setter;
 @Getter
 public class Event {
 
-  @Setter
-  private Long id;
+  //-- Identificador
+  @Setter private Long id;
+  @Setter private Long sourceId;
+  private final Origin origin;
 
   //-- Description
   private final String title;
@@ -23,44 +25,32 @@ public class Event {
   private final Double longitude;
 
   //-- Fechas
-  private final LocalDate eventDate;
-  private final LocalDate uploadDate;
+  private final LocalDateTime eventDate;
+  private final LocalDateTime uploadDate;
 
-  //-- Extras
+  //-- Funcionales
   private boolean deleted;
-  private final Origin origin;
-  public Set<Tag> tags;
 
   public Event(String title,
                String description,
                Category category,
                Double latitude,
                Double longitude,
-               LocalDate eventDate,
-               LocalDate uploadDate,
-               Origin origin) {
+               LocalDateTime eventDate,
+               Origin origin, Long sourceId) {
     this.title = title;
     this.description = description;
     this.category = category;
     this.latitude = latitude;
     this.longitude = longitude;
     this.eventDate = eventDate;
-    this.uploadDate = uploadDate;
+    this.uploadDate = LocalDateTime.now();
     this.origin = origin;
+    this.sourceId = sourceId;
     this.deleted = false;
-    tags = new HashSet<>();
-  }
-
-  public void addTag(Tag tag, Tag... tagsAdded) {
-    tags.add(tag);
-    if (tagsAdded != null) {
-      tags.addAll(Set.of(tagsAdded));
-    }
   }
 
   public void markAsDeleted() {
-
     this.deleted = true;
   }
-
 }
