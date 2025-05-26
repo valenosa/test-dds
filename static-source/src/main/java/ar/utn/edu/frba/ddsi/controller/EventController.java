@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/events")
+@RequestMapping("/events")
 public class EventController {
 
   private final EventService eventService;
@@ -23,12 +23,12 @@ public class EventController {
   }
 
   @GetMapping
-  public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate ) {
+  public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate) {
     return eventService.getEvents(lastUpdate);
   }
 
-  @DeleteMapping("/{eventId}")
-  public EventOutputDTO deleteEvent(@PathVariable("eventId") Long eventId) {
-    return eventService.deleteEvent(eventId);
+  @DeleteMapping("/{id}")
+  public EventOutputDTO deleteEvent(@PathVariable Long id) {
+    return eventService.deleteEvent(id);
   }
 }
