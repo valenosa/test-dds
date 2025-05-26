@@ -50,7 +50,7 @@ public class Event {
     this.deleted = false;
   }
 
-  public void markAsDeleted(){
+  public void markAsDeleted() {
     this.deleted = true;
   }
 }
