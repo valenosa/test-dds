@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 public class CollectionCreationDTO {
-  String titulo;
+  String title;
   String description;
   List<ConditionDTO> conditions;
+  List<SourceKeyDTO> sourceIds;
 }

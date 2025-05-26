@@ -2,7 +2,6 @@ package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.Collection;
 import ar.utn.edu.frba.ddsi.models.repositories.ICollectionRepository;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,7 @@ public class CollectionRepository implements ICollectionRepository {
   @Override
   public void save(Collection collection) {
     if (collection.getHandler() == null) {
-      String handler = collection.getTitle(); //TODO: verificar que es realmente el handler (por ahora tomamos el titulo de la coleccion)
+      String handler = collection.getTitle(); //TODO: verificar que es realmente el handler (por ahora tomamos el title de la coleccion)
       collection.setHandler(handler);
       collections.put(handler, collection);
     } else {
