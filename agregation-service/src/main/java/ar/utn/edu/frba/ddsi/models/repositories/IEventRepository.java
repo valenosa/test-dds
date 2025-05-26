@@ -5,7 +5,9 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface IEventRepository {
   void save(Event event);
 
