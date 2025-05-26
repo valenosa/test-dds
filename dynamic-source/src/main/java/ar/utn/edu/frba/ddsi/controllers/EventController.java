@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/event")
+@RequestMapping("events")
 public class EventController {
 
   @Autowired
@@ -36,5 +36,4 @@ public class EventController {
   public void updateEvent(@RequestBody EventUpdateDTO eventDto) {
     eventService.update(eventDto);
   }
-
 }
