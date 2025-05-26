@@ -68,9 +68,10 @@ public class NaturalDisastersAPI implements IAPI {
         .uri(uriBuilder -> uriBuilder
             .path("/api/desastres")
             .queryParam("page", currentPage)
-            .queryParam("per_page", 100)
+           .queryParam("per_page", 100)
             .build())
         .header("Authorization", "Bearer " + accessToken)
+        .header("Accept", "application/json")
         .retrieve()
         .bodyToMono(EventPage.class)
         .block();
