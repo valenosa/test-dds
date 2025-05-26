@@ -33,5 +33,5 @@ build/
 .vscode/
 
 ### Application properties ###
-proxy-source/src/main/resources/application.properties
+
 
