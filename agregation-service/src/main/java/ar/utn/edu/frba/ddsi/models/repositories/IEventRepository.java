@@ -1,0 +1,30 @@
+package ar.utn.edu.frba.ddsi.models.repositories;
+
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public interface IEventRepository {
+  void save(Event event);
+
+  List<Event> findByDeleted(boolean deleted);
+
+  Event findById(Long eventId);
+
+  //Not eliminated & After date
+  List<Event> findAfterDate(LocalDateTime lastUpdate);
+
+  //Not eliminated & SourceKey
+  List<Event> findBySourceKey(SourceKey sourceKey);
+
+  //Not eliminated & Filtered
+  List<Event> findFiltered(
+      String category,
+      LocalDateTime untilUploadDate,
+      LocalDateTime fromUploadDate,
+      LocalDateTime untilEventDate,
+      LocalDateTime fromEventDate
+  );
+}
