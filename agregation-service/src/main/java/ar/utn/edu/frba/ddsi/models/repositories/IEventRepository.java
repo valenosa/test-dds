@@ -13,10 +13,13 @@ public interface IEventRepository {
 
   Event findById(Long eventId);
 
+  //Not eliminated & After date
   List<Event> findAfterDate(LocalDateTime lastUpdate);
 
+  //Not eliminated & SourceKey
   List<Event> findBySourceKey(SourceKey sourceKey);
 
+  //Not eliminated & Filtered
   List<Event> findFiltered(
       String category,
       LocalDateTime untilUploadDate,
