@@ -5,7 +5,7 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.IImporter;
 import com.opencsv.CSVReader;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -25,18 +25,16 @@ public class CsvImporter implements IImporter {
 
   public Set<Event> importEvents(String fileName, Long sourceId) {
 
-    String path;
-    try {
-      path = getClass().getClassLoader().getResource("CSV/" + fileName).getPath();
-    } catch (Exception e) {
-      throw new RuntimeException("No se pudo encontrar el archivo: " + fileName, e);
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("CSV/" + fileName);
+    if (inputStream == null) {
+      throw new RuntimeException("No se pudo encontrar el archivo: " + fileName);
     }
 
     Set<Event> events = new HashSet<>();
 
     try (
         CSVReader reader = new CSVReader(
-            new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8)
+            new InputStreamReader(inputStream, StandardCharsets.UTF_8)
         )
     ) {
 
