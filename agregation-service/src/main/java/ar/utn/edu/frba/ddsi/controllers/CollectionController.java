@@ -47,4 +47,10 @@ public class CollectionController {
     return collectionService.getEventsFromCollection(handler, category,
         untilUploadDate, fromUploadDate, untilEventDate, fromEventDate);
   }
+
+  //! Para testear con el postman
+  @PostMapping("/refresh")
+  public void refreshCollections(LocalDateTime lastUpdate) {
+    collectionService.refreshCollections(lastUpdate);
+  }
 }
