@@ -28,7 +28,7 @@ public class EventController {
       @RequestParam(required = false) LocalDateTime fromUploadDate,
       @RequestParam(required = false) LocalDateTime untilEventDate,
       @RequestParam(required = false) LocalDateTime fromEventDate
-  ){
+  ) {
     return eventService.getEvents(category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate);
   }
 }
