@@ -61,8 +61,8 @@ public class CollectionService implements ICollectionService {
 
     Set<Long> eventsIds = collection.getEventsIds();
 
-    return eventRepository.
-        findFilteredById(eventsIds, category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate)
+    return eventRepository
+        .findFilteredById(eventsIds, category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate)
         .stream()
         .map(EventOutputDTO::from)
         .toList();
