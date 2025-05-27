@@ -107,4 +107,12 @@ public class DeletionRequestService implements IDeletionRequestService {
     }
     return reject(evaluation);
   }
+
+  @Override
+  public List<DeletionRequestOutputDTO> getAll() {
+    return deletionRequestRepository.findAll().stream()
+        .map(DeletionRequestOutputDTO::from)
+        .toList();
+  }
+
 }

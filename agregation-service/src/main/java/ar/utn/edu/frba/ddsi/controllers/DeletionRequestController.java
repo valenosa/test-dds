@@ -6,6 +6,8 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.DeletionRequestOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.DeletionRequestService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/deletion-request")
 public class DeletionRequestController {
@@ -24,5 +26,10 @@ public class DeletionRequestController {
   @PutMapping
   public DeletionRequestOutputDTO evaluate(@RequestBody DeletionRequestEvaluationDTO dto) {
     return deletionRequestService.evaluate(dto);
+  }
+
+  @GetMapping
+  public List<DeletionRequestOutputDTO> get() {
+    return deletionRequestService.getAll();
   }
 }

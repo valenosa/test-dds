@@ -27,6 +27,11 @@ public class DeletionRequestRepository implements IDeletionRequestRepository {
   }
 
   @Override
+  public List<DeletionRequest> findAll() {
+    return deletionRequests.values().stream().toList();
+  }
+
+  @Override
   public DeletionRequest getById(long id){
     return deletionRequests.get(id);
   }
