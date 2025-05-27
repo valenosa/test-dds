@@ -35,8 +35,8 @@ public class EventController {
   }
 
   @PutMapping
-  public void updateEvent(@RequestBody EventUpdateDTO eventDto) {
-    eventService.update(eventDto);
+  public EventOutputDTO updateEvent(@RequestBody EventUpdateDTO eventDto) {
+    return eventService.update(eventDto);
   }
 
   @DeleteMapping("/{id}")

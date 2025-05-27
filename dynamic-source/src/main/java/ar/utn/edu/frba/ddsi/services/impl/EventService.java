@@ -43,9 +43,8 @@ public class EventService implements IEventService {
   }
 
   @Override
-  public void update(EventUpdateDTO dto) {
+  public EventOutputDTO update(EventUpdateDTO dto) {
     //TODO: Validar si el usuario puede realizar esta peticion
-
     Event event = eventRepository.findById(dto.getEventId());
 
     if (event == null)
@@ -58,7 +57,8 @@ public class EventService implements IEventService {
       throw new IllegalStateException("Event editing window has expired. Modifications are no longer allowed");
 
     event.updateWith(dto);
-    eventRepository.save(event);
+    Event eventSaved = eventRepository.save(event);
+    return EventOutputDTO.from(eventSaved);
   }
 
   @Override

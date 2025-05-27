@@ -13,7 +13,7 @@ public interface IEventService {
 
   EventOutputDTO save(EventCreationDTO dto);
 
-  void update(EventUpdateDTO dto);
+  EventOutputDTO update(EventUpdateDTO dto);
 
   EventOutputDTO deleteEvent(Long eventId);
 }
