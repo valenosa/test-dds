@@ -52,14 +52,17 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
-  public List<Event> findFiltered(String category, LocalDateTime untilUploadDate, LocalDateTime fromUploadDate, LocalDateTime untilEventDate, LocalDateTime fromEventDate) {
-    return this.findByDeleted(false).stream()
-        .filter(e -> (category == null || e.getCategory().getName().equals(category)))
-        .filter(e -> (untilUploadDate == null || e.getUploadDate().isBefore(untilUploadDate)))
-        .filter(e -> (fromUploadDate == null || e.getUploadDate().isAfter(fromUploadDate)))
-        .filter(e -> (untilEventDate == null || e.getEventDate().isBefore(untilEventDate)))
-        .filter(e -> (fromEventDate == null || e.getEventDate().isAfter(fromEventDate)))
-        .toList();
+  public List<Event> findFiltered(
+      String category,
+      LocalDateTime untilUploadDate,
+      LocalDateTime fromUploadDate,
+      LocalDateTime untilEventDate,
+      LocalDateTime fromEventDate
+  ) {
+    return filterEvents(
+        this.findByDeleted(false),
+        category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate
+    );
   }
 
   @Override
@@ -71,7 +74,21 @@ public class EventRepository implements IEventRepository {
       LocalDateTime untilEventDate,
       LocalDateTime fromEventDate
   ) {
-    return this.findAllById(eventsIds).stream()
+    return filterEvents(
+        this.findAllById(eventsIds),
+        category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate
+    );
+  }
+
+  private List<Event> filterEvents(
+      List<Event> events,
+      String category,
+      LocalDateTime untilUploadDate,
+      LocalDateTime fromUploadDate,
+      LocalDateTime untilEventDate,
+      LocalDateTime fromEventDate
+  ) {
+    return events.stream()
         .filter(e -> (category == null || e.getCategory().getName().equals(category)))
         .filter(e -> (untilUploadDate == null || e.getUploadDate().isBefore(untilUploadDate)))
         .filter(e -> (fromUploadDate == null || e.getUploadDate().isAfter(fromUploadDate)))
