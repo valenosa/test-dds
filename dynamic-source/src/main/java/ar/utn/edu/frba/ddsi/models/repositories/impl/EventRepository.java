@@ -37,8 +37,8 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
-  public List<Event> findByAccepted(){
-    return this.findByDeleted(false).stream().filter(Event:: isAccepted).toList();
+  public List<Event> findByAccepted() {
+    return this.findByDeleted(false).stream().filter(Event::isAccepted).toList();
   }
 
   @Override
@@ -49,6 +49,18 @@ public class EventRepository implements IEventRepository {
   @Override
   public List<Event> findAfterDate(LocalDateTime lastUpdate) {
     return this.findByAccepted().stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
+  }
+
+  @Override
+  public Event delete(Event event) { //Devenota: por ahora es igual a sabe, pero repository NECESITA una funcion delete.
+    if (event.getId() == null) {
+      Long id = idGenerator.getAndIncrement();
+      event.setId(id);
+      events.put(id, event);
+    } else {
+      events.put(event.getId(), event);
+    }
+    return event;
   }
 
   public Event findById(Long eventId) {

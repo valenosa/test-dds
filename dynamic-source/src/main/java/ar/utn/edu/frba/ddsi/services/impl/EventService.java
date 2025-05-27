@@ -67,7 +67,9 @@ public class EventService implements IEventService {
     if (event == null) throw new NotFoundException("Event not found - Id: " + eventId);
 
     event.markAsDeleted();
-    eventRepository.save(event);
-    return EventOutputDTO.from(event);
+
+    Event deletedEvent = eventRepository.delete(event);
+
+    return EventOutputDTO.from(deletedEvent);
   }
 }

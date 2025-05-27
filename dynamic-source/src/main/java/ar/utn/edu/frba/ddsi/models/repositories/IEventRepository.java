@@ -21,4 +21,6 @@ public interface IEventRepository {
   List<Event> findByPending();
 
   Event findById(Long eventId);
+
+  Event delete(Event event);
 }
