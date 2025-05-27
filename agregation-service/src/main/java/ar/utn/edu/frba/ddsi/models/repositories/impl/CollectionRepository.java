@@ -15,7 +15,7 @@ public class CollectionRepository implements ICollectionRepository {
   @Override
   public void save(Collection collection) {
     if (collection.getHandler() == null) {
-      String handler = collection.getTitle(); //TODO: verificar que es realmente el handler (por ahora tomamos el title de la coleccion)
+      String handler = collection.getTitle().replaceAll(" ", "_"); //TODO: verificar que es realmente el handler (por ahora tomamos el title de la coleccion)
       collection.setHandler(handler);
       collections.put(handler, collection);
     } else {
