@@ -17,7 +17,7 @@ public class EventService implements ISourceService {
 
   @Override
   public List<EventOutputDTO> getEvents(LocalDateTime lastUpdate) {
-    return sourceRepository.findAll() //? Que onda con las proxy MetaMapa
+    return sourceRepository.findAll() //? Qué onda con las proxy MetaMapa
         .stream()
         //Obtengo todos los elementos de todas las fuentes
         .flatMap(source -> source.importEvents(lastUpdate).stream())

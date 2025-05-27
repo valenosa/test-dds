@@ -4,8 +4,8 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ar.utn.edu.frba.ddsi.services.impl.EventService;
 
@@ -20,7 +20,7 @@ public class EventController {
   private EventService eventService;
 
   @GetMapping
-  public List<EventOutputDTO> getEvents(@RequestBody(required = false) LocalDateTime lastUpdate) { //TODO LocalDateTime -> ZonedDateTime
+  public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate) {
     return eventService.getEvents(lastUpdate);
   }
 
