@@ -11,31 +11,36 @@ public enum ConditionType {
 
   CATEGORY{
     @Override
-    public ICondition toCondition(Object conditionValue) {
-      return new CategoryCondition((Category) conditionValue);
+    public ICondition toCondition(String conditionValue) {
+
+      Category category = new Category(conditionValue);
+      return new CategoryCondition(category);
     }
   },
 
   TITLE{
     @Override
-    public ICondition toCondition(Object conditionValue) {
-      return new TitleCondition((String) conditionValue);
+    public ICondition toCondition(String conditionValue) {
+
+      return new TitleCondition(conditionValue);
     }
   },
 
   FROM_DATE{
     @Override
-    public ICondition toCondition(Object conditionValue) {
-      return new FromDateCondition((LocalDateTime) conditionValue);
+    public ICondition toCondition(String conditionValue) {
+
+      return new FromDateCondition(LocalDateTime.parse(conditionValue));
     }
   },
 
   TO_DATE{
     @Override
-    public ICondition toCondition(Object conditionValue) {
-      return new UntilDateCondition((LocalDateTime) conditionValue);
+    public ICondition toCondition(String conditionValue) {
+
+      return new UntilDateCondition(LocalDateTime.parse(conditionValue));
     }
   };
 
-  public abstract ICondition toCondition(Object conditionValue);
+  public abstract ICondition toCondition(String conditionValue);
 }
