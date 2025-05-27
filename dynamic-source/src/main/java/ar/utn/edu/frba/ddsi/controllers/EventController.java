@@ -30,8 +30,8 @@ public class EventController {
   }
 
   @PostMapping
-  public void submitEvent(@RequestBody EventCreationDTO eventDto) {
-    eventService.save(eventDto);
+  public EventOutputDTO submitEvent(@RequestBody EventCreationDTO eventDto) {
+    return eventService.save(eventDto);
   }
 
   @PutMapping

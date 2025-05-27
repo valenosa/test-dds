@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface IEventRepository {
-  void save(Event event);
+  Event save(Event event);
 
   List<Event> findAll();
 

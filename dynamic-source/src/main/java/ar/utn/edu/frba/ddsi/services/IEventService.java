@@ -11,7 +11,7 @@ public interface IEventService {
 
   List<EventOutputDTO> getPendingEvents();
 
-  void save(EventCreationDTO dto);
+  EventOutputDTO save(EventCreationDTO dto);
 
   void update(EventUpdateDTO dto);
 
