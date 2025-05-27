@@ -11,11 +11,9 @@ import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.ICollectionService;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +27,7 @@ public class CollectionService implements ICollectionService {
   ICollectionRepository collectionRepository;
 
   @Override
-  public void create( CollectionCreationDTO collectionDto) {
+  public void create(CollectionCreationDTO collectionDto) {
     Collection collection = this.fillCollection(Collection.from(collectionDto));
 
     collectionRepository.save(collection);
@@ -49,22 +47,32 @@ public class CollectionService implements ICollectionService {
   }
 
   @Override
-  public List<EventOutputDTO> getEventsFromCollection(String handler) {
+  public List<EventOutputDTO> getEventsFromCollection(
+      String handler,
+      String category,
+      LocalDateTime untilUploadDate,
+      LocalDateTime fromUploadDate,
+      LocalDateTime untilEventDate,
+      LocalDateTime fromEventDate
+  ) {
+
     Collection collection = collectionRepository.findByHandler(handler);
     if (collection == null) throw new NotFoundException("Collection not found - Handler:" + handler);
 
     Set<Long> eventsIds = collection.getEventsIds();
 
-    List<Event> events = eventsIds.stream().map(eventRepository :: findById).toList();
+    return eventRepository.
+        findFilteredById(eventsIds, category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate)
+        .stream()
+        .map(EventOutputDTO::from)
+        .toList();
 
-    return events.stream().map(EventOutputDTO::from).toList();
   }
-
 
   @Override
   public void refreshCollections(LocalDateTime lastUpdate) {
     List<Event> newOrModifiedEvents = eventRepository.findAfterDate(lastUpdate);
-    collectionRepository.findAll().forEach(col -> refreshCollection(col,newOrModifiedEvents));
+    collectionRepository.findAll().forEach(col -> refreshCollection(col, newOrModifiedEvents));
   }
 
   private void refreshCollection(Collection collection, List<Event> newOrModifiedEvents) {

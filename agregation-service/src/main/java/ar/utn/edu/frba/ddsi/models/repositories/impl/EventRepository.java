@@ -37,6 +37,11 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
+  public List<Event> findAllById(Set<Long> eventIds) {
+    return events.values().stream().filter(e -> eventIds.contains(e.getId())).toList();
+  }
+
+  @Override
   public List<Event> findAfterDate(LocalDateTime lastUpdate) {
     return this.findByDeleted(false).stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
   }
@@ -49,6 +54,24 @@ public class EventRepository implements IEventRepository {
   @Override
   public List<Event> findFiltered(String category, LocalDateTime untilUploadDate, LocalDateTime fromUploadDate, LocalDateTime untilEventDate, LocalDateTime fromEventDate) {
     return this.findByDeleted(false).stream()
+        .filter(e -> (category == null || e.getCategory().getName().equals(category)))
+        .filter(e -> (untilUploadDate == null || e.getUploadDate().isBefore(untilUploadDate)))
+        .filter(e -> (fromUploadDate == null || e.getUploadDate().isAfter(fromUploadDate)))
+        .filter(e -> (untilEventDate == null || e.getEventDate().isBefore(untilEventDate)))
+        .filter(e -> (fromEventDate == null || e.getEventDate().isAfter(fromEventDate)))
+        .toList();
+  }
+
+  @Override
+  public List<Event> findFilteredById(
+      Set<Long> eventsIds,
+      String category,
+      LocalDateTime untilUploadDate,
+      LocalDateTime fromUploadDate,
+      LocalDateTime untilEventDate,
+      LocalDateTime fromEventDate
+  ) {
+    return this.findAllById(eventsIds).stream()
         .filter(e -> (category == null || e.getCategory().getName().equals(category)))
         .filter(e -> (untilUploadDate == null || e.getUploadDate().isBefore(untilUploadDate)))
         .filter(e -> (fromUploadDate == null || e.getUploadDate().isAfter(fromUploadDate)))

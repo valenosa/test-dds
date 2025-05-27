@@ -4,37 +4,47 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.CollectionOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.CollectionService;
+import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/collections")
+@RequestMapping("/collections")
 public class CollectionController {
 
-    private final CollectionService collectionService;
+  private final CollectionService collectionService;
 
-    public CollectionController(CollectionService collectionService) {
-        this.collectionService = collectionService;
-    }
+  public CollectionController(CollectionService collectionService) {
+    this.collectionService = collectionService;
+  }
 
-    @GetMapping
-    public List<CollectionOutputDTO> getCollections(){
-        return collectionService.getCollections();
-    }
+  @GetMapping
+  public List<CollectionOutputDTO> getCollections() {
+    return collectionService.getCollections();
+  }
 
-    @PostMapping
-    public void createCollection(@RequestBody CollectionCreationDTO collectionCreationDTO) {
-        collectionService.create(collectionCreationDTO);
-    }
+  @PostMapping
+  public void createCollection(@RequestBody CollectionCreationDTO collectionCreationDTO) {
+    collectionService.create(collectionCreationDTO);
+  }
 
-    @GetMapping("/{handler}/events")
-    public List<EventOutputDTO> getEventsFromCollection(@PathVariable String handler) {
-        return collectionService.getEventsFromCollection(handler);
-    }
+  @GetMapping("/{handler}/events")
+  public List<EventOutputDTO> getEventsFromCollection(
+      @PathVariable String handler,
+      @RequestParam(required = false) String category,
+      @RequestParam(required = false) LocalDateTime untilUploadDate,
+      @RequestParam(required = false) LocalDateTime fromUploadDate,
+      @RequestParam(required = false) LocalDateTime untilEventDate,
+      @RequestParam(required = false) LocalDateTime fromEventDate
+  ) {
+    return collectionService.getEventsFromCollection(handler, category,
+        untilUploadDate, fromUploadDate, untilEventDate, fromEventDate);
+  }
 }

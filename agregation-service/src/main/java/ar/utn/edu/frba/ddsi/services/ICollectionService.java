@@ -8,8 +8,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ICollectionService {
-    void create(CollectionCreationDTO collectionDto);
-    List<CollectionOutputDTO> getCollections();
-    List<EventOutputDTO> getEventsFromCollection(String handler);
-    void refreshCollections(LocalDateTime lastUpdate);
+  void create(CollectionCreationDTO collectionDto);
+
+  List<CollectionOutputDTO> getCollections();
+
+  List<EventOutputDTO> getEventsFromCollection(
+      String handler,
+      String category,
+      LocalDateTime untilUploadDate,
+      LocalDateTime fromUploadDate,
+      LocalDateTime untilEventDate,
+      LocalDateTime fromEventDate
+  );
+
+  void refreshCollections(LocalDateTime lastUpdate);
 }
