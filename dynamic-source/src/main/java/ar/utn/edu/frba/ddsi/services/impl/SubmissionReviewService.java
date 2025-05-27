@@ -2,6 +2,7 @@ package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.SubmissionEvaluationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SubmissionEvaluationOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.ISubmissionReviewService;
@@ -16,7 +17,7 @@ public class SubmissionReviewService implements ISubmissionReviewService {
 
 
   @Override
-  public void evaluate(SubmissionEvaluationDTO submissionEvaluation) {
+  public SubmissionEvaluationOutputDTO evaluate(SubmissionEvaluationDTO submissionEvaluation) {
 
     //TODO: Validar si el usuario puede realizar esta peticion
 
@@ -26,6 +27,7 @@ public class SubmissionReviewService implements ISubmissionReviewService {
     event.setState(submissionEvaluation.getSubmissionState());
     event.setSuggestion(submissionEvaluation.getSuggestion());
 
-    eventRepository.save(event);
+    Event eventSaved =  eventRepository.save(event);
+    return SubmissionEvaluationOutputDTO.from(eventSaved);
   }
 }

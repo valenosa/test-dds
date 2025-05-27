@@ -2,6 +2,7 @@ package ar.utn.edu.frba.ddsi.controllers;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SubmissionEvaluationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SubmissionEvaluationOutputDTO;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import ar.utn.edu.frba.ddsi.services.ISubmissionReviewService;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SubmissionRequestController {
   }
 
   @PutMapping
-  public void evaluateEvent(@RequestBody SubmissionEvaluationDTO eventDto) {
-    submissionReviewService.evaluate(eventDto);
+  public SubmissionEvaluationOutputDTO evaluateEvent(@RequestBody SubmissionEvaluationDTO eventDto) {
+    return submissionReviewService.evaluate(eventDto);
   }
 }
