@@ -1,15 +1,11 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
 import java.util.Set;
-
 import ar.utn.edu.frba.ddsi.models.entities.source.IImporter;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 public class Source implements IEventSource {
 
@@ -19,6 +15,7 @@ public class Source implements IEventSource {
 
   private IImporter importer;
 
+  @Getter
   private final String path;
 
   public Source(String path, IImporter importer) {

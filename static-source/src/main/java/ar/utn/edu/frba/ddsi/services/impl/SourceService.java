@@ -38,8 +38,8 @@ public class SourceService implements ISourceService {
   }
 
   @Override
-  public List<Long> getSources() {
-    return sourceRepository.findAll().stream().map(Source::getId).collect(Collectors.toList());
+  public List<SourceOutputDTO> getSources() {
+    return sourceRepository.findAll().stream().map(SourceOutputDTO::from).collect(Collectors.toList());
   }
 
   public void importSourceEvents(Long id) {

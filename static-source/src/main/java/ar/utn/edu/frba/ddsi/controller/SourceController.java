@@ -28,7 +28,7 @@ public class SourceController {
   }
 
   @GetMapping
-  public List<Long> getSources() {
+  public List<SourceOutputDTO> getSources() {
     return sourceService.getSources();
   }
 
