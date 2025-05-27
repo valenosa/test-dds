@@ -43,9 +43,9 @@ public class EventService implements IEventService {
   }
 
   @Override
-  public EventOutputDTO update(EventUpdateDTO dto) {
+  public EventOutputDTO update(Long eventId, EventUpdateDTO dto) {
     //TODO: Validar si el usuario puede realizar esta peticion
-    Event event = eventRepository.findById(dto.getEventId());
+    Event event = eventRepository.findById(eventId);
 
     if (event == null)
       throw new NotFoundException("Event not found - ID: " + dto.getEventId());

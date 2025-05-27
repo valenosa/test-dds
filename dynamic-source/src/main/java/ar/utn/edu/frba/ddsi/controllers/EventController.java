@@ -25,7 +25,7 @@ public class EventController {
   private IEventService eventService;
 
   @GetMapping
-  public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate ) {
+  public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate) {
     return eventService.getEvents(lastUpdate);
   }
 
@@ -34,13 +34,13 @@ public class EventController {
     return eventService.save(eventDto);
   }
 
-  @PutMapping
-  public EventOutputDTO updateEvent(@RequestBody EventUpdateDTO eventDto) {
-    return eventService.update(eventDto);
+  @PutMapping("/{eventId}")
+  public EventOutputDTO updateEvent(@PathVariable Long eventId, @RequestBody EventUpdateDTO eventDto) {
+    return eventService.update(eventId, eventDto);
   }
 
-  @DeleteMapping("/{id}")
-  public EventOutputDTO deleteEvent(@PathVariable Long id) {
-    return eventService.deleteEvent(id);
+  @DeleteMapping("/{eventId}")
+  public EventOutputDTO deleteEvent(@PathVariable Long eventId) {
+    return eventService.deleteEvent(eventId);
   }
 }

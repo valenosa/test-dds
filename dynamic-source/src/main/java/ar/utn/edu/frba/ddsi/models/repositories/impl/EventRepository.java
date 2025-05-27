@@ -53,13 +53,7 @@ public class EventRepository implements IEventRepository {
 
   @Override
   public Event delete(Event event) { //Devenota: por ahora es igual a sabe, pero repository NECESITA una funcion delete.
-    if (event.getId() == null) {
-      Long id = idGenerator.getAndIncrement();
-      event.setId(id);
-      events.put(id, event);
-    } else {
-      events.put(event.getId(), event);
-    }
+    this.save(event);
     return event;
   }
 
