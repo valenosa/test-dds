@@ -1,7 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
@@ -39,7 +38,7 @@ public class Event {
   @Setter
   private boolean deleted;
 
-  public static Event from(EventCreationDTO dto){
+  public static Event from(EventDTO dto){
     return new Event(
         dto.getTitle(),
         dto.getDescription(),
@@ -73,7 +72,7 @@ public class Event {
     this.state = SubmissionState.PENDING;
   }
 
-  public void updateWith(EventUpdateDTO dto){
+  public void updateWith(EventDTO dto){
     this.title = dto.getTitle();
     this.description = dto.getDescription();
     this.category = new Category(dto.getCategory()); //TODO: Manejar Categorias

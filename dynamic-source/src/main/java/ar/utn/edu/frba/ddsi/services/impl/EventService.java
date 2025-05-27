@@ -2,8 +2,7 @@ package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.exceptions.UnauthorizedException;
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
@@ -35,7 +34,7 @@ public class EventService implements IEventService {
   }
 
   @Override
-  public EventOutputDTO save(EventCreationDTO dto) {
+  public EventOutputDTO save(EventDTO dto) {
     //TODO: Validar si el usuario puede realizar esta peticion
     Event eventSaved = eventRepository.save(Event.from(dto));
 
@@ -43,12 +42,12 @@ public class EventService implements IEventService {
   }
 
   @Override
-  public EventOutputDTO update(Long eventId, EventUpdateDTO dto) {
+  public EventOutputDTO update(Long eventId, EventDTO dto) {
     //TODO: Validar si el usuario puede realizar esta peticion
     Event event = eventRepository.findById(eventId);
 
     if (event == null)
-      throw new NotFoundException("Event not found - ID: " + dto.getEventId());
+      throw new NotFoundException("Event not found - ID: " + eventId);
 
     if (!event.getContributor().equals(dto.getContributor()))
       throw new UnauthorizedException("Unauthorized action: event ownership mismatch");

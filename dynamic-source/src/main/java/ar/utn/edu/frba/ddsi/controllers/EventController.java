@@ -1,7 +1,6 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventCreationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventUpdateDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.EventDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.time.LocalDateTime;
@@ -30,12 +29,12 @@ public class EventController {
   }
 
   @PostMapping
-  public EventOutputDTO submitEvent(@RequestBody EventCreationDTO eventDto) {
+  public EventOutputDTO submitEvent(@RequestBody EventDTO eventDto) {
     return eventService.save(eventDto);
   }
 
   @PutMapping("/{eventId}")
-  public EventOutputDTO updateEvent(@PathVariable Long eventId, @RequestBody EventUpdateDTO eventDto) {
+  public EventOutputDTO updateEvent(@PathVariable Long eventId, @RequestBody EventDTO eventDto) {
     return eventService.update(eventId, eventDto);
   }
 

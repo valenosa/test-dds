@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class EventCreationDTO {
+public class EventDTO {
   String contributor; //TODO: Esto deberia ser un usuario
 
   String title;
