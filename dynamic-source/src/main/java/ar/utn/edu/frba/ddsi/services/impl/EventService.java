@@ -22,42 +22,43 @@ public class EventService implements IEventService {
   @Override
   public List<EventOutputDTO> getEvents(LocalDateTime lastUpdate) {
 
-    if(lastUpdate != null){
+    if (lastUpdate != null) {
       return eventRepository.findAfterDate(lastUpdate).stream().map(EventOutputDTO::from).toList();
     }
 
-    return eventRepository.findByAccepted().stream().map(EventOutputDTO :: from).toList();
+    return eventRepository.findByAccepted().stream().map(EventOutputDTO::from).toList();
   }
 
   @Override
   public List<EventOutputDTO> getPendingEvents() {
-    return eventRepository.findByPending().stream().map(EventOutputDTO :: from).toList();
+    return eventRepository.findByPending().stream().map(EventOutputDTO::from).toList();
   }
 
   @Override
-  public void save(EventCreationDTO dto) {
+  public EventOutputDTO save(EventCreationDTO dto) {
     //TODO: Validar si el usuario puede realizar esta peticion
+    Event eventSaved = eventRepository.save(Event.from(dto));
 
-    eventRepository.save(Event.from(dto));
+    return EventOutputDTO.from(eventSaved);
   }
 
   @Override
-  public void update(EventUpdateDTO dto) {
+  public EventOutputDTO update(Long eventId, EventUpdateDTO dto) {
     //TODO: Validar si el usuario puede realizar esta peticion
+    Event event = eventRepository.findById(eventId);
 
-    Event event = eventRepository.findById(dto.getEventId());
-
-    if(event == null)
+    if (event == null)
       throw new NotFoundException("Event not found - ID: " + dto.getEventId());
 
-    if(!event.getContributor().equals(dto.getContributor()))
+    if (!event.getContributor().equals(dto.getContributor()))
       throw new UnauthorizedException("Unauthorized action: event ownership mismatch");
 
-    if(event.getUploadDate().plusDays(7).isBefore(LocalDateTime.now()))
+    if (event.getUploadDate().plusDays(7).isBefore(LocalDateTime.now()))
       throw new IllegalStateException("Event editing window has expired. Modifications are no longer allowed");
 
     event.updateWith(dto);
-    eventRepository.save(event);
+    Event eventSaved = eventRepository.save(event);
+    return EventOutputDTO.from(eventSaved);
   }
 
   @Override
@@ -66,7 +67,9 @@ public class EventService implements IEventService {
     if (event == null) throw new NotFoundException("Event not found - Id: " + eventId);
 
     event.markAsDeleted();
-    eventRepository.save(event);
-    return EventOutputDTO.from(event);
+
+    Event deletedEvent = eventRepository.delete(event);
+
+    return EventOutputDTO.from(deletedEvent);
   }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface IEventRepository {
-  void save(Event event);
+  Event save(Event event);
 
   List<Event> findAll();
 
@@ -21,4 +21,6 @@ public interface IEventRepository {
   List<Event> findByPending();
 
   Event findById(Long eventId);
+
+  Event delete(Event event);
 }
