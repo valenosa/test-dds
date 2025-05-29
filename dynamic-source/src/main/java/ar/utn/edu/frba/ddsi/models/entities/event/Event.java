@@ -3,7 +3,6 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,14 +28,12 @@ public class Event {
   private LocalDateTime eventDate;
   private LocalDateTime uploadDate;
 
-  //-- Submmision (Dynamic-Source)
+  //From Dynamic
   private final String contributor; //TODO: Esto deberia ser un usuario
-  @Setter private SubmissionState state;
-  @Setter private String suggestion;
 
   //-- Extras
-  @Setter
-  private boolean deleted;
+  @Setter private boolean deleted;
+  @Setter private boolean accepted;
 
   public static Event from(EventDTO dto){
     return new Event(
@@ -65,11 +62,10 @@ public class Event {
     this.latitude = latitude;
     this.longitude = longitude;
     this.eventDate = eventDate;
+    this.contributor = contributor;
     this.uploadDate = LocalDateTime.now();
     this.origin = origin;
-    this.contributor = contributor;
     this.deleted = false;
-    this.state = SubmissionState.PENDING;
   }
 
   public void updateWith(EventDTO dto){
@@ -84,12 +80,9 @@ public class Event {
     this.uploadDate = LocalDateTime.now();
   }
 
-  public boolean isAccepted() {
-    return this.state == SubmissionState.ACCEPTED || this.state == SubmissionState.ACCEPTED_WITH_SUGGESTIONS;
-  }
-
-  public boolean isPending() {
-    return this.state == SubmissionState.PENDING;
+  public void markAsAccepted() {
+    this.accepted = true;
+    this.uploadDate = LocalDateTime.now();
   }
 
   public void markAsDeleted() {

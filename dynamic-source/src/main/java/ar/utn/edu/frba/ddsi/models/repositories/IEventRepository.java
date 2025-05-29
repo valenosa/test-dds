@@ -18,8 +18,6 @@ public interface IEventRepository {
   //Not eliminated & accepted
   List<Event> findByAccepted();
 
-  List<Event> findByPending();
-
   Event findById(Long eventId);
 
   Event delete(Event event);

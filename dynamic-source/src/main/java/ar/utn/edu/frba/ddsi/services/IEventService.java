@@ -8,11 +8,11 @@ import java.util.List;
 public interface IEventService {
   List<EventOutputDTO> getEvents(LocalDateTime lastUpdate);
 
-  List<EventOutputDTO> getPendingEvents();
-
   EventOutputDTO save(EventDTO dto);
 
   EventOutputDTO update(Long eventId, EventDTO dto);
 
   EventOutputDTO deleteEvent(Long eventId);
+
+  List<EventOutputDTO> getPendingEvents();
 }

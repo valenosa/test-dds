@@ -41,10 +41,6 @@ public class EventRepository implements IEventRepository {
     return this.findByDeleted(false).stream().filter(Event::isAccepted).toList();
   }
 
-  @Override
-  public List<Event> findByPending() {
-    return events.values().stream().filter(Event::isPending).toList();
-  }
 
   @Override
   public List<Event> findAfterDate(LocalDateTime lastUpdate) {
