@@ -24,4 +24,9 @@ public class SourceController {
   public SourceClientDTO createSource(@RequestBody SourceClientDTO sourceClient) {
     return sourceService.create(sourceClient);
   }
+
+  @GetMapping("/clients")
+  public List<SourceClientDTO> getAllClients() {
+    return sourceService.getAllClients();
+  }
 }

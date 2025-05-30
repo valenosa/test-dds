@@ -1,8 +1,7 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
-import ar.utn.edu.frba.ddsi.config.WebClientConfig;
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientDTO;
+import ar.utn.edu.frba.ddsi.models.entities.sourceClient.SourceClient;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.impl.SourceClientRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
@@ -45,6 +44,13 @@ public class SourceService implements ISourceService {
 
   private void refresh(SourceClient sourceClient) {
     this.refresh(sourceClient, null);
+  }
+
+  @Override
+  public List<SourceClientDTO> getAllClients() {
+    return sourceClientRepository.getAllClients().stream()
+        .map(SourceClientDTO::from)
+        .toList();
   }
 }
 

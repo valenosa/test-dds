@@ -8,4 +8,6 @@ public interface ISourceService {
   SourceClientDTO create(SourceClientDTO sourceClient);
 
   void refreshSources(LocalDateTime lastUpdate);
+
+  List<SourceClientDTO> getAllClients();
 }
