@@ -26,13 +26,7 @@ public class EventPage {
         .toList();
   }
 
-  public String getNextPageUrl() {
-    return next_page_url;
-  }
-
   public Integer getLastPage() {
     return last_page;
   }
-
-
 }

@@ -10,7 +10,7 @@ public class DeletionRequest {
 
   @Setter
   private Long id;
-  private Long eventId;
+  private final Long eventId;
 
   private final String argument;
   @Setter

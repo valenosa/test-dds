@@ -28,9 +28,6 @@ public class Event {
   private final LocalDateTime eventDate;
   private final LocalDateTime updateDate;
 
-  //-- Funcionales
-  private boolean deleted;
-
   public Event(Long id,
                String title,
                String description,
@@ -49,7 +46,6 @@ public class Event {
     this.eventDate = eventDate;
     this.updateDate = updateDate; //TODO Debería ser esto o created_at de la API?
     this.origin = origin;
-    this.deleted = false;
   }
 
   public static Event from(ExternalDisasterDTO externalDisaster) {

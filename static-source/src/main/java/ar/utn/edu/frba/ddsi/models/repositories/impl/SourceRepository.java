@@ -35,6 +35,4 @@ public class SourceRepository implements ISourceRepository {
   public Source findById(Long sourceId) {
     return sources.get(sourceId);
   }
-
-  ;
 }

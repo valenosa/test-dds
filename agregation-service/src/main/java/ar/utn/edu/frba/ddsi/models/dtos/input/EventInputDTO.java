@@ -4,8 +4,6 @@ import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import java.time.LocalDateTime;
 import lombok.Data;
 
-;
-
 @Data
 public class EventInputDTO {
   Long id;
