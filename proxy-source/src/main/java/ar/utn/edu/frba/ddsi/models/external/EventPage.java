@@ -14,6 +14,11 @@ public class EventPage {
   @JsonProperty("next_page_url")
   private String next_page_url;
 
+  @JsonProperty("last_page")
+  private Integer last_page;
+
+
+
   public List<Event> getEvents(LocalDateTime lastUpdate) {
     //TODO Manejar caso data null
     return data
@@ -23,7 +28,13 @@ public class EventPage {
         .toList();
   }
 
-  public String getNextPageUrl() {
+    public String getNextPageUrl() {
     return next_page_url;
   }
+
+  public Integer getLastPage() {
+    return last_page;
+  }
+
+
 }
