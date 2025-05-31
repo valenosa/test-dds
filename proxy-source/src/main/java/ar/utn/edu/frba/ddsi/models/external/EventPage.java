@@ -10,9 +10,6 @@ public class EventPage {
   @JsonProperty("data")
   private List<ExternalDisasterDTO> data;
 
-  @JsonProperty("next_page_url")
-  private String next_page_url;
-
   @JsonProperty("last_page")
   private Integer last_page;
 
