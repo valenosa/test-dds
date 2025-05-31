@@ -7,14 +7,14 @@ import lombok.Getter;
 @Getter
 public class SourceKey {
   Long sourceId;
-  Origin sourceType;
+  Long sourceClientId;
 
-  public SourceKey(Long sourceId, Origin sourceType) {
+  public SourceKey(Long sourceId, Long sourceClientId) {
     this.sourceId = sourceId;
-    this.sourceType = sourceType;
+    this.sourceClientId = sourceClientId;
   }
 
   public static SourceKey from(SourceKeyDTO dto) {
-    return new SourceKey(dto.getSourceId(), dto.getSourceType());
+    return new SourceKey(dto.getSourceId(), dto.getSourceClientId());
   }
 }

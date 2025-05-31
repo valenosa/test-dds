@@ -1,13 +1,16 @@
 package ar.utn.edu.frba.ddsi.services;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceClientOutputDTO;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ISourceService {
-  SourceClientDTO create(SourceClientDTO sourceClient);
+
+  SourceClientOutputDTO create(SourceClientInputDTO dto);
 
   void refreshSources(LocalDateTime lastUpdate);
 
-  List<SourceClientDTO> getAllClients();
+  List<SourceClientOutputDTO> getAllClients();
 }

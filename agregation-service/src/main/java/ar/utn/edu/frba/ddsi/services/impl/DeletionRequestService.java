@@ -1,6 +1,5 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
-import ar.utn.edu.frba.ddsi.config.WebClientConfig;
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.exceptions.SpamException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
@@ -10,11 +9,15 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
+import ar.utn.edu.frba.ddsi.models.entities.sourceClient.SourceClient;
 import ar.utn.edu.frba.ddsi.models.entities.spamDetector.ISpamDetector;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
+import ar.utn.edu.frba.ddsi.models.repositories.impl.SourceClientRepository;
 import ar.utn.edu.frba.ddsi.services.IDeletionRequestService;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +34,7 @@ public class DeletionRequestService implements IDeletionRequestService {
   private ISpamDetector spamDetector;
 
   @Autowired
-  WebClientConfig webClientConfig;
+  SourceClientRepository sourceClientRepository;
 
   private DeletionRequestOutputDTO accept(DeletionRequestEvaluationDTO evaluation) {
     //TODO: validate that user can do this petition.
@@ -49,9 +52,12 @@ public class DeletionRequestService implements IDeletionRequestService {
     deletionRequest.setState(DeletionRequestState.ACCEPTED);
 
     // Update in the origin source.
-    if(event.getSourceEventOrigin() != Origin.PROXY){
+    SourceClient sourceClient = sourceClientRepository.findById(event.getSourceClientId());
+    if (sourceClient == null) throw new NotFoundException("Source Client not found - ID: " + event.getSourceClientId());
+
+    if (sourceClient.getType() != Origin.PROXY) {
       try {
-        webClientConfig.getClient(event.getSourceEventOrigin()).delete().uri("/events/" + event.getId())
+        sourceClient.getWebClient().delete().uri("/events/" + event.getInSourceEventId())
             .retrieve()
             .bodyToMono(Void.class)
             .block();
@@ -70,8 +76,7 @@ public class DeletionRequestService implements IDeletionRequestService {
     //TODO: validate that user can do this petition.
 
     DeletionRequest deletionRequest = deletionRequestRepository.getById(evaluation.getDeletionRequestId());
-    if (deletionRequest == null)
-      throw new NotFoundException("Deletion request not found - ID: " + evaluation.getDeletionRequestId());
+    if (deletionRequest == null) throw new NotFoundException("Deletion request not found - ID: " + evaluation.getDeletionRequestId());
 
     deletionRequest.registerEvaluation(evaluation.getEvaluatorName());
     deletionRequest.setState(DeletionRequestState.REJECTED);

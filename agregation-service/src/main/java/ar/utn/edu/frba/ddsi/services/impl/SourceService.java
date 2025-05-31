@@ -1,12 +1,15 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceClientOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.sourceClient.SourceClient;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.impl.SourceClientRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +23,12 @@ public class SourceService implements ISourceService {
   private IEventRepository eventRepository;
 
   @Override
-  public SourceClientDTO create(SourceClientDTO dto) {
-    SourceClient client = SourceClient.from(dto);
-    sourceClientRepository.save(client);
+  public SourceClientOutputDTO create(SourceClientInputDTO dto) {
+    SourceClient client = sourceClientRepository.save(SourceClient.from(dto));
 
     this.refresh(client);
 
-    return dto;
+    return SourceClientOutputDTO.from(client);
   }
 
   @Override
@@ -47,9 +49,9 @@ public class SourceService implements ISourceService {
   }
 
   @Override
-  public List<SourceClientDTO> getAllClients() {
+  public List<SourceClientOutputDTO> getAllClients() {
     return sourceClientRepository.getAllClients().stream()
-        .map(SourceClientDTO::from)
+        .map(SourceClientOutputDTO::from)
         .toList();
   }
 }

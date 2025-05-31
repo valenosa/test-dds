@@ -5,20 +5,34 @@ import ar.utn.edu.frba.ddsi.models.repositories.ISourceClientRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class SourceClientRepository implements ISourceClientRepository {
-  Map<String, SourceClient> sourceClients = new HashMap<>(); //<url,sourceClient>
+
+  Map<Long, SourceClient> sourceClients = new HashMap<>(); //<idSourceClient,sourceClient>
+  private final AtomicLong idGenerator = new AtomicLong(1);
 
   @Override
-  public void save(SourceClient sourceClient) {
-    if (sourceClient.getUrl() == null || sourceClient.getUrl().isEmpty()) {
-      throw new IllegalArgumentException("SourceClient URL cannot be null or empty");
+  public SourceClient save(SourceClient sourceClient) {
+    if (sourceClient.getId() == null) {
+      Long id = idGenerator.getAndIncrement();
+      sourceClient.setId(id);
+      sourceClients.put(id, sourceClient);
+    } else {
+      sourceClients.put(sourceClient.getId(), sourceClient);
     }
-    sourceClients.put(sourceClient.getUrl(), sourceClient);
+    return sourceClient;
   }
 
+  @Override
+  public SourceClient findById(Long id) {
+    return sourceClients.get(id);
+  }
+
+  @Override
   public List<SourceClient> getAllClients() {
     return sourceClients.values().stream().toList();
   }
