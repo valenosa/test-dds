@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public enum ConditionType {
 
-  CATEGORY{
+  CATEGORY {
     @Override
     public ICondition toCondition(String conditionValue) {
 
@@ -18,7 +18,7 @@ public enum ConditionType {
     }
   },
 
-  TITLE{
+  TITLE {
     @Override
     public ICondition toCondition(String conditionValue) {
 
@@ -26,7 +26,7 @@ public enum ConditionType {
     }
   },
 
-  FROM_DATE{
+  FROM_DATE {
     @Override
     public ICondition toCondition(String conditionValue) {
 
@@ -34,7 +34,7 @@ public enum ConditionType {
     }
   },
 
-  TO_DATE{
+  TO_DATE {
     @Override
     public ICondition toCondition(String conditionValue) {
 

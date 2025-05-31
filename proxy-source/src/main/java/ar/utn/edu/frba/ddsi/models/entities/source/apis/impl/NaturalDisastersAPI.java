@@ -5,21 +5,17 @@ import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
 import ar.utn.edu.frba.ddsi.models.external.EventPage;
 import ar.utn.edu.frba.ddsi.models.external.LoginRequest;
 import ar.utn.edu.frba.ddsi.models.external.LoginResponse;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
 public class NaturalDisastersAPI implements IAPI {

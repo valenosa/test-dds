@@ -1,17 +1,12 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
-import java.time.LocalDate;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
+import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import lombok.Getter;
 import lombok.Setter;
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
-import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -11,8 +11,10 @@ import lombok.Setter;
 public class Event {
 
   //-- Identificador
-  @Setter private Long id;
-  @Setter private Long sourceId;
+  @Setter
+  private Long id;
+  @Setter
+  private Long sourceId;
   private final Origin origin;
 
   //-- Description

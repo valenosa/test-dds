@@ -16,7 +16,8 @@ import lombok.Setter;
 public class Event {
 
   //-- Internal Id
-  @Setter private Long id;
+  @Setter
+  private Long id;
 
   //-- Exteral Ids
   private final Long sourceId;
@@ -56,7 +57,7 @@ public class Event {
   public Event(String title,
                String description,
                Category category,
-                Origin origin,
+               Origin origin,
                Double latitude,
                Double longitude,
                LocalDateTime eventDate,

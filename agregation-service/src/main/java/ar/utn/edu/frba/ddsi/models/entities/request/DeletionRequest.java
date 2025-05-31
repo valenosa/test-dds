@@ -28,7 +28,8 @@ public class DeletionRequest {
 
   public DeletionRequest(Long eventId, String argument, String applicantName) {
 
-    if (!this.isArgumentValid(argument)) throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
+    if (!this.isArgumentValid(argument))
+      throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
 
     this.eventId = eventId;
     this.argument = argument;

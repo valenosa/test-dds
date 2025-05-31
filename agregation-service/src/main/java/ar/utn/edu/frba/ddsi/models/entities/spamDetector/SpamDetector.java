@@ -1,14 +1,14 @@
 package ar.utn.edu.frba.ddsi.models.entities.spamDetector;
 
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
-import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 @Component
 public class SpamDetector implements ISpamDetector {

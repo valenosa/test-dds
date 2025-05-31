@@ -1,9 +1,8 @@
 package ar.utn.edu.frba.ddsi.models.dtos.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
 import java.time.ZonedDateTime;
+import lombok.Data;
 
 @Data
 public class ExternalDisasterDTO {

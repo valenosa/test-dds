@@ -1,7 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.IImporter;
 import com.opencsv.CSVReader;

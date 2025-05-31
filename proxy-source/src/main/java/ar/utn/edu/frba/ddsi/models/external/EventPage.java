@@ -3,7 +3,6 @@ package ar.utn.edu.frba.ddsi.models.external;
 import ar.utn.edu.frba.ddsi.models.dtos.input.ExternalDisasterDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +17,6 @@ public class EventPage {
   private Integer last_page;
 
 
-
   public List<Event> getEvents(LocalDateTime lastUpdate) {
     //TODO Manejar caso data null
     return data
@@ -28,7 +26,7 @@ public class EventPage {
         .toList();
   }
 
-    public String getNextPageUrl() {
+  public String getNextPageUrl() {
     return next_page_url;
   }
 

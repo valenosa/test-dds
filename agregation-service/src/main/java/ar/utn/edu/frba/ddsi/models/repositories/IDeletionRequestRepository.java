@@ -7,6 +7,8 @@ public interface IDeletionRequestRepository {
   void save(DeletionRequest deletionRequest);
 
   List<DeletionRequest> findAll();
+
   DeletionRequest getById(long id);
+
   List<DeletionRequest> getByEventId(long eventId);
 }

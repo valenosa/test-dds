@@ -1,8 +1,8 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.ICondition;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 
 public class CategoryCondition implements ICondition {
   Category category;

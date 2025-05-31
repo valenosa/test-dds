@@ -1,4 +1,5 @@
 # Git Commit message Instructions
+
 Quiero que sigas las siguientes instrucciones para escribir mensajes de commit en Git:
 
 1. **Usa en el titulo el siguiente formato**:
@@ -9,7 +10,8 @@ Quiero que sigas las siguientes instrucciones para escribir mensajes de commit e
    refactor: (refactoring production code, eg. renaming a variable)
    test: (adding missing tests, refactoring tests; no production code change)
    chore: (updating grunt tasks etc; no production code change)
-2. **Usa el modo imperativo**: Escribe el mensaje como si estuvieras dando una orden, por ejemplo, "Añadir nueva funcionalidad" en lugar de "Añadido nueva funcionalidad".
+2. **Usa el modo imperativo**: Escribe el mensaje como si estuvieras dando una orden, por ejemplo, "Añadir nueva
+   funcionalidad" en lugar de "Añadido nueva funcionalidad".
 3. **Sé breve y claro**: El mensaje debe ser conciso y directo. Evita detalles innecesarios.
 4. El titulo del commit debe tener un máximo de 50 caracteres.
 5. El titulo del commit debe expresar claramente el propósito del cambio realizado.

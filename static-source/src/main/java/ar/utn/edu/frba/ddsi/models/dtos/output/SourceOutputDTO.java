@@ -1,7 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.dtos.output;
 
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
-
 import lombok.Data;
 
 @Data

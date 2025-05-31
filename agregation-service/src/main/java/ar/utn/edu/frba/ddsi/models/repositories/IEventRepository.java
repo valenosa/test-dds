@@ -2,7 +2,6 @@ package ar.utn.edu.frba.ddsi.models.repositories;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;

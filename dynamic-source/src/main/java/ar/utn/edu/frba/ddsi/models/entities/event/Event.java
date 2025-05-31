@@ -12,7 +12,8 @@ import lombok.Setter;
 public class Event {
 
   //-- Identificador
-  @Setter private Long id;
+  @Setter
+  private Long id;
   private final Origin origin;
 
   //-- Description
@@ -32,10 +33,12 @@ public class Event {
   private final String contributor; //TODO: Esto deberia ser un usuario
 
   //-- Extras
-  @Setter private boolean deleted;
-  @Setter private boolean accepted;
+  @Setter
+  private boolean deleted;
+  @Setter
+  private boolean accepted;
 
-  public static Event from(EventDTO dto){
+  public static Event from(EventDTO dto) {
     return new Event(
         dto.getTitle(),
         dto.getDescription(),
@@ -68,7 +71,7 @@ public class Event {
     this.deleted = false;
   }
 
-  public void updateWith(EventDTO dto){
+  public void updateWith(EventDTO dto) {
     this.title = dto.getTitle();
     this.description = dto.getDescription();
     this.category = new Category(dto.getCategory()); //TODO: Manejar Categorias

@@ -28,7 +28,8 @@ public class SubmissionReviewService implements ISubmissionReviewService {
     //TODO: Validar si el usuario puede realizar esta peticion
 
     SubmissionRequest submission = submissionRepository.findById(submissionEvaluation.getSubmissionId());
-    if (submission == null) throw new NotFoundException("Submission not found - ID: " + submissionEvaluation.getSubmissionId());
+    if (submission == null)
+      throw new NotFoundException("Submission not found - ID: " + submissionEvaluation.getSubmissionId());
 
     Event event = eventRepository.findById(submission.getEventId());
     if (event == null) throw new NotFoundException("Event not found - ID: " + submission.getEventId());
@@ -44,7 +45,7 @@ public class SubmissionReviewService implements ISubmissionReviewService {
         submissionEvaluation.getSuggestion()
     );
 
-    if(submission.isAccepted()){
+    if (submission.isAccepted()) {
       event.markAsAccepted();
     }
 

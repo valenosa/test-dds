@@ -10,20 +10,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class CollectionRefreshScheduler {
 
-    @Autowired
-    ICollectionService collectionService;
+  @Autowired
+  ICollectionService collectionService;
 
-    @Autowired
-    ISourceService sourceService;
+  @Autowired
+  ISourceService sourceService;
 
-    LocalDateTime lastUpdate = LocalDateTime.now();
+  LocalDateTime lastUpdate = LocalDateTime.now();
 
-    @Scheduled(cron = "${collection.refresh.cron}")
-    public void refreshCollections() {
-        sourceService.refreshSources(lastUpdate);
+  @Scheduled(cron = "${collection.refresh.cron}")
+  public void refreshCollections() {
+    sourceService.refreshSources(lastUpdate);
 
-        collectionService.refreshCollections(lastUpdate);
+    collectionService.refreshCollections(lastUpdate);
 
-        lastUpdate = LocalDateTime.now();
-    }
+    lastUpdate = LocalDateTime.now();
+  }
 }

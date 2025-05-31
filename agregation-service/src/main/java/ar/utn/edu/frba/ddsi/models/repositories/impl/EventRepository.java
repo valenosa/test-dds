@@ -4,10 +4,12 @@ import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.Source
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
-
-import java.util.*;
 
 @Repository
 public class EventRepository implements IEventRepository {
@@ -48,7 +50,7 @@ public class EventRepository implements IEventRepository {
 
   @Override
   public List<Event> findBySourceKey(SourceKey sourceKey) {
-    return this.findByDeleted(false).stream().filter(e-> e.isFromSource(sourceKey)).toList();
+    return this.findByDeleted(false).stream().filter(e -> e.isFromSource(sourceKey)).toList();
   }
 
   @Override

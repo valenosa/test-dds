@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SourceKeyDTO {
-    private Long sourceId;
-    private Long sourceClientId;
+  private Long sourceId;
+  private Long sourceClientId;
 }

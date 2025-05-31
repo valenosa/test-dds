@@ -6,5 +6,6 @@ import java.util.Set;
 
 public interface IImporter {
   Set<Event> importEvents(String path, Long sourceId);
+
   String getType();
 }

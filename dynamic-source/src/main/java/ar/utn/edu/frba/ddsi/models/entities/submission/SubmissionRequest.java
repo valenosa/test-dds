@@ -12,10 +12,14 @@ public class SubmissionRequest {
   private final Long eventId;
 
   //-- Post Evaluation
-  @Setter private LocalDateTime evaluationDate;
-  @Setter private String reviewer; //TODO: Esto deberia ser un usuario
-  @Setter private SubmissionState state;
-  @Setter private String suggestion;
+  @Setter
+  private LocalDateTime evaluationDate;
+  @Setter
+  private String reviewer; //TODO: Esto deberia ser un usuario
+  @Setter
+  private SubmissionState state;
+  @Setter
+  private String suggestion;
 
   public SubmissionRequest(Long eventId) {
 

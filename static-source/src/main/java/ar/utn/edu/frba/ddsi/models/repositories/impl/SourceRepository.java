@@ -32,7 +32,9 @@ public class SourceRepository implements ISourceRepository {
   }
 
   @Override
-  public Source findById(Long sourceId){
-    return sources.get(sourceId) ;
-  };
+  public Source findById(Long sourceId) {
+    return sources.get(sourceId);
+  }
+
+  ;
 }

@@ -2,13 +2,12 @@ package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class DeletionRequestRepository implements IDeletionRequestRepository {
@@ -17,7 +16,7 @@ public class DeletionRequestRepository implements IDeletionRequestRepository {
 
   @Override
   public void save(DeletionRequest deletionRequest) {
-    if(deletionRequest.getId() == null){
+    if (deletionRequest.getId() == null) {
       Long id = idGenerator.getAndIncrement();
       deletionRequest.setId(id);
       deletionRequests.put(id, deletionRequest);
@@ -32,12 +31,12 @@ public class DeletionRequestRepository implements IDeletionRequestRepository {
   }
 
   @Override
-  public DeletionRequest getById(long id){
+  public DeletionRequest getById(long id) {
     return deletionRequests.get(id);
   }
 
   @Override
-  public List<DeletionRequest> getByEventId(long eventId){
+  public List<DeletionRequest> getByEventId(long eventId) {
     return deletionRequests.values().stream().filter(x -> x.getEventId() == eventId).collect(Collectors.toList());
   }
 }

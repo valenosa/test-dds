@@ -18,7 +18,7 @@ public class DeletionRequestOutputDTO {
     this.state = state;
   }
 
-  public static DeletionRequestOutputDTO from(DeletionRequest dr){
-      return new DeletionRequestOutputDTO(dr.getId(),dr.getEventId(),dr.getArgument(),dr.getState());
+  public static DeletionRequestOutputDTO from(DeletionRequest dr) {
+    return new DeletionRequestOutputDTO(dr.getId(), dr.getEventId(), dr.getArgument(), dr.getState());
   }
 }

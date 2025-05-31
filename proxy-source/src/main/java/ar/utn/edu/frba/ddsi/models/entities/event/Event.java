@@ -1,10 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-
 import ar.utn.edu.frba.ddsi.models.dtos.input.ExternalDisasterDTO;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +9,10 @@ import lombok.Setter;
 @Getter
 public class Event {
 
-  @Setter private Long id;
-  @Setter private Long sourceId;
+  @Setter
+  private Long id;
+  @Setter
+  private Long sourceId;
   private final Origin origin;
 
   //-- Description
