@@ -6,12 +6,10 @@ import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDateTime;
-import java.util.Objects;
-import lombok.Getter;
-
-import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import lombok.Getter;
 import lombok.Setter;
 
 @Getter
