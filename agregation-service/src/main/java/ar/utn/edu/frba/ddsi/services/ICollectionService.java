@@ -17,7 +17,8 @@ public interface ICollectionService {
       LocalDateTime untilUploadDate,
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
+      LocalDateTime fromEventDate,
+      boolean curedNavigation
   );
 
   void refreshCollections(LocalDateTime lastUpdate);

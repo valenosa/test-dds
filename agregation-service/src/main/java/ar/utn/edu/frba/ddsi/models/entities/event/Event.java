@@ -3,10 +3,13 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import lombok.Getter;
@@ -32,6 +35,7 @@ public class Event {
   private final Double latitude;
   private final Double longitude;
   private final LocalDateTime eventDate;
+  private final List<Consensus> consensus;
 
   //-- Funcionales
   public Set<Tag> tags;
@@ -79,6 +83,7 @@ public class Event {
     this.sourceClientId = sourceClientId;
     this.sourceId = sourceId;
     this.inSourceEventId = inSourceEventId;
+    this.consensus = new ArrayList<>();
 
     //Functional
     this.deleted = false;

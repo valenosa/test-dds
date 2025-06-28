@@ -41,10 +41,11 @@ public class CollectionController {
       @RequestParam(required = false) LocalDateTime untilUploadDate,
       @RequestParam(required = false) LocalDateTime fromUploadDate,
       @RequestParam(required = false) LocalDateTime untilEventDate,
-      @RequestParam(required = false) LocalDateTime fromEventDate
+      @RequestParam(required = false) LocalDateTime fromEventDate,
+      @RequestParam(required = false) boolean curedNavigation
   ) {
     return collectionService.getEventsFromCollection(handler, category,
-        untilUploadDate, fromUploadDate, untilEventDate, fromEventDate);
+        untilUploadDate, fromUploadDate, untilEventDate, fromEventDate, curedNavigation);
   }
 
   //! Para testear con el postman

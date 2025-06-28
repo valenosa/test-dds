@@ -6,6 +6,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.CollectionOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.Collection;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
 import ar.utn.edu.frba.ddsi.models.repositories.ICollectionRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.ICollectionService;
@@ -51,7 +52,8 @@ public class CollectionService implements ICollectionService {
       LocalDateTime untilUploadDate,
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
+      LocalDateTime fromEventDate,
+      boolean curedNavigation
   ) {
 
     Collection collection = collectionRepository.findByHandler(handler);
@@ -59,12 +61,17 @@ public class CollectionService implements ICollectionService {
 
     Set<Long> eventsIds = collection.getEventsIds();
 
+    // If the navigation mode is not cured, we don´t need to filter by consensus
+    Consensus consensus = null;
+    if (curedNavigation) {
+      consensus = collection.getConsensus();
+    }
+
     return eventRepository
-        .findFilteredById(eventsIds, category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate)
+        .findFilteredById(eventsIds, category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate, consensus)
         .stream()
         .map(EventOutputDTO::from)
         .toList();
-
   }
 
   @Override

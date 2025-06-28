@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,20 +25,22 @@ public class Collection {
   private final Set<SourceKey> sourceIds;
   private final Set<Long> eventsIds;
   private final CollectionCriteria collectionCriteria;
+  private final Consensus consensus;
 
   public static Collection from(CollectionCreationDTO dto) {
     CollectionCriteria collectionCriteria = CollectionCriteria.from(dto.getConditions());
 
     Set<SourceKey> sourceIds = dto.getSourceIds().stream().map(SourceKey::from).collect(Collectors.toSet());
 
-    return new Collection(dto.getTitle(), dto.getDescription(), sourceIds, collectionCriteria);
+    return new Collection(dto.getTitle(), dto.getDescription(), sourceIds, collectionCriteria, dto.getConsensus());
   }
 
-  public Collection(String title, String description, Set<SourceKey> sourceIds, CollectionCriteria collectionCriteria) {
+  public Collection(String title, String description, Set<SourceKey> sourceIds, CollectionCriteria collectionCriteria, Consensus consensus) {
     this.title = title;
     this.description = description;
     this.collectionCriteria = collectionCriteria;
     this.sourceIds = sourceIds;
+    this.consensus = consensus;
     this.eventsIds = new HashSet<>();
   }
 

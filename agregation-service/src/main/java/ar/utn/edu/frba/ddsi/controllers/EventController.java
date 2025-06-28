@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
 import ar.utn.edu.frba.ddsi.services.impl.EventService;
 import java.time.LocalDateTime;
 import java.util.List;

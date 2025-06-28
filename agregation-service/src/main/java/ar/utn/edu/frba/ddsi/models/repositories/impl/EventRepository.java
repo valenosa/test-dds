@@ -2,6 +2,7 @@ package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -59,11 +60,12 @@ public class EventRepository implements IEventRepository {
       LocalDateTime untilUploadDate,
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
+      LocalDateTime fromEventDate,
+      Consensus consensus
   ) {
     return filterEvents(
         this.findByDeleted(false),
-        category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate
+        category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate, consensus
     );
   }
 
@@ -74,11 +76,12 @@ public class EventRepository implements IEventRepository {
       LocalDateTime untilUploadDate,
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
+      LocalDateTime fromEventDate,
+      Consensus consensus
   ) {
     return filterEvents(
         this.findAllById(eventsIds),
-        category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate
+        category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate, consensus
     );
   }
 
@@ -88,7 +91,8 @@ public class EventRepository implements IEventRepository {
       LocalDateTime untilUploadDate,
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
+      LocalDateTime fromEventDate,
+      Consensus consensus
   ) {
     return events.stream()
         .filter(e -> (category == null || e.getCategory().getName().equals(category)))
@@ -96,6 +100,7 @@ public class EventRepository implements IEventRepository {
         .filter(e -> (fromUploadDate == null || e.getUploadDate().isAfter(fromUploadDate)))
         .filter(e -> (untilEventDate == null || e.getEventDate().isBefore(untilEventDate)))
         .filter(e -> (fromEventDate == null || e.getEventDate().isAfter(fromEventDate)))
+        .filter(e -> (consensus == null || e.getConsensus().contains(consensus)))
         .toList();
   }
 }

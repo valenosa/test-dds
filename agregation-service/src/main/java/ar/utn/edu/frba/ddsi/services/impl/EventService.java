@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.time.LocalDateTime;
@@ -21,6 +22,6 @@ public class EventService implements IEventService {
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
       LocalDateTime fromEventDate) {
-    return eventRepository.findFiltered(category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate).stream().map(EventOutputDTO::from).toList();
+    return eventRepository.findFiltered(category,untilUploadDate,fromUploadDate,untilEventDate,fromEventDate,null).stream().map(EventOutputDTO::from).toList();
   }
 }

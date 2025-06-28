@@ -1,6 +1,8 @@
 package ar.utn.edu.frba.ddsi.services;
 
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

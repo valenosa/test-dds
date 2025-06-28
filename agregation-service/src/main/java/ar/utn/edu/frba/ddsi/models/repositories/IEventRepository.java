@@ -5,6 +5,8 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Consensus;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,7 +31,8 @@ public interface IEventRepository {
       LocalDateTime untilUploadDate,
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
+      LocalDateTime fromEventDate,
+      Consensus consensus
   );
 
   List<Event> findFilteredById(
@@ -38,6 +41,9 @@ public interface IEventRepository {
       LocalDateTime untilUploadDate,
       LocalDateTime fromUploadDate,
       LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
+      LocalDateTime fromEventDate,
+      Consensus consensus
   );
+
+
 }
