@@ -13,6 +13,10 @@ import org.springframework.stereotype.Repository;
 public interface IEventRepository {
   void save(Event event);
 
+  void saveAll(List<Event> events);
+
+  List<Event> findAllEvents();
+
   List<Event> findByDeleted(boolean deleted);
 
   Event findById(Long eventId);
@@ -44,6 +48,5 @@ public interface IEventRepository {
       LocalDateTime fromEventDate,
       Consensus consensus
   );
-
 
 }

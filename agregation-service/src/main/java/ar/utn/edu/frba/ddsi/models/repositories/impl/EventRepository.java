@@ -30,6 +30,18 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
+  public void saveAll(List<Event> events) {
+    for (Event event : events) {
+      this.save(event);
+    }
+  }
+
+  @Override
+  public List<Event> findAllEvents() {
+    return events.values().stream().toList();
+  }
+
+  @Override
   public List<Event> findByDeleted(boolean deleted) {
     return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
   }
@@ -103,4 +115,5 @@ public class EventRepository implements IEventRepository {
         .filter(e -> (consensus == null || e.getConsensus().contains(consensus)))
         .toList();
   }
+
 }
