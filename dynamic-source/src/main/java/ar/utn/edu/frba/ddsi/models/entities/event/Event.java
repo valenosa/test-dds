@@ -87,7 +87,6 @@ public class Event {
     this.accepted = true;
     this.uploadDate = LocalDateTime.now();
   }
-
   public void markAsDeleted() {
     this.deleted = true;
   }
