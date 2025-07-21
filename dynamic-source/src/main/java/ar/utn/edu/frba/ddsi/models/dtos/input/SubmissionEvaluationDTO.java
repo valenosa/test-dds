@@ -8,6 +8,6 @@ public class SubmissionEvaluationDTO {
 
   Long submissionId;
   String reviewer; //TODO: Esto deberia ser un usuario
-  SubmissionState submissionState;
+  SubmissionState state;
   String suggestion;
 }

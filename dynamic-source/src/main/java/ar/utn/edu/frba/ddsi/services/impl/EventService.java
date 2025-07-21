@@ -38,7 +38,7 @@ public class EventService implements IEventService {
     //TODO: Validar si el usuario puede realizar esta peticion
 
     Event eventSaved = eventRepository.save(Event.from(dto));
-    submissionRepository.save(new SubmissionRequest(eventSaved.getId()));
+    submissionRepository.save(new SubmissionRequest(eventSaved));
 
     return EventOutputDTO.from(eventSaved);
   }
@@ -77,7 +77,7 @@ public class EventService implements IEventService {
   @Override
   public List<EventOutputDTO> getPendingEvents() {
     return submissionRepository.findPendingSubmissions()
-        .stream().map(sub -> eventRepository.findById(sub.getEventId()))
+        .stream().map(SubmissionRequest::getEvent)
         .map(EventOutputDTO::from)
         .toList();
   }
