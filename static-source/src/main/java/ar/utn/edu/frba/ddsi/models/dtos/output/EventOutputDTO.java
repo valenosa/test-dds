@@ -22,7 +22,7 @@ public class EventOutputDTO {
   public static EventOutputDTO from(Event event) {
     EventOutputDTO dto = new EventOutputDTO();
     dto.setId(event.getId());
-    dto.setSourceId(event.getSourceId());
+    dto.setSourceId(event.getSource().getId());
     dto.setOrigin(event.getOrigin());
     dto.setTitle(event.getTitle());
     dto.setDescription(event.getDescription());
