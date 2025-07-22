@@ -37,19 +37,16 @@ public class DeletionRequestService implements IDeletionRequestService {
     if (deletionRequest == null)
       throw new NotFoundException("Deletion request not found - ID: " + evaluation.getDeletionRequestId());
 
-    Event event = eventRepository.findById(deletionRequest.getEventId());
-    if (event == null) throw new NotFoundException("Event not found - ID: " + deletionRequest.getEventId());
-
-    event.markAsDeleted();
-
+    Event drEvent = deletionRequest.getEvent();
+    drEvent.markAsDeleted();
     deletionRequest.registerEvaluation(evaluation.getEvaluatorName());
     deletionRequest.setState(DeletionRequestState.ACCEPTED);
 
     // Update in the origin source
-    SourceClient sourceClient = event.getSource().getSourceClient();
+    SourceClient sourceClient = drEvent.getSource().getSourceClient();
     if (sourceClient.getType() != Origin.PROXY) {
       try {
-        sourceClient.getWebClient().delete().uri("/events/" + event.getInSourceEventId())
+        sourceClient.getWebClient().delete().uri("/events/" + drEvent.getInSourceEventId())
             .retrieve()
             .bodyToMono(Void.class)
             .block();
@@ -58,7 +55,7 @@ public class DeletionRequestService implements IDeletionRequestService {
       }
     }
 
-    eventRepository.save(event);
+    eventRepository.save(drEvent);
     deletionRequestRepository.save(deletionRequest);
 
     return DeletionRequestOutputDTO.from(deletionRequest);
@@ -82,15 +79,18 @@ public class DeletionRequestService implements IDeletionRequestService {
   @Override
   public DeletionRequestOutputDTO create(DeletionRequestCreationDTO drDTO) {
 
-    // Get a List of the DRs of the same event.
+    Event drEvent = eventRepository.findById(drDTO.getEventId());
+    if(drEvent == null) throw new NotFoundException("Event not found - ID: " + drDTO.getEventId());
+
+    DeletionRequest deletionRequest = DeletionRequest.from(drDTO, drEvent);
+
+    // Get a List of the DRs for the same event.
     List<DeletionRequest> eventDeletionRequests = deletionRequestRepository.getByEventId(drDTO.getEventId());
 
     // Check spam.
-    if (spamDetector.isSpam(eventDeletionRequests, drDTO.getArgument()) && !eventDeletionRequests.isEmpty()) {
+    if (spamDetector.isSpam(eventDeletionRequests, deletionRequest.getArgument()) && !eventDeletionRequests.isEmpty()) {
       throw new SpamException("Error: deletion request denied due to spam.");
     }
-
-    DeletionRequest deletionRequest = DeletionRequest.from(drDTO);
 
     deletionRequestRepository.save(deletionRequest);
 
@@ -103,7 +103,7 @@ public class DeletionRequestService implements IDeletionRequestService {
     if (evaluation.isAccepted()) {
       return accept(evaluation);
     }
-    return reject(evaluation);
+      return reject(evaluation);
   }
 
   @Override
@@ -112,5 +112,4 @@ public class DeletionRequestService implements IDeletionRequestService {
         .map(DeletionRequestOutputDTO::from)
         .toList();
   }
-
 }
