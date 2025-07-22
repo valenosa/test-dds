@@ -37,6 +37,6 @@ public class DeletionRequestRepository implements IDeletionRequestRepository {
 
   @Override
   public List<DeletionRequest> getByEventId(long eventId) {
-    return deletionRequests.values().stream().filter(x -> x.getEventId() == eventId).collect(Collectors.toList());
+    return deletionRequests.values().stream().filter(dr -> dr.getEvent().getId() == eventId).collect(Collectors.toList());
   }
 }
