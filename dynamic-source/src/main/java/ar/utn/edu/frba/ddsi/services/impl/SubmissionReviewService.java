@@ -31,8 +31,8 @@ public class SubmissionReviewService implements ISubmissionReviewService {
     if (submission == null)
       throw new NotFoundException("Submission not found - ID: " + submissionEvaluation.getSubmissionId());
 
-    if (submission.getState().equals(submissionEvaluation.getState())) {
-      throw new InvalidStateChangeException("The event already has this state: " + submissionEvaluation.getState());
+    if (!submission.isPending()) {
+      throw new InvalidStateChangeException("The event has already been evaluated: " + submission.getState());
     }
 
     // Updates submission (and the event, if the submission is accepted)
