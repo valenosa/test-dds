@@ -2,6 +2,7 @@ package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.sourceClient.SourceClient;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -14,7 +15,7 @@ public class Source {
 
   private final SourceClient sourceClient;
   private final Long inClientId;
-  private List<Event> events;
+  private final List<Event> events;
 
   public Source(SourceClient sourceClient, Long inClientId) {
     this.sourceClient = sourceClient;
@@ -24,5 +25,12 @@ public class Source {
 
   public void addEvents(List<Event> eventsFromSource) {
     events.addAll(eventsFromSource);
+  }
+
+  public List<Event> getEvents(LocalDateTime lastUpdate) {
+    if( lastUpdate == null) {
+      return events;
+    }
+    return events.stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
   }
 }

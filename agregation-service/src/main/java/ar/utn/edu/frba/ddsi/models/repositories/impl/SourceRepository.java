@@ -38,4 +38,8 @@ public class SourceRepository implements ISourceRepository {
         .findFirst()
         .orElse(null);
   }
+
+  public Source findById(Long id) {
+    return sources.get(id);
+  }
 }

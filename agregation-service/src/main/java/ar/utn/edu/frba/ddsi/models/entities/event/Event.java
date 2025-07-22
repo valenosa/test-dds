@@ -1,7 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
@@ -78,13 +77,11 @@ public class Event {
     this.deleted = true;
   }
 
-  //! DELETEAR
-  public boolean isFromSource(SourceKey sourceKey) {
+////  public boolean isFromSource(SourceKey sourceKey) {
 ////    return
 ////        Objects.equals(this.sourceId, sourceKey.getSourceId())
 ////            &&
 ////            Objects.equals(this.sourceClientId, sourceKey.getSourceClientId());
-    return true;
-  }
+////  }
 
 }

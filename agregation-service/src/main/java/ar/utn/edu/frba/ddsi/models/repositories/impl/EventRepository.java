@@ -1,13 +1,11 @@
 package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.SourceKey;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
@@ -39,21 +37,6 @@ public class EventRepository implements IEventRepository {
   }
 
   @Override
-  public List<Event> findAllById(Set<Long> eventIds) {
-    return events.values().stream().filter(e -> eventIds.contains(e.getId())).toList();
-  }
-
-  @Override
-  public List<Event> findAfterDate(LocalDateTime lastUpdate) {
-    return this.findByDeleted(false).stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
-  }
-
-  @Override
-  public List<Event> findBySourceKey(SourceKey sourceKey) {
-    return this.findByDeleted(false).stream().filter(e -> e.isFromSource(sourceKey)).toList();
-  }
-
-  @Override
   public List<Event> findFiltered(
       String category,
       LocalDateTime untilUploadDate,
@@ -63,21 +46,6 @@ public class EventRepository implements IEventRepository {
   ) {
     return filterEvents(
         this.findByDeleted(false),
-        category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate
-    );
-  }
-
-  @Override
-  public List<Event> findFilteredById(
-      Set<Long> eventsIds,
-      String category,
-      LocalDateTime untilUploadDate,
-      LocalDateTime fromUploadDate,
-      LocalDateTime untilEventDate,
-      LocalDateTime fromEventDate
-  ) {
-    return filterEvents(
-        this.findAllById(eventsIds),
         category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate
     );
   }
