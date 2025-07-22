@@ -3,7 +3,7 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;

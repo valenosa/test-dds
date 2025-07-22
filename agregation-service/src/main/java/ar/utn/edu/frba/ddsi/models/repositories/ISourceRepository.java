@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.repositories;
 
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.util.List;
 
 public interface ISourceRepository {

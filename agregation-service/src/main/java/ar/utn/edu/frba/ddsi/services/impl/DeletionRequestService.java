@@ -9,11 +9,10 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
 import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
-import ar.utn.edu.frba.ddsi.models.entities.sourceClient.SourceClient;
+import ar.utn.edu.frba.ddsi.models.entities.source.SourceClient;
 import ar.utn.edu.frba.ddsi.models.entities.spamDetector.ISpamDetector;
 import ar.utn.edu.frba.ddsi.models.repositories.IDeletionRequestRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
-import ar.utn.edu.frba.ddsi.models.repositories.impl.SourceClientRepository;
 import ar.utn.edu.frba.ddsi.services.IDeletionRequestService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +30,6 @@ public class DeletionRequestService implements IDeletionRequestService {
   @Autowired
   private ISpamDetector spamDetector;
 
-  @Autowired
-  SourceClientRepository sourceClientRepository;
-
   private DeletionRequestOutputDTO accept(DeletionRequestEvaluationDTO evaluation) {
     //TODO: validate that user can do this petition.
 
@@ -49,10 +45,8 @@ public class DeletionRequestService implements IDeletionRequestService {
     deletionRequest.registerEvaluation(evaluation.getEvaluatorName());
     deletionRequest.setState(DeletionRequestState.ACCEPTED);
 
-    // Update in the origin source.
-    SourceClient sourceClient = sourceClientRepository.findById(event.getSourceClientId());
-    if (sourceClient == null) throw new NotFoundException("Source Client not found - ID: " + event.getSourceClientId());
-
+    // Update in the origin source
+    SourceClient sourceClient = event.getSource().getSourceClient();
     if (sourceClient.getType() != Origin.PROXY) {
       try {
         sourceClient.getWebClient().delete().uri("/events/" + event.getInSourceEventId())

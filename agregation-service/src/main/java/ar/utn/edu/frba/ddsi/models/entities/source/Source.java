@@ -1,7 +1,6 @@
-package ar.utn.edu.frba.ddsi.models.entities.source.impl;
+package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.sourceClient.SourceClient;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

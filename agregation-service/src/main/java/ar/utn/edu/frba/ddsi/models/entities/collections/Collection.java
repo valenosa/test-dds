@@ -3,7 +3,7 @@ package ar.utn.edu.frba.ddsi.models.entities.collections;
 import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.CollectionCriteria;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
