@@ -71,6 +71,9 @@ public class Event {
   }
 
   public Long getSourceId() {
-    return source.getId();
+    if (source != null) {
+      return source.getId();
+    }
+    return null;
   }
 }
