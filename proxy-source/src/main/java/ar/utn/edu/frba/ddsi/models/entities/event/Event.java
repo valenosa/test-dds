@@ -4,6 +4,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.ExternalDisasterDTO;
 import java.time.LocalDateTime;
 
 import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ public class Event {
   @Setter
   private Long id;
   @Setter
+  @Getter(AccessLevel.NONE)
   private IEventSource source;
   private final Origin origin;
 
@@ -69,4 +71,7 @@ public class Event {
     return this.getUpdateDate().isAfter(lastUpdate);
   }
 
+  public Long getSourceId() {
+    return source.getId();
+  }
 }

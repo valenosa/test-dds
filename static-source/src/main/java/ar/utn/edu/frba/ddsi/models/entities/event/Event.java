@@ -5,6 +5,8 @@ import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import java.time.LocalDateTime;
+
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +18,7 @@ public class Event {
   @Setter
   private Long id;
   @Setter
+  @Getter(AccessLevel.NONE)
   private IEventSource source;
   private final Origin origin;
 
@@ -52,6 +55,10 @@ public class Event {
     this.origin = origin;
     this.source = source;
     this.deleted = false;
+  }
+
+  public Long getSourceId() {
+    return source.getId();
   }
 
   public void markAsDeleted() {
