@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,17 @@ public class Source {
   }
 
   public List<Event> getEvents(LocalDateTime lastUpdate) {
-    if( lastUpdate == null) {
+    if (lastUpdate == null) {
       return events;
     }
-    return events.stream().filter(e -> e.getUploadDate().isAfter(lastUpdate) && !e.isDeleted()).toList();
+    return events.stream().filter(e ->
+        e.getUploadDate().isAfter(lastUpdate)
+        &&
+        !e.isDeleted())
+        .toList();
+  }
+
+  public Origin getType() {
+    return sourceClient.getType();
   }
 }

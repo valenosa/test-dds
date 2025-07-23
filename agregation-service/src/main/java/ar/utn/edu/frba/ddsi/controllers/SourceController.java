@@ -2,6 +2,7 @@ package ar.utn.edu.frba.ddsi.controllers;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceClientOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.SourceService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,10 @@ public class SourceController {
   @GetMapping("/clients")
   public List<SourceClientOutputDTO> getAllClients() {
     return sourceService.getAllClients();
+  }
+
+  @GetMapping
+  public List<SourceOutputDTO> getAllSources() {
+    return sourceService.getAllSources();
   }
 }

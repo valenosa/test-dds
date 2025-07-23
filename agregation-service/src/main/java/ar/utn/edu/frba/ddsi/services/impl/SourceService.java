@@ -3,6 +3,7 @@ package ar.utn.edu.frba.ddsi.services.impl;
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceClientOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.entities.source.SourceClient;
@@ -59,7 +60,7 @@ public class SourceService implements ISourceService {
 
       // Get or Create the source
       Source source = sourceRepository.findByExternalIds(sourceClient.getId(), sourceId);
-      if(source == null) {
+      if (source == null) {
         Source nuevaSource = new Source(
             sourceClient,
             sourceId
@@ -69,7 +70,10 @@ public class SourceService implements ISourceService {
 
       // Convert DTOs to Events and add them to the source
       Source finalSource = source;
-      List<Event> eventsFromSource = eventDTOsBySource.stream().map(dto -> Event.from(dto, finalSource)).toList();
+      List<Event> eventsFromSource = eventDTOsBySource.stream()
+                                     .map(dto -> Event.from(dto, finalSource))
+                                     .toList();
+
       finalSource.addEvents(eventsFromSource);
 
       eventsFromSource.forEach(event -> eventRepository.save(event));
@@ -86,6 +90,13 @@ public class SourceService implements ISourceService {
   public List<SourceClientOutputDTO> getAllClients() {
     return sourceClientRepository.getAllClients().stream()
         .map(SourceClientOutputDTO::from)
+        .toList();
+  }
+
+  @Override
+  public List<SourceOutputDTO> getAllSources() {
+    return sourceRepository.findAll().stream()
+        .map(SourceOutputDTO::from)
         .toList();
   }
 }
