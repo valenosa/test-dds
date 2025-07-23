@@ -30,6 +30,6 @@ public class Source {
     if( lastUpdate == null) {
       return events;
     }
-    return events.stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
+    return events.stream().filter(e -> e.getUploadDate().isAfter(lastUpdate) && !e.isDeleted()).toList();
   }
 }
