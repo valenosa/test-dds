@@ -76,12 +76,4 @@ public class Event {
   public void markAsDeleted() {
     this.deleted = true;
   }
-
-////  public boolean isFromSource(SourceKey sourceKey) {
-////    return
-////        Objects.equals(this.sourceId, sourceKey.getSourceId())
-////            &&
-////            Objects.equals(this.sourceClientId, sourceKey.getSourceClientId());
-////  }
-
 }

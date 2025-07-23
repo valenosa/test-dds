@@ -4,7 +4,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.ConditionDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.util.List;
 
-public class CollectionCriteria {
+public class CollectionCriteria implements ICondition{
 
   List<ICondition> conditions;
 
@@ -24,6 +24,7 @@ public class CollectionCriteria {
     }
   }
 
+  @Override
   public boolean isSatisfiedBy(Event event) {
     return conditions.stream().allMatch(condition -> condition.isSatisfiedBy(event));
   }

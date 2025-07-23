@@ -27,6 +27,13 @@ public class SourceClient {
     this.webClient = WebClient.builder().baseUrl(url).build();
   }
 
+  public static SourceClient from(SourceClientInputDTO dto) {
+    if (dto == null || dto.getUrl() == null || dto.getUrl().isEmpty()) {
+      throw new IllegalArgumentException("SourceClient URL cannot be null or empty");
+    }
+    return new SourceClient(dto.getUrl(), dto.getType());
+  }
+
   public List<EventInputDTO> fetchEvents(LocalDateTime lastUpdate) {
     List<EventInputDTO> eventsDTOs = this.webClient.get()
         .uri(
@@ -47,12 +54,5 @@ public class SourceClient {
       return List.of();
     }
     return eventsDTOs;
-  }
-
-  public static SourceClient from(SourceClientInputDTO dto) {
-    if (dto == null || dto.getUrl() == null || dto.getUrl().isEmpty()) {
-      throw new IllegalArgumentException("SourceClient URL cannot be null or empty");
-    }
-    return new SourceClient(dto.getUrl(), dto.getType());
   }
 }
