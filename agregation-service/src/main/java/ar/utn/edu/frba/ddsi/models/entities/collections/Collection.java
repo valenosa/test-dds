@@ -44,10 +44,9 @@ public class Collection {
     // Update the events, adding new ones and removing those that no longer satisfy the criteria
     for (Source source : this.sources) {
       for (Event event : source.getEvents(lastUpdate)) {
-        if(this.collectionCriteria.isSatisfiedBy(event)) {
+        if (this.collectionCriteria.isSatisfiedBy(event)) {
           events.add(event);
-        }
-        else {
+        } else {
           events.remove(event);
         }
       }

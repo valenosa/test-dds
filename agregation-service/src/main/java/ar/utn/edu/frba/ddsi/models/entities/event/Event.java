@@ -22,12 +22,12 @@ public class Event {
   private final Long inSourceEventId;
 
   //-- Event Info
-  private final String title;
-  private final String description;
-  private final Category category;
-  private final Double latitude;
-  private final Double longitude;
-  private final LocalDateTime eventDate;
+  private  String title;
+  private  String description;
+  private  Category category;
+  private  Double latitude;
+  private  Double longitude;
+  private  LocalDateTime eventDate;
 
   //-- Funcionales
   public Set<Tag> tags;
@@ -75,5 +75,15 @@ public class Event {
 
   public void markAsDeleted() {
     this.deleted = true;
+  }
+
+  public void update(Event event) {
+    //? ¿Debería validar que todos estos campos no sean null?
+    this.title = event.getTitle();
+    this.description = event.getDescription();
+    this.category = event.getCategory();
+    this.latitude = event.getLatitude();
+    this.longitude = event.getLongitude();
+    this.eventDate = event.getEventDate();
   }
 }
