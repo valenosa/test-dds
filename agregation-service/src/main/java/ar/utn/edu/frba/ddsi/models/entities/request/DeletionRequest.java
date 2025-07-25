@@ -43,7 +43,20 @@ public class DeletionRequest {
     return argument.length() >= 500;
   }
 
-  public void registerEvaluation(String evaluatorName) {
+  public void evaluate(boolean accepted, String evaluatorName) {
+
+    this.registerEvaluation(evaluatorName);
+
+    if (accepted) {
+      event.markAsDeleted();
+      state = DeletionRequestState.ACCEPTED;
+    } else {
+      state = DeletionRequestState.REJECTED;
+    }
+  }
+
+
+  private void registerEvaluation(String evaluatorName) {
     this.evaluationDate = LocalDateTime.now();
     this.evaluatorName = evaluatorName;
   }

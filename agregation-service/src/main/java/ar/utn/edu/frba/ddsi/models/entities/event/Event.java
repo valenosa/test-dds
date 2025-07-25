@@ -2,6 +2,7 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.time.LocalDateTime;
@@ -75,6 +76,19 @@ public class Event {
 
   public void markAsDeleted() {
     this.deleted = true;
+
+    // Update state in the origin source
+    if (source.getType() != Origin.PROXY) {
+      try {
+        source.getSourceClient().getWebClient().delete().uri("/events/" + inSourceEventId)
+            .retrieve()
+            .bodyToMono(Void.class)
+            .block();
+      } catch (Exception e) {
+        throw new RuntimeException("Error updating event in source origin: " + e.getMessage(), e);
+      }
+    }
+
   }
 
   public void update(Event event) {
