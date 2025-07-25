@@ -8,5 +8,5 @@ public class CollectionCreationDTO {
   String title;
   String description;
   List<ConditionDTO> conditions;
-  List<SourceKeyDTO> sourceIds;
+  List<Long> sourceIds;
 }

@@ -23,7 +23,7 @@ public class CsvImporter implements IImporter {
     return "CSV";
   }
 
-  public Set<Event> importEvents(String fileName, Long sourceId) {
+  public Set<Event> importEvents(String fileName, Source source) {
 
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("CSV/" + fileName);
     if (inputStream == null) {
@@ -64,14 +64,13 @@ public class CsvImporter implements IImporter {
             longitude,
             eventDate,
             origin,
-            sourceId);
+            source);
 
         events.add(event);
       }
     } catch (Exception e) {
       e.printStackTrace(); //TODO Cambiar esto por un método de logging más robusto
     }
-
     return events;
   }
 }

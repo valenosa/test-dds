@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.request;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ public class DeletionRequest {
 
   @Setter
   private Long id;
-  private final Long eventId;
+  private final Event event;
 
   private final String argument;
   @Setter
@@ -22,16 +23,16 @@ public class DeletionRequest {
   private final String applicantName; //TODO: Esto deberia ser un usuario
   private String evaluatorName; //TODO: Esto deberia ser un usuario
 
-  public static DeletionRequest from(DeletionRequestCreationDTO dto) {
-    return new DeletionRequest(dto.getEventId(), dto.getArgument(), dto.getApplicantName());
+  public static DeletionRequest from(DeletionRequestCreationDTO dto, Event event) {
+    return new DeletionRequest(event, dto.getArgument(), dto.getApplicantName());
   }
 
-  public DeletionRequest(Long eventId, String argument, String applicantName) {
+  public DeletionRequest(Event event, String argument, String applicantName) {
 
     if (!this.isArgumentValid(argument))
-      throw new IllegalArgumentException("La justificación debe tener al menos 500 caracteres.");
+      throw new IllegalArgumentException("Argument must contain a minimum of 500 characters. Now it has: " + argument.length());
 
-    this.eventId = eventId;
+    this.event = event;
     this.argument = argument;
     this.state = DeletionRequestState.PENDING;
     this.uploadDate = LocalDateTime.now();
@@ -42,7 +43,20 @@ public class DeletionRequest {
     return argument.length() >= 500;
   }
 
-  public void registerEvaluation(String evaluatorName) {
+  public void evaluate(boolean accepted, String evaluatorName) {
+
+    this.registerEvaluation(evaluatorName);
+
+    if (accepted) {
+      event.markAsDeleted();
+      state = DeletionRequestState.ACCEPTED;
+    } else {
+      state = DeletionRequestState.REJECTED;
+    }
+  }
+
+
+  private void registerEvaluation(String evaluatorName) {
     this.evaluationDate = LocalDateTime.now();
     this.evaluatorName = evaluatorName;
   }

@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.submission;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.values.SubmissionState;
+import ar.utn.edu.frba.ddsi.models.dtos.input.SubmissionEvaluationDTO;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,8 @@ import lombok.Setter;
 public class SubmissionRequest {
   @Setter
   private Long id;
-  private final Long eventId;
+
+  private final Event event;
 
   //-- Post Evaluation
   @Setter
@@ -21,17 +23,21 @@ public class SubmissionRequest {
   @Setter
   private String suggestion;
 
-  public SubmissionRequest(Long eventId) {
+  public SubmissionRequest(Event event) {
 
-    this.eventId = eventId;
+    this.event = event;
     this.state = SubmissionState.PENDING;
   }
 
-  public void setEvaluation(String reviewer, SubmissionState state, String suggestion) {
+  public void setEvaluation(SubmissionEvaluationDTO submissionEvaluation) {
     this.evaluationDate = LocalDateTime.now();
-    this.reviewer = reviewer;
-    this.state = state;
-    this.suggestion = suggestion;
+    this.reviewer = submissionEvaluation.getReviewer();
+    this.state = submissionEvaluation.getState();
+    this.suggestion = submissionEvaluation.getSuggestion();
+
+    if (this.isAccepted()) {
+      event.markAsAccepted();
+    }
   }
 
   public boolean isAccepted() {
@@ -41,4 +47,5 @@ public class SubmissionRequest {
   public boolean isPending() {
     return state == SubmissionState.PENDING;
   }
+
 }

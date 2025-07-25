@@ -5,5 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IEventSource {
+  Long getId();
+
   List<Event> importEvents(LocalDateTime lastUpdate);
 }

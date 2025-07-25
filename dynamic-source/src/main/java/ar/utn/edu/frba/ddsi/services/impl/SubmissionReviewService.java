@@ -31,26 +31,15 @@ public class SubmissionReviewService implements ISubmissionReviewService {
     if (submission == null)
       throw new NotFoundException("Submission not found - ID: " + submissionEvaluation.getSubmissionId());
 
-    Event event = eventRepository.findById(submission.getEventId());
-    if (event == null) throw new NotFoundException("Event not found - ID: " + submission.getEventId());
-
-    // Check if state is different from event state.
-    if (submission.getState().equals(submissionEvaluation.getSubmissionState())) {
-      throw new InvalidStateChangeException("The event already has state: " + submissionEvaluation.getSubmissionState());
+    if (!submission.isPending()) {
+      throw new InvalidStateChangeException("The event has already been evaluated: " + submission.getState());
     }
 
-    submission.setEvaluation(
-        submissionEvaluation.getReviewer(),
-        submissionEvaluation.getSubmissionState(),
-        submissionEvaluation.getSuggestion()
-    );
-
-    if (submission.isAccepted()) {
-      event.markAsAccepted();
-    }
+    // Updates submission (and the event, if the submission is accepted)
+    submission.setEvaluation(submissionEvaluation);
 
     SubmissionRequest submissionRequest = submissionRepository.save(submission);
-    Event eventSaved = eventRepository.save(event);
+    Event eventSaved = eventRepository.save(submission.getEvent());
     return SubmissionEvaluationOutputDTO.from(eventSaved, submissionRequest.getState());
   }
 

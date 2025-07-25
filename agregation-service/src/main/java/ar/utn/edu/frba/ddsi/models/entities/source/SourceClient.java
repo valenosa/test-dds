@@ -1,8 +1,7 @@
-package ar.utn.edu.frba.ddsi.models.entities.sourceClient;
+package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientInputDTO;
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +27,14 @@ public class SourceClient {
     this.webClient = WebClient.builder().baseUrl(url).build();
   }
 
-  public List<Event> fetchEvents(LocalDateTime lastUpdate) {
+  public static SourceClient from(SourceClientInputDTO dto) {
+    if (dto == null || dto.getUrl() == null || dto.getUrl().isEmpty()) {
+      throw new IllegalArgumentException("SourceClient URL cannot be null or empty");
+    }
+    return new SourceClient(dto.getUrl(), dto.getType());
+  }
+
+  public List<EventInputDTO> fetchEvents(LocalDateTime lastUpdate) {
     List<EventInputDTO> eventsDTOs = this.webClient.get()
         .uri(
             uriBuilder ->
@@ -47,15 +53,6 @@ public class SourceClient {
     if (eventsDTOs == null) {
       return List.of();
     }
-    return eventsDTOs.stream()
-        .map(dto -> Event.from(dto, this.id))
-        .toList();
-  }
-
-  public static SourceClient from(SourceClientInputDTO dto) {
-    if (dto == null || dto.getUrl() == null || dto.getUrl().isEmpty()) {
-      throw new IllegalArgumentException("SourceClient URL cannot be null or empty");
-    }
-    return new SourceClient(dto.getUrl(), dto.getType());
+    return eventsDTOs;
   }
 }

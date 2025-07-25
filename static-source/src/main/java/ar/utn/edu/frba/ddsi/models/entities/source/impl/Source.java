@@ -25,6 +25,6 @@ public class Source implements IEventSource {
 
   @Override
   public Set<Event> importEvents() {
-    return this.importer.importEvents(this.path, this.id);
+    return this.importer.importEvents(this.path, this);
   }
 }
