@@ -24,7 +24,11 @@ public class Source implements IEventSource {
 
   @Override
   public List<Event> importEvents(LocalDateTime lastUpdate) {
-    return this.api.importEvents(lastUpdate);
+    List<Event> events = this.api.importEvents(lastUpdate);
+
+    events.forEach(event -> event.setSource(this));
+
+    return events;
   }
 
 }
