@@ -6,4 +6,5 @@ import lombok.Data;
 public class SubscriberInputDTO {
 
   private String callbackUrl;
+  private Long sourceClientId; //Del agregador
 }

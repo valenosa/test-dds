@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.observer;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SubscriberInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,12 +20,12 @@ public class Aggregator implements ISubscriber {
     return new Aggregator(dto.getCallbackUrl());
   }
 
-  public void notifyEvents(List<Event> events) {
+  public void notifyEvents(List<EventOutputDTO> events) {
     clientCallBack.post()
         .uri("/events")
         .bodyValue(events)
         .retrieve()
-        .bodyToMono(Void.class)
+        .bodyToMono(Void.class)//? Hay respuesta
         .block();
   }
 
