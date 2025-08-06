@@ -1,19 +1,13 @@
 package ar.utn.edu.frba.ddsi.models.entities.scheduler;
 
-import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
 import ar.utn.edu.frba.ddsi.services.IEventService;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Component
 public class EventScheduler {
-
-  @Autowired
-  Publisher publisher;
 
   @Autowired
   IEventService eventService;

@@ -18,7 +18,8 @@ public class SubscriberService implements ISubscriberService {
 
   @Override
   public void subscribe(SubscriberInputDTO dto) {
-    ISubscriber subscriber = Aggregator.from(dto); //A futuro necesitariamos un builder si hay otros tipos de suscribers
+    //A futuro necesitariamos un builder si hay otros tipos de suscribers
+    ISubscriber subscriber = Aggregator.from(dto);
 
     publisher.subscribe(subscriber);
   }
