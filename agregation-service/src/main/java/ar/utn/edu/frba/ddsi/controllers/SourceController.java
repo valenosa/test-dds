@@ -1,9 +1,10 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientInputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.SourceClientOutputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
-import ar.utn.edu.frba.ddsi.services.impl.SourceService;
+import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceClientInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceClientOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceOutputDTO;
+import ar.utn.edu.frba.ddsi.services.ISourceService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+//TODO: Deberiamos tener un controlador y un service para los clientes, y otro para las fuentes en si.
+
 @RestController
 @RequestMapping("/sources")
 public class SourceController {
 
   @Autowired
-  SourceService sourceService;
-
+  ISourceService sourceService;
 
   @PostMapping("/clients")
   public SourceClientOutputDTO createSource(@RequestBody SourceClientInputDTO sourceClient) {
@@ -28,6 +30,11 @@ public class SourceController {
   @GetMapping("/clients")
   public List<SourceClientOutputDTO> getAllClients() {
     return sourceService.getAllClients();
+  }
+
+  @PostMapping
+  public SourceOutputDTO createSource(@RequestBody SourceInputDTO source) {
+    return sourceService.create(source);
   }
 
   @GetMapping

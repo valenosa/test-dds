@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.collection.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.CollectionCriteria;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;

@@ -1,7 +1,7 @@
-package ar.utn.edu.frba.ddsi.models.dtos.output;
+package ar.utn.edu.frba.ddsi.models.dtos.output.deletion_request;
 
-import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
-import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequestState;
+import ar.utn.edu.frba.ddsi.models.entities.deletion_request.DeletionRequest;
+import ar.utn.edu.frba.ddsi.models.entities.deletion_request.DeletionRequestState;
 import lombok.Data;
 
 @Data

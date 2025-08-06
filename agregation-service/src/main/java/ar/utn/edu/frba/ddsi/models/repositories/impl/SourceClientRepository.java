@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.source.SourceClient;
+import ar.utn.edu.frba.ddsi.models.entities.source.impl.SourceClient;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceClientRepository;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +24,11 @@ public class SourceClientRepository implements ISourceClientRepository {
       sourceClients.put(sourceClient.getId(), sourceClient);
     }
     return sourceClient;
+  }
+
+  @Override
+  public SourceClient getById(Long id) {
+    return sourceClients.get(id);
   }
 
   @Override

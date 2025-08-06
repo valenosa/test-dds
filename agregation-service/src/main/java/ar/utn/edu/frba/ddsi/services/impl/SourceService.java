@@ -1,20 +1,19 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.EventInputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.SourceClientInputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.SourceClientOutputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
+import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
+import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceClientInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceClientOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.source.ISourceClientAdapter;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
-import ar.utn.edu.frba.ddsi.models.entities.source.SourceClient;
+import ar.utn.edu.frba.ddsi.models.entities.source.impl.SourceClient;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceClientRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,65 +24,46 @@ public class SourceService implements ISourceService {
   private ISourceClientRepository sourceClientRepository;
 
   @Autowired
-  private IEventRepository eventRepository;
+  private ISourceRepository sourceRepository;
 
   @Autowired
-  private ISourceRepository sourceRepository;
+  private IEventRepository eventRepository;
 
   @Override
   public SourceClientOutputDTO create(SourceClientInputDTO dto) {
-    SourceClient client = sourceClientRepository.save(SourceClient.from(dto));
+    SourceClient sourceClient = sourceClientRepository.save(SourceClient.from(dto));
 
-    this.refresh(client);
+    //Subscribe to the source client to receive NEW sources and events.
+    sourceClient.subscribe();
 
-    return SourceClientOutputDTO.from(client);
+    // First connection: Fetch the preexisting sources and events from the client and saves it.
+    List<Source> sources = sourceClient.fetchSources();
+
+    sources.parallelStream().forEach(source -> {
+      // For each source, fetch its events
+      List<Event> events = sourceClient.fetchEventsBySource(source);
+      source.addEvents(events);
+    });
+
+    //? Se puede guardar en cascada?
+    sources.forEach(source -> {
+      source.getEvents(null).forEach(eventRepository::save);
+      sourceRepository.save(source);
+    });
+    return SourceClientOutputDTO.from(sourceClient);
   }
 
   @Override
-  public void refreshSources(LocalDateTime lastUpdate) {
-    for (SourceClient sourceClient : sourceClientRepository.getAllClients()) {
-      this.refresh(sourceClient, lastUpdate);
-    }
-  }
+  public SourceOutputDTO create(SourceInputDTO dto) {
 
-  private void refresh(SourceClient sourceClient, LocalDateTime lastUpdate) {
-    List<EventInputDTO> eventDTOsFromClient = sourceClient.fetchEvents(lastUpdate);
+    ISourceClientAdapter sourceClient = sourceClientRepository.getById(dto.getSourceClientId());
+    if (sourceClient == null)
+      throw new NotFoundException("Source not found - ID: " + dto.getSourceClientId());
 
-    //Map the events by their sourceId
-    Map<Long, List<EventInputDTO>> eventsByInnerSourceId = eventDTOsFromClient.stream()
-        .collect(Collectors.groupingBy(EventInputDTO::getSourceId));
+    Source source = new Source(sourceClient, dto.getInClientId(), dto.getType());
 
-    for (Map.Entry<Long, List<EventInputDTO>> entry : eventsByInnerSourceId.entrySet()) {
-
-      Long sourceId = entry.getKey();
-      List<EventInputDTO> eventDTOsBySource = entry.getValue();
-
-      // Get or Create the source
-      Source source = sourceRepository.findByExternalIds(sourceClient.getId(), sourceId);
-      if (source == null) {
-        Source nuevaSource = new Source(
-            sourceClient,
-            sourceId
-        );
-        source = sourceRepository.save(nuevaSource);
-      }
-
-      // Convert DTOs to Events and add them to the source
-      Source finalSource = source;
-      List<Event> eventsFromSource = eventDTOsBySource.stream()
-                                     .map(dto -> Event.from(dto, finalSource))
-                                     .toList();
-
-      finalSource.addEvents(eventsFromSource);
-
-      eventsFromSource.forEach(event -> eventRepository.save(event));
-      sourceRepository.save(finalSource);
-      //? Al guardar la source, se guardan los eventos asociados? (operación en cascada)
-    }
-  }
-
-  private void refresh(SourceClient sourceClient) {
-    this.refresh(sourceClient, null);
+    sourceRepository.save(source);
+    return SourceOutputDTO.from(source);
   }
 
   @Override

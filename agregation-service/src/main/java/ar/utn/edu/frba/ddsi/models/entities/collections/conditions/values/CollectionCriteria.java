@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.ConditionDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.collection.ConditionDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.util.List;
 
@@ -17,12 +17,6 @@ public class CollectionCriteria implements ICondition{
     this.conditions = conditions;
   }
 
-  public void addCondition(ICondition condition, ICondition... conditions) {
-    this.conditions.add(condition);
-    if (conditions != null) {
-      this.conditions.addAll(List.of(conditions));
-    }
-  }
 
   @Override
   public boolean isSatisfiedBy(Event event) {

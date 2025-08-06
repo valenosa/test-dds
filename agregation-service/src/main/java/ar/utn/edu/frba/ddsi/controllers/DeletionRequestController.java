@@ -1,8 +1,8 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestEvaluationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.DeletionRequestOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.deletion_request.DeletionRequestCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.deletion_request.DeletionRequestEvaluationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.deletion_request.DeletionRequestOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.DeletionRequestService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
