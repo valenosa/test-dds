@@ -1,7 +1,7 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SubscriberInputDTO;
-import ar.utn.edu.frba.ddsi.services.impl.SubscriberService;
+import ar.utn.edu.frba.ddsi.services.ISubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubscriberController {
 
   @Autowired
-  SubscriberService subscriberService;
+  ISubscriberService subscriberService;
 
   @PostMapping()
   public void subscribe(@RequestBody SubscriberInputDTO dto) {

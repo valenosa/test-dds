@@ -4,10 +4,11 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.SubscriberInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.observer.Aggregator;
 import ar.utn.edu.frba.ddsi.models.entities.observer.ISubscriber;
 import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
+import ar.utn.edu.frba.ddsi.services.ISubscriberService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SubscriberService {
+public class SubscriberService implements ISubscriberService {
 
   Publisher publisher;
 
@@ -15,6 +16,7 @@ public class SubscriberService {
     this.publisher = publisher;
   }
 
+  @Override
   public void subscribe(SubscriberInputDTO dto) {
     ISubscriber subscriber = Aggregator.from(dto); //A futuro necesitariamos un builder si hay otros tipos de suscribers
 
