@@ -56,7 +56,7 @@ public class CollectionService implements ICollectionService {
   ) {
 
     Collection collection = collectionRepository.findByHandler(handler);
-    if (collection == null) throw new NotFoundException("Collection not found - Handler:" + handler);
+    if (collection == null) throw new NotFoundException("Collection not found - Handler: " + handler);
 
     // Get events from collection & filter by query params
     Set<Event> events = collection.getEvents().stream()
