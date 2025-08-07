@@ -22,11 +22,4 @@ public class EventController {
   public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate) {
     return eventService.getEvents(lastUpdate);
   }
-  //TODO Pasar a SourceController
-  @PostMapping("/meta-mapa")
-  public void create() {
-    //TODO Crear fuente proxy de tipo metaMapa
-  }
-
-  //TODO getEventsByAPI?
 }

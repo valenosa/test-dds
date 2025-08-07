@@ -1,5 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.source;
 
+import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.impl.NaturalDisastersAPI;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class SourceFactory {
   }
 
   public Source naturalDisaster() {
-    return new Source(naturalDisastersAPI);
+    return new Source(naturalDisastersAPI, Origin.PROXY);
   }
 
   public Source metaMapa(String baseUrl) {

@@ -1,25 +1,29 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
-@Component
+
 public class Source implements IEventSource {
 
   @Getter
   @Setter
   private Long id;
+  @Getter
+  @Setter
+  private Origin type;
 
   private final IAPI api;
 
-  public Source(IAPI api) {
+  public Source(IAPI api, Origin type) {
     this.api = api;
+    this.type = type;
   }
 
   @Override
