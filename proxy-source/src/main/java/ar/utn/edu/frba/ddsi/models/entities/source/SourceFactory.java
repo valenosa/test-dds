@@ -17,9 +17,4 @@ public class SourceFactory {
   public Source naturalDisaster() {
     return new Source(naturalDisastersAPI, Origin.PROXY);
   }
-
-  public Source metaMapa(String baseUrl) {
-    //TODO Devolver fuente metaMapa
-    return null;
-  }
 }

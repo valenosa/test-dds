@@ -4,14 +4,13 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.SubscriberInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
-import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.List;
+import org.springframework.web.reactive.function.client.WebClient;
 
 public class Aggregator implements ISubscriber {
 
-  private WebClient clientCallBack;
-  private Long sourceClientId;
+  private final WebClient clientCallBack;
+  private final Long sourceClientId;
 
   public Aggregator(String callbackUrl, Long sourceClientId) {
     this.clientCallBack = WebClient
