@@ -24,7 +24,7 @@ public class Publisher {
     }
   }
 
-  public void notifyNewSources(Source source) {
+  public void notifyNewSource(Source source) {
     for (ISubscriber subscriber : subscribers) {
       subscriber.notifySource(source);
     }
