@@ -11,12 +11,10 @@ public class DefaultSourceInitializer {
 
   private final SourceFactory sourceFactory;
   private final ISourceRepository sourceRepository;
-  private final Publisher publisher;
 
-  public DefaultSourceInitializer(SourceFactory sourceFactory, ISourceRepository sourceRepository, Publisher publisher) {
+  public DefaultSourceInitializer(SourceFactory sourceFactory, ISourceRepository sourceRepository) {
     this.sourceFactory = sourceFactory;
     this.sourceRepository = sourceRepository;
-    this.publisher = publisher;
   }
 
   @PostConstruct
