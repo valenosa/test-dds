@@ -2,7 +2,6 @@ package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class Source implements IEventSource {
+public class Source {
 
   @Getter
   @Setter
@@ -26,7 +25,6 @@ public class Source implements IEventSource {
     this.type = type;
   }
 
-  @Override
   public List<Event> importEvents(LocalDateTime lastUpdate) {
     List<Event> events = this.api.importEvents(lastUpdate);
 

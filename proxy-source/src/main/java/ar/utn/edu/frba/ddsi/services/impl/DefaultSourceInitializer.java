@@ -22,6 +22,5 @@ public class DefaultSourceInitializer {
   @PostConstruct
   public void initializeDefaultSources() {
     sourceRepository.save(sourceFactory.naturalDisaster());
-    sourceRepository.findAll().forEach(publisher::notifyNewSource); // Cuando metamos persistencia, va a notificar todas las que ya existan (incluso las que no son default), lo cual me parece bien. Habría que implementar una forma de bajar las que sean dinámicas
   }
 }
