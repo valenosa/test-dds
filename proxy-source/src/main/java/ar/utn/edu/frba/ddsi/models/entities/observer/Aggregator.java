@@ -9,14 +9,19 @@ import java.util.List;
 
 public class Aggregator implements ISubscriber {
 
-  WebClient clientCallBack;
+  private WebClient clientCallBack;
+  private Long sourceClientId;
 
-  public Aggregator(String callbackUrl) {
-    this.clientCallBack = WebClient.builder().baseUrl(callbackUrl).build();
+  public Aggregator(String callbackUrl, Long sourceClientId) {
+    this.clientCallBack = WebClient
+                          .builder()
+                          .baseUrl(callbackUrl)
+                          .build();
+    this.sourceClientId = sourceClientId;
   }
 
   public static ISubscriber from(SubscriberInputDTO dto) {
-    return new Aggregator(dto.getCallbackUrl());
+    return new Aggregator(dto.getCallbackUrl(), dto.getSourceClientId());
   }
 
   public void notifyEvents(List<EventOutputDTO> events) {
