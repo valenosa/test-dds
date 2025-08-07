@@ -1,5 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
+import ar.utn.edu.frba.ddsi.exceptions.SubscriptionException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.event.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceClientInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceInputDTO;
@@ -10,9 +11,7 @@ import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 
 @Getter
@@ -45,7 +44,7 @@ public class SourceClient implements ISourceClientAdapter {
           .bodyToMono(Void.class)
           .block();
     } catch (Exception e) {
-      throw new RuntimeException("Error in subscription: " + e.getMessage(), e);
+      throw new SubscriptionException("Error in subscription: " + e.getMessage());
     }
   }
 
@@ -55,15 +54,11 @@ public class SourceClient implements ISourceClientAdapter {
         webClient.get()
             .uri("/sources")
             .retrieve()
-            .onStatus(HttpStatusCode::isError, response ->
-                Mono.error(new RuntimeException("Error fetching sources: " + response.statusCode())))
             .bodyToFlux(SourceInputDTO.class)
             .collectList()
             .block();
 
-    if (sourceDTOs == null) {
-      return List.of();
-    }
+    if (sourceDTOs == null) return List.of();
 
     return sourceDTOs.stream().map(sDto -> Source.from(sDto, this)).toList();
   }
@@ -74,15 +69,12 @@ public class SourceClient implements ISourceClientAdapter {
         webClient.get()
             .uri("/sources/" + source.getInClientId() + "/events")
             .retrieve()
-            .onStatus(HttpStatusCode::isError, response ->
-                Mono.error(new RuntimeException("Error fetching events: " + response.statusCode())))
             .bodyToFlux(EventInputDTO.class)
             .collectList()
             .block();
 
-    if (eventsDTOs == null) {
-      return List.of();
-    }
+    if (eventsDTOs == null) return List.of();
+
     return eventsDTOs.stream().map(e -> Event.from(e, source)).toList();
   }
 
