@@ -40,9 +40,11 @@ public class SourceService implements ISourceService {
     List<Source> sources = sourceClient.fetchSources();
 
     sources.parallelStream().forEach(source -> {
-      // For each source, fetch its events
-      List<Event> events = sourceClient.fetchEventsBySource(source);
-      source.addEvents(events);
+      // For each non metamapa source, fetch its events
+      if (!source.isMetamapa()) {
+        List<Event> events = source.fetchEvents();
+        source.addEvents(events);
+      }
     });
 
     //? Se puede guardar en cascada?
@@ -55,6 +57,8 @@ public class SourceService implements ISourceService {
 
   @Override
   public SourceOutputDTO create(SourceInputDTO dto) {
+
+    // TODO: Validar que la peticion venga de un modulo-fuente registrado (SEGURIDAD)
 
     ISourceClientAdapter sourceClient = sourceClientRepository.getById(dto.getSourceClientId());
     if (sourceClient == null)

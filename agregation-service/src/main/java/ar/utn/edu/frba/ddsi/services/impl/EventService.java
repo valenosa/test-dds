@@ -35,6 +35,8 @@ public class EventService implements IEventService {
   @Override
   public void createAll(List<EventInputDTO> dtos) {
 
+    // TODO: Validar que la peticion venga de un modulo-fuente registrado (SEGURIDAD)
+
     dtos.forEach(dto -> {
 
       // Get event source

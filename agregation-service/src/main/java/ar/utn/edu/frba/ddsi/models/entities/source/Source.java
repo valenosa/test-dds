@@ -67,7 +67,15 @@ public class Source {
     }
   }
 
+  public List<Event> fetchEvents(){
+    return this.sourceClient.fetchEventsBySource(this);
+  }
+
   private boolean isNotifiable(){
     return type != Origin.PROXY && type != Origin.METAMAPA;
+  }
+
+  public boolean isMetamapa() {
+    return type == Origin.METAMAPA;
   }
 }
