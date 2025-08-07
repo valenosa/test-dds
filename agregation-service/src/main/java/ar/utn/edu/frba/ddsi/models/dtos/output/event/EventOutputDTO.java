@@ -1,7 +1,7 @@
-package ar.utn.edu.frba.ddsi.models.dtos.output;
+package ar.utn.edu.frba.ddsi.models.dtos.output.event;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.source.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -30,7 +30,7 @@ public class EventOutputDTO {
     dto.setTitle(event.getTitle());
     dto.setDescription(event.getDescription());
     dto.setCategory(event.getCategory().getName());
-    dto.setOrigin(event.getSource().getSourceClient().getType());
+    dto.setOrigin(event.getSource().getType());
     dto.setLatitude(event.getLatitude());
     dto.setLongitude(event.getLongitude());
     dto.setEventDate(event.getEventDate());

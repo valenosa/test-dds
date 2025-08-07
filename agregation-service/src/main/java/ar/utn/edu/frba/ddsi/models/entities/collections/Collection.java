@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.collection.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.CollectionCriteria;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,6 +42,7 @@ public class Collection {
   }
 
   public void refresh(LocalDateTime lastUpdate) {
+
     // Update the events, adding new ones and removing those that no longer satisfy the criteria
     for (Source source : this.sources) {
       for (Event event : source.getEvents(lastUpdate)) {
@@ -50,8 +52,25 @@ public class Collection {
           events.remove(event);
         }
       }
+      // PD: No se filtra las MetaMapa ya que no deberian tener events en su lista.
     }
+
     // Remove deleted events
     this.events.removeIf(Event::isDeleted);
+  }
+
+  public Set<Event> getEvents() {
+    Set<Event> allEvents = new HashSet<>(events);
+    allEvents.addAll(getMetamapaEvents());
+    return allEvents;
+  }
+
+  public Set<Event> getMetamapaEvents() {
+    //Pull and filter events from Metamapa sources (in parallel to improve performance)
+    return this.sources.parallelStream()
+        .filter(Source::isMetamapa)
+        .flatMap(s -> s.fetchEvents().stream())
+        .filter(this.collectionCriteria::isSatisfiedBy)
+        .collect(Collectors.toSet());
   }
 }

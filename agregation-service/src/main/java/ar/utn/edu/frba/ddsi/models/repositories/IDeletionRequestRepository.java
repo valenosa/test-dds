@@ -1,6 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.repositories;
 
-import ar.utn.edu.frba.ddsi.models.entities.request.DeletionRequest;
+import ar.utn.edu.frba.ddsi.models.entities.deletion_request.DeletionRequest;
 import java.util.List;
 
 public interface IDeletionRequestRepository {

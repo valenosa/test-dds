@@ -1,6 +1,6 @@
-package ar.utn.edu.frba.ddsi.models.dtos.output;
+package ar.utn.edu.frba.ddsi.models.dtos.output.source;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.source.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import lombok.Data;
 
@@ -14,9 +14,7 @@ public class SourceOutputDTO {
   public static SourceOutputDTO from(Source source) {
     SourceOutputDTO dto = new SourceOutputDTO();
     dto.id = source.getId();
-    dto.clientId = source.getSourceClient().getId();
     dto.type = source.getType();
     return dto;
   }
-
 }

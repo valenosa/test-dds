@@ -29,7 +29,7 @@ public class EventService implements IEventService {
   @Override
   public EventOutputDTO deleteEvent(Long eventId) {
     Event event = eventRepository.findById(eventId);
-    if (event == null) throw new NotFoundException("Event not found - Id: " + eventId);
+    if (event == null) throw new NotFoundException("Event not found - ID: " + eventId);
 
     event.markAsDeleted();
     eventRepository.save(event);

@@ -1,8 +1,8 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.CollectionOutputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.collection.CollectionCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.collection.CollectionOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.event.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.CollectionService;
 import java.time.LocalDateTime;
 import java.util.List;

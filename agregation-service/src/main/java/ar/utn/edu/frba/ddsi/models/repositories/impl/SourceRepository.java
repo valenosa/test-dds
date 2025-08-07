@@ -31,15 +31,15 @@ public class SourceRepository implements ISourceRepository {
     return sources.values().stream().toList();
   }
 
+  public Source findById(Long id) {
+    return sources.get(id);
+  }
+
   @Override
   public Source findByExternalIds(Long sourceClientId, Long sourceId) {
     return this.findAll().stream()
         .filter(s -> s.getSourceClient().getId().equals(sourceClientId) && s.getInClientId().equals(sourceId))
         .findFirst()
         .orElse(null);
-  }
-
-  public Source findById(Long id) {
-    return sources.get(id);
   }
 }

@@ -1,9 +1,9 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
-import ar.utn.edu.frba.ddsi.models.dtos.input.CollectionCreationDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.CollectionOutputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.collection.CollectionCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.collection.CollectionOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.event.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.Collection;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
@@ -56,7 +56,7 @@ public class CollectionService implements ICollectionService {
   ) {
 
     Collection collection = collectionRepository.findByHandler(handler);
-    if (collection == null) throw new NotFoundException("Collection not found - Handler:" + handler);
+    if (collection == null) throw new NotFoundException("Collection not found - Handler: " + handler);
 
     // Get events from collection & filter by query params
     Set<Event> events = collection.getEvents().stream()

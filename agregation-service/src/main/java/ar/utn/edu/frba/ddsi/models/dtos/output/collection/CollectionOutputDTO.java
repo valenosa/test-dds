@@ -1,4 +1,4 @@
-package ar.utn.edu.frba.ddsi.models.dtos.output;
+package ar.utn.edu.frba.ddsi.models.dtos.output.collection;
 
 import ar.utn.edu.frba.ddsi.models.entities.collections.Collection;
 

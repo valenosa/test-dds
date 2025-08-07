@@ -1,6 +1,6 @@
-package ar.utn.edu.frba.ddsi.models.entities.request;
+package ar.utn.edu.frba.ddsi.models.entities.deletion_request;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.DeletionRequestCreationDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.input.deletion_request.DeletionRequestCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDateTime;
 import lombok.Getter;
