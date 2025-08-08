@@ -1,7 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.dtos.output;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import lombok.Data;
 
 @Data

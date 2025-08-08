@@ -1,5 +1,6 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.apis.impl;
 
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
 import ar.utn.edu.frba.ddsi.models.external.EventPage;
@@ -49,14 +50,14 @@ public class NaturalDisastersAPI implements IAPI {
 
 
   @Override
-  public List<Event> importEvents(LocalDateTime lastUpdate) {
+  public List<EventOutputDTO> importEvents(LocalDateTime lastUpdate) {
     // Primero importamos la primera página para conocer last_page
     EventPage firstPage = this.importPage(1);
     List<Event> allEvents = new ArrayList<>(firstPage.getEvents(lastUpdate));
     Integer totalPages = firstPage.getLastPage();
 
-    if (totalPages == null || totalPages <= 1) {
-      return allEvents;
+    if (totalPages == null || totalPages <= 1) { //? Tiene sentido esto?
+      return allEvents.stream().map(EventOutputDTO::from).toList();
     }
 
     // Creamos un pool de threads con un tamaño adecuado
@@ -82,7 +83,7 @@ public class NaturalDisastersAPI implements IAPI {
       executor.shutdown();
     }
 
-    return allEvents;
+    return allEvents.stream().map(EventOutputDTO::from).toList();
   }
 
 

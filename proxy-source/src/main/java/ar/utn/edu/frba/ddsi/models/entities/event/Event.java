@@ -1,7 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.ExternalDisasterDTO;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 
 @Getter
-public class Event {
+public class Event { //! Posiblemente haya que repensar esta entidad junto con EventOutputDTO
 
   @Setter
   private Long id;
