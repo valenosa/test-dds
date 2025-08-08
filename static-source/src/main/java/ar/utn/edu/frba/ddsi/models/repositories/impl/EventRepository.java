@@ -2,7 +2,6 @@ package ar.utn.edu.frba.ddsi.models.repositories.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,16 +26,21 @@ public class EventRepository implements IEventRepository {
 
   @Override
   public List<Event> findByDeleted(boolean deleted) {
-    return events.values().stream().filter(e -> e.isDeleted() == deleted).toList();
-  }
-
-  @Override
-  public List<Event> findAfterDate(LocalDateTime lastUpdate) {
-    return this.findByDeleted(false).stream().filter(e -> e.getUploadDate().isAfter(lastUpdate)).toList();
+    return events
+        .values()
+        .stream()
+        .filter(e -> e.isDeleted() == deleted).toList();
   }
 
   public Event findById(Long eventId) {
     return events.get(eventId);
+  }
+
+  @Override
+  public List<Event> findBySourceId(Long sourceId) {
+    return this.findByDeleted(false).stream()
+        .filter(event -> event.getSourceId() != null && event.getSourceId().equals(sourceId))
+        .toList();
   }
 
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IEventService {
-  List<EventOutputDTO> getEvents(LocalDateTime lastUpdate);
+  List<EventOutputDTO> getEvents();
 
   EventOutputDTO deleteEvent(Long eventId);
 }

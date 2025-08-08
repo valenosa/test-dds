@@ -36,4 +36,9 @@ public class SourceController {
     sourceService.importSourceEvents(id);
   }
 
+  @GetMapping("{id}/events")
+  public void getAllEventsBySourceId(@PathVariable Long id) {
+    sourceService.getAllEventsBySourceId(id);
+  }
+
 }

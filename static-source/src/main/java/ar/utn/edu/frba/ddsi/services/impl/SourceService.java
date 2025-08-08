@@ -2,8 +2,10 @@ package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
 import ar.utn.edu.frba.ddsi.models.entities.source.SourceFactory;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
@@ -27,12 +29,17 @@ public class SourceService implements ISourceService {
   @Autowired
   private SourceFactory sourceFactory;
 
+  @Autowired
+  private Publisher publisher;
+
   @Override
   public SourceOutputDTO create(SourceInputDTO dto) {
 
     Source source = sourceFactory.createFrom(dto);
 
     sourceRepository.save(source);
+
+    publisher.notifyNewSource(source);
 
     return SourceOutputDTO.from(source);
   }
@@ -51,5 +58,21 @@ public class SourceService implements ISourceService {
     Set<Event> importedEvents = source.importEvents();
 
     importedEvents.forEach(eventRepository::save);
+
+    publisher.notifyNewEvents(importedEvents);
+  }
+
+  @Override
+  public List<EventOutputDTO> getAllEventsBySourceId(Long id) {
+
+    if (sourceRepository.findById(id) == null) {
+      throw new NotFoundException("Source not found - ID: " + id);
+    }
+
+    return eventRepository
+        .findBySourceId(id)
+        .stream()
+        .map(EventOutputDTO::from)
+        .toList();
   }
 }

@@ -17,12 +17,7 @@ public class EventService implements IEventService {
   IEventRepository eventRepository;
 
   @Override
-  public List<EventOutputDTO> getEvents(LocalDateTime lastUpdate) {
-
-    if (lastUpdate != null) {
-      return eventRepository.findAfterDate(lastUpdate).stream().map(EventOutputDTO::from).toList();
-    }
-
+  public List<EventOutputDTO> getEvents() {
     return eventRepository.findByDeleted(false).stream().map(EventOutputDTO::from).toList();
   }
 
