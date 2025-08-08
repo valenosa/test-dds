@@ -2,8 +2,8 @@ package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.IImporter;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import com.opencsv.CSVReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,11 +23,11 @@ public class CsvImporter implements IImporter {
     return "CSV";
   }
 
-  public Set<Event> importEvents(String fileName, Source source) {
+  public Set<Event> importEvents(Source source) {
 
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("CSV/" + fileName);
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("CSV/" + source.getPath());
     if (inputStream == null) {
-      throw new RuntimeException("No se pudo encontrar el archivo: " + fileName);
+      throw new RuntimeException("No se pudo encontrar el archivo: " + source.getPath());
     }
 
     Set<Event> events = new HashSet<>();
@@ -48,7 +48,6 @@ public class CsvImporter implements IImporter {
         Double latitude = Double.parseDouble(row[3]);
         Double longitude = Double.parseDouble(row[4]);
         LocalDateTime eventDate = null;
-        Origin origin = Origin.STATIC;
 
         try {
           eventDate = LocalDate.parse(row[5], DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay(); //TODO: Los csv tienen LocalDateTime o LocalDate?
@@ -63,7 +62,6 @@ public class CsvImporter implements IImporter {
             latitude,
             longitude,
             eventDate,
-            origin,
             source);
 
         events.add(event);

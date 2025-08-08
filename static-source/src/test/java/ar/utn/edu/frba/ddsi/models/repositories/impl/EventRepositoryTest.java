@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;

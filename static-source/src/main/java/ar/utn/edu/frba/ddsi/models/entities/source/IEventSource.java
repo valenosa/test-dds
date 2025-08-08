@@ -1,9 +1,0 @@
-package ar.utn.edu.frba.ddsi.models.entities.source;
-
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import java.util.Set;
-
-public interface IEventSource {
-  Long getId();
-  Set<Event> importEvents();
-}

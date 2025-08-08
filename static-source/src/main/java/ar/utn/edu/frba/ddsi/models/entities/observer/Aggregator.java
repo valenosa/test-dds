@@ -4,7 +4,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.SubscriberInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.util.List;
 import java.util.Set;
 import org.springframework.web.reactive.function.client.WebClient;

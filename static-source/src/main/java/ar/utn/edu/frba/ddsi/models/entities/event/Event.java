@@ -2,10 +2,8 @@ package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.source.IEventSource;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +12,8 @@ import lombok.Setter;
 public class Event {
 
   //-- Identificador
-  @Setter
-  private Long id;
-  @Setter
-  @Getter(AccessLevel.NONE)
-  private IEventSource source;
-  private final Origin origin;
+  @Setter private Long id;
+  @Setter private Source source;
 
   //-- Description
   private final String title;
@@ -43,7 +37,7 @@ public class Event {
                Double latitude,
                Double longitude,
                LocalDateTime eventDate,
-               Origin origin, Source source) {
+               Source source) {
     this.title = title;
     this.description = description;
     this.category = category;
@@ -51,9 +45,12 @@ public class Event {
     this.longitude = longitude;
     this.eventDate = eventDate;
     this.uploadDate = LocalDateTime.now();
-    this.origin = origin;
     this.source = source;
     this.deleted = false;
+  }
+
+  public Origin getOrigin() {
+    return this.source.getType();
   }
 
   public Long getSourceId() {

@@ -7,7 +7,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
 import ar.utn.edu.frba.ddsi.models.entities.source.SourceFactory;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
