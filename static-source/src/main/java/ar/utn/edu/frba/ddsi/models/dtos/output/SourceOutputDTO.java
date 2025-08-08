@@ -5,13 +5,14 @@ import lombok.Data;
 
 @Data
 public class SourceOutputDTO {
-  Long id;
+  Long sourceClientId;
+  Long inClientId;
   String path;
 
   public static SourceOutputDTO from(Source source) {
 
     SourceOutputDTO dto = new SourceOutputDTO();
-    dto.setId(source.getId());
+    dto.setInClientId(source.getId());
     dto.setPath(source.getPath());
 
     return dto;
