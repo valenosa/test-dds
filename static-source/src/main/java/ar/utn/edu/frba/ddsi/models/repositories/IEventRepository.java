@@ -11,7 +11,6 @@ public interface IEventRepository {
 
   List<Event> findByDeleted(boolean deleted);
 
-  //Not deleted & after lastUpdate
-  List<Event> findAfterDate(LocalDateTime lastUpdate);
-
+  //Not deleted & by sourceId
+  List<Event> findBySourceId(Long sourceId);
 }
