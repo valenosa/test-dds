@@ -23,8 +23,8 @@ public class EventController {
   }
 
   @GetMapping
-  public List<EventOutputDTO> getEvents(@RequestParam(required = false) LocalDateTime lastUpdate) {
-    return eventService.getEvents(lastUpdate);
+  public List<EventOutputDTO> getEvents() {
+    return eventService.getEvents();
   }
 
   @DeleteMapping("/{id}")
