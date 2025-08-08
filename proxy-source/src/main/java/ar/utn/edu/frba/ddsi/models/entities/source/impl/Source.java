@@ -27,7 +27,7 @@ public class Source {
     this.type = type;
   }
 
-  public List<EventOutputDTO> importEvents(LocalDateTime lastUpdate) {
+  public List<EventOutputDTO>  importEvents(LocalDateTime lastUpdate) {
     List<EventOutputDTO> events = this.api.importEvents(lastUpdate);
 
     events.forEach(event -> event.setSourceId(this.id));

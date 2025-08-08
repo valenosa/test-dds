@@ -23,7 +23,7 @@ public class SourceController {
   }
 
   @GetMapping("{id}/events")
-  public void getEventsBySourceId(@PathVariable Long id) {
-    //TODO
+  public void getAllEventsBySourceId(@PathVariable Long id) {
+    sourceService.getAllEventsBySourceId(id);
   }
 }

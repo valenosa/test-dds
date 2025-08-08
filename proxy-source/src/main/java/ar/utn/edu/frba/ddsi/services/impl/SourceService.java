@@ -24,7 +24,8 @@ public class SourceService implements ISourceService {
     publisher.notifyNewSource(source);
   }
 
-  public void getEventsBySourceId(Long id) {
-    //TODO
+  @Override
+  public void getAllEventsBySourceId(Long id) {
+    sourceRepository.findById(id).importEvents(null);
   }
 }
