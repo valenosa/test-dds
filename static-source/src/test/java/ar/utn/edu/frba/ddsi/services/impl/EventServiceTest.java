@@ -7,12 +7,14 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -34,7 +36,7 @@ class EventServiceTest {
       0.0,
       LocalDateTime.of(2023, 7, 27, 18, 15),
       Origin.STATIC,
-      0L
+      Mockito.mock(Source.class)
   );
   Event event1 = new Event(
       "Event 1",
@@ -44,7 +46,7 @@ class EventServiceTest {
       0.0,
       LocalDateTime.of(2022, 12, 12, 9, 58),
       Origin.STATIC,
-      1L
+      Mockito.mock(Source.class)
   );
 
   @Test
@@ -52,24 +54,11 @@ class EventServiceTest {
   public void testGetEvents() {
     when(mockEventRepository.findByDeleted(false)).thenReturn(List.of(event0, event1));
 
-    var result = eventService.getEvents(null);
+    var result = eventService.getEvents();
 
     Assertions.assertNotNull(result);
     Assertions.assertEquals(2, result.size());
     Assertions.assertEquals(EventOutputDTO.from(event0), result.get(0));
     Assertions.assertEquals(EventOutputDTO.from(event1), result.get(1));
   }
-
-  @Test
-  @DisplayName("Al pedir los hechos en base a la última update, se obtienen los no actualizados")
-  public void testGetOutdatedEvents() {
-    var lastUpdate = LocalDateTime.of(2024, 5, 16, 14, 30);
-    when(mockEventRepository.findAfterDate(lastUpdate)).thenReturn(List.of(event1));
-    var result = eventService.getEvents(lastUpdate);
-
-    Assertions.assertNotNull(result);
-    Assertions.assertEquals(1, result.size());
-    Assertions.assertEquals(EventOutputDTO.from(event1), result.get(0));
-  }
-
 }

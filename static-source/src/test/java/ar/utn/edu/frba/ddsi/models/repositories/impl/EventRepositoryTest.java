@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Origin;
+import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,7 +33,7 @@ class EventRepositoryTest {
         0.0,
         LocalDateTime.of(2023, 7, 27, 18, 15),
         Origin.STATIC,
-        1L
+        Mockito.mock(Source.class)
     );
 
     lastUpdate = LocalDateTime.now();
@@ -46,7 +48,7 @@ class EventRepositoryTest {
         0.0,
         LocalDateTime.of(2022, 12, 12, 9, 58),
         Origin.STATIC,
-        2L
+        Mockito.mock(Source.class)
     );
 
     eventRepository.save(event1);
@@ -68,19 +70,6 @@ class EventRepositoryTest {
   }
 
   @Test
-  @DisplayName("Se obtienen hechos no actualizados")
-  public void testFindAfterDate() {
-
-    var event2 = eventRepository.findById(2L);
-    var result = eventRepository.findAfterDate(lastUpdate);
-
-
-    assertNotNull(result);
-    assertEquals(1, result.size());
-    assertEquals(event2, result.get(0));
-  }
-
-  @Test
   @DisplayName("Se elimina un hecho")
   public void testDeleteEvent() {
     var event1 = eventRepository.findById(1L);
@@ -93,7 +82,7 @@ class EventRepositoryTest {
         0.0,
         LocalDateTime.of(2024, 1, 1, 12, 0),
         Origin.STATIC,
-        3L
+        Mockito.mock(Source.class)
     );
 
     eventRepository.save(event3);
