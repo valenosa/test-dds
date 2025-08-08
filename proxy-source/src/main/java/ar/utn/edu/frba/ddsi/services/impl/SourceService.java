@@ -2,7 +2,7 @@ package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
-import ar.utn.edu.frba.ddsi.models.entities.source.impl.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
 import org.springframework.beans.factory.annotation.Autowired;

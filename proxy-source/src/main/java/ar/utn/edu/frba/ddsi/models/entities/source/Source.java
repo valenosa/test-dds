@@ -1,4 +1,4 @@
-package ar.utn.edu.frba.ddsi.models.entities.source.impl;
+package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;

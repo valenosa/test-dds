@@ -1,4 +1,4 @@
-package ar.utn.edu.frba.ddsi.models.entities.scheduler;
+package ar.utn.edu.frba.ddsi.scheduler;
 
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.time.LocalDateTime;
