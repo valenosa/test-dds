@@ -1,6 +1,5 @@
 package ar.utn.edu.frba.ddsi.models.entities.source;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.impl.NaturalDisastersAPI;
 import org.springframework.stereotype.Component;
 

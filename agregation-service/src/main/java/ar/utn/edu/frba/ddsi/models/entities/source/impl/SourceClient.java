@@ -35,11 +35,11 @@ public class SourceClient implements ISourceClientAdapter {
   }
 
   @Override
-  public void subscribe() {
+  public void subscribe(String callbackUrl) {
     try {
       webClient.post()
           .uri("/subscribers")
-          .bodyValue(SubscribeOutputDTO.from(this))
+          .bodyValue(new SubscribeOutputDTO(this.id, callbackUrl))
           .retrieve()
           .bodyToMono(Void.class)
           .block();

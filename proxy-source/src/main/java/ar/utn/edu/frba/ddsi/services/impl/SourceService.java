@@ -1,10 +1,13 @@
 package ar.utn.edu.frba.ddsi.services.impl;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +28,12 @@ public class SourceService implements ISourceService {
   }
 
   @Override
-  public void getAllEventsBySourceId(Long id) {
-    sourceRepository.findById(id).importEvents(null);
+  public List<EventOutputDTO> getAllEventsBySourceId(Long id) {
+    return sourceRepository.findById(id).importEvents(null);
+  }
+
+  @Override
+  public List<SourceOutputDTO> getAllSources() {
+    return sourceRepository.findAll().stream().map(SourceOutputDTO::from).toList();
   }
 }

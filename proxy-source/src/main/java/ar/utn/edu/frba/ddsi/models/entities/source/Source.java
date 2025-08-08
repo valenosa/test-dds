@@ -2,7 +2,6 @@ package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
-import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.impl.MetaMapa;
 import java.time.LocalDateTime;

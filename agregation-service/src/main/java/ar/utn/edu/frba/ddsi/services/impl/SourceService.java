@@ -15,6 +15,7 @@ import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,12 +30,15 @@ public class SourceService implements ISourceService {
   @Autowired
   private IEventRepository eventRepository;
 
+  @Value("${aggregation-service.url}")
+  String callbackUrl;
+
   @Override
   public SourceClientOutputDTO create(SourceClientInputDTO dto) {
     SourceClient sourceClient = sourceClientRepository.save(SourceClient.from(dto));
 
     //Subscribe to the source client to receive NEW sources and events.
-    sourceClient.subscribe();
+    sourceClient.subscribe(callbackUrl);
 
     // First connection: Fetch the preexisting sources and events from the client and saves it.
     List<Source> sources = sourceClient.fetchSources();

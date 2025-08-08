@@ -14,6 +14,7 @@ public class SourceOutputDTO {
   public static SourceOutputDTO from(Source source) {
     SourceOutputDTO dto = new SourceOutputDTO();
     dto.id = source.getId();
+    dto.clientId = source.getSourceClient().getId();
     dto.type = source.getType();
     return dto;
   }

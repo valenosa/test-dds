@@ -1,7 +1,10 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +25,13 @@ public class SourceController {
     sourceService.create(dto);
   }
 
+  @GetMapping
+  public List<SourceOutputDTO> getAllSources() {
+    return sourceService.getAllSources();
+  }
+
   @GetMapping("{id}/events")
-  public void getAllEventsBySourceId(@PathVariable Long id) {
-    sourceService.getAllEventsBySourceId(id);
+  public List<EventOutputDTO> getAllEventsBySourceId(@PathVariable Long id) {
+    return sourceService.getAllEventsBySourceId(id);
   }
 }

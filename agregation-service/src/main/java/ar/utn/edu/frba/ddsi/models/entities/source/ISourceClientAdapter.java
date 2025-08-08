@@ -7,7 +7,7 @@ public interface ISourceClientAdapter {
 
   Long getId();
 
-  void subscribe();
+  void subscribe(String callbackUrl);
 
   List<Source> fetchSources();
 

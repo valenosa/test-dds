@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.event;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.ExternalDisasterDTO;
+import ar.utn.edu.frba.ddsi.models.entities.source.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
