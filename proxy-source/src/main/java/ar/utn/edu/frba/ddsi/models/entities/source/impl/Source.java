@@ -1,8 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
+import ar.utn.edu.frba.ddsi.models.entities.source.apis.impl.MetaMapa;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
@@ -25,13 +27,16 @@ public class Source {
     this.type = type;
   }
 
-  public List<Event> importEvents(LocalDateTime lastUpdate) {
-    List<Event> events = this.api.importEvents(lastUpdate);
+  public List<EventOutputDTO> importEvents(LocalDateTime lastUpdate) {
+    List<EventOutputDTO> events = this.api.importEvents(lastUpdate);
 
-    events.forEach(event -> event.setSource(this));
+    events.forEach(event -> event.setSourceId(this.id));
 
     return events;
   }
 
+  public static Source from(SourceInputDTO dto) {
+    return new Source(new MetaMapa(dto.getBaseUrl()), dto.getType());
+  }
 }
 

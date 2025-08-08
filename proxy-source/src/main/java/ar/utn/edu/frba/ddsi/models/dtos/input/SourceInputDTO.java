@@ -1,11 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.dtos.input;
 
-import lombok.Getter;
+import ar.utn.edu.frba.ddsi.models.entities.event.Origin;
+import lombok.Data;
 
-@Getter
+@Data
 public class SourceInputDTO {
-  private String apiType; //Tipo de API, permite instanciar la clase correspondiente
   private String baseUrl;
-  //Por ahora la apiKey se obtiene mediante un login. Debería pasar credenciales en este DTO?
-
+  private Origin type;
 }

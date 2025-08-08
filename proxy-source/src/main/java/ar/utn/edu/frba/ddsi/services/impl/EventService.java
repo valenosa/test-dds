@@ -24,8 +24,6 @@ public class EventService implements IEventService {
         .stream()
         //Obtengo todos los elementos de todas las fuentes
         .flatMap(source -> source.importEvents(lastUpdate).stream())
-        //Los transformo a DTO
-        .map(EventOutputDTO::from)
         .toList();
   }
 

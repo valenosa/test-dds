@@ -9,7 +9,7 @@ import lombok.Setter;
 
 
 @Getter
-public class Event {
+public class Event { //! Posiblemente haya que repensar esta entidad junto con EventOutputDTO
 
   @Setter
   private Long id;
