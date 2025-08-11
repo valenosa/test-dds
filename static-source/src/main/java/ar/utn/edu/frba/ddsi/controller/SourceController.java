@@ -1,6 +1,7 @@
 package ar.utn.edu.frba.ddsi.controller;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.SourceInputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.services.impl.SourceService;
 import java.util.List;
@@ -37,8 +38,8 @@ public class SourceController {
   }
 
   @GetMapping("{id}/events")
-  public void getAllEventsBySourceId(@PathVariable Long id) {
-    sourceService.getAllEventsBySourceId(id);
+  public List<EventOutputDTO> getAllEventsBySourceId(@PathVariable Long id) {
+    return sourceService.getAllEventsBySourceId(id);
   }
 
 }

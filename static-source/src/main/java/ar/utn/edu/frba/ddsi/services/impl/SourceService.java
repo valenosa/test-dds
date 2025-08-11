@@ -69,10 +69,13 @@ public class SourceService implements ISourceService {
       throw new NotFoundException("Source not found - ID: " + id);
     }
 
-    return eventRepository
-        .findBySourceId(id)
-        .stream()
-        .map(EventOutputDTO::from)
-        .toList();
+    List<Event> events = eventRepository.findBySourceId(id);
+
+    //?TODO Return 404 if source not found
+
+    return events
+          .stream()
+          .map(EventOutputDTO::from)
+          .toList();
   }
 }

@@ -29,7 +29,9 @@ public class SourceService implements ISourceService {
 
   @Override
   public List<EventOutputDTO> getAllEventsBySourceId(Long id) {
-    return sourceRepository.findById(id).importEvents(null);
+    Source source = sourceRepository.findById(id);
+    //TODO Return 404 if source not found
+    return source.importEvents(null);
   }
 
   @Override

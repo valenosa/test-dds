@@ -38,8 +38,12 @@ public class EventRepository implements IEventRepository {
 
   @Override
   public List<Event> findBySourceId(Long sourceId) {
-    return this.findByDeleted(false).stream()
-        .filter(event -> event.getSourceId().equals(sourceId))
+
+    List<Event> eventsBySource = this.findByDeleted(false);
+
+    return eventsBySource
+        .stream()
+        .filter(event -> event.getSourceId().equals(sourceId)) //!
         .toList();
   }
 
