@@ -57,4 +57,15 @@ public class EventRepository implements IEventRepository {
     return events.get(eventId);
   }
 
+  @Override
+  public List<Event> findBySourceId(Long sourceId) {
+
+    List<Event> eventsBySource = this.findByAccepted();
+
+    return eventsBySource
+        .stream()
+        .filter(event -> event.getSourceId().equals(sourceId)) //?Every Event should have 1L as sourceId, but we have a preventive check
+        .toList();
+  }
+
 }

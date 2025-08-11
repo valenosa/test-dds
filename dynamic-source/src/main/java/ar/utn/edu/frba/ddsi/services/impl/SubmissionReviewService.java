@@ -5,10 +5,12 @@ import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.SubmissionEvaluationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SubmissionEvaluationOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
 import ar.utn.edu.frba.ddsi.models.entities.submission.SubmissionRequest;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISubmissionRepository;
 import ar.utn.edu.frba.ddsi.services.ISubmissionReviewService;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class SubmissionReviewService implements ISubmissionReviewService {
 
   @Autowired
   IEventRepository eventRepository;
+
+  @Autowired
+  Publisher publisher;
 
 
   @Override
@@ -40,6 +45,11 @@ public class SubmissionReviewService implements ISubmissionReviewService {
 
     SubmissionRequest submissionRequest = submissionRepository.save(submission);
     Event eventSaved = eventRepository.save(submission.getEvent());
+
+    if (eventSaved.isAccepted()) {
+      Set<Event> eventSet = Set.of(eventSaved);
+      publisher.notifyNewEvents(eventSet);
+    }
     return SubmissionEvaluationOutputDTO.from(eventSaved, submissionRequest.getState());
   }
 
