@@ -5,11 +5,9 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceClientInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceClientOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceOutputDTO;
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.ISourceClientAdapter;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.entities.source.impl.SourceClient;
-import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceClientRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
@@ -27,9 +25,6 @@ public class SourceService implements ISourceService {
   @Autowired
   private ISourceRepository sourceRepository;
 
-  @Autowired
-  private IEventRepository eventRepository;
-
   @Value("${aggregation-service.url}")
   String callbackUrl;
 
@@ -40,22 +35,6 @@ public class SourceService implements ISourceService {
     //Subscribe to the source client to receive NEW sources and events.
     sourceClient.subscribe(callbackUrl);
 
-    // First connection: Fetch the preexisting sources and events from the client and saves it.
-    List<Source> sources = sourceClient.fetchSources();
-
-    sources.parallelStream().forEach(source -> {
-      // For each non metamapa source, fetch its events
-      if (!source.isMetamapa()) {
-        List<Event> events = source.fetchEvents();
-        source.addEvents(events);
-      }
-    });
-
-    //? Se puede guardar en cascada?
-    sources.forEach(source -> {
-      source.getEvents(null).forEach(eventRepository::save);
-      sourceRepository.save(source);
-    });
     return SourceClientOutputDTO.from(sourceClient);
   }
 

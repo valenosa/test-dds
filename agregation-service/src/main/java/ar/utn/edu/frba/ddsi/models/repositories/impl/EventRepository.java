@@ -50,6 +50,16 @@ public class EventRepository implements IEventRepository {
     );
   }
 
+  @Override
+  public Event findByExternalIds(Long sourceClientId, Long sourceId, Long inSourceEventId) {
+    return events.values().stream()
+        .filter(e -> e.getSource().getSourceClient().getId().equals(sourceClientId) &&
+            e.getSource().getInClientId().equals(sourceId) &&
+            e.getInSourceEventId().equals(inSourceEventId))
+        .findFirst()
+        .orElse(null);
+  }
+
   private List<Event> filterEvents(
       List<Event> events,
       String category,

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,18 +58,9 @@ public class Collection {
     this.events.removeIf(Event::isDeleted);
   }
 
-  public Set<Event> getEvents() {
-    Set<Event> allEvents = new HashSet<>(events);
-    allEvents.addAll(getMetamapaEvents());
-    return allEvents;
-  }
-
-  public Set<Event> getMetamapaEvents() {
-    //Pull and filter events from Metamapa sources (in parallel to improve performance)
-    return this.sources.parallelStream()
+  public List<Source> getMetamapaSources() {
+    return this.sources.stream()
         .filter(Source::isMetamapa)
-        .flatMap(s -> s.fetchEvents().stream())
-        .filter(this.collectionCriteria::isSatisfiedBy)
-        .collect(Collectors.toSet());
+        .toList();
   }
 }

@@ -4,6 +4,7 @@ import ar.utn.edu.frba.ddsi.exceptions.NotFoundException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.event.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.event.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.impl.SourceRepository;
@@ -33,21 +34,66 @@ public class EventService implements IEventService {
   }
 
   @Override
-  public void createAll(List<EventInputDTO> dtos) {
+  public void create(EventInputDTO dto) {
 
-    // TODO: Validar que la peticion venga de un modulo-fuente registrado (SEGURIDAD)
+    // Get event source
+    Source source = sourceRepository.findByExternalIds(dto.getSourceClientId(), dto.getSourceId());
+    if (source == null)
+      throw new NotFoundException("Source not found for SourceClientId: " + dto.getSourceClientId() + " and sourceId: " + dto.getSourceId());
 
-    dtos.forEach(dto -> {
+    Category category = Category // TODO: Deberiamos tener un repo y tomarla en base al "nombre"
+        .builder()
+        .name(dto.getCategory())
+        .build();
 
-      // Get event source
-      Source source = sourceRepository.findByExternalIds(dto.getSourceClientId(), dto.getSourceId());
-      if (source == null)
-        throw new NotFoundException("Source not found for SourceClientId: " + dto.getSourceClientId() + " and sourceId: " + dto.getSourceId());
+    //Create event
+    Event event = Event.builder()
+        .id(dto.getId())
+        .title(dto.getTitle())
+        .description(dto.getDescription())
+        .category(category)
+        .latitude(dto.getLatitude())
+        .longitude(dto.getLongitude())
+        .eventDate(dto.getEventDate())
+        .uploadDate(dto.getUploadDate())
+        .source(source)
+        .inSourceEventId(dto.getId())
+        .build();
 
-      // Create and saver event
-      eventRepository.save(Event.from(dto, source));
-
-    });
+    source.addEvent(event);
+    sourceRepository.save(source);
+    eventRepository.save(event);
   }
 
+  @Override
+  public void update(Long eventId, EventInputDTO dto) {
+
+    Event existingEvent = eventRepository.findById(eventId);
+    if (existingEvent == null)
+      throw new NotFoundException("Event not found with ID: " + eventId);
+
+    Category category = Category // TODO: Deberiamos tener un repo y tomarla en base al "nombre"
+        .builder()
+        .name(dto.getCategory())
+        .build();
+
+    existingEvent.update(dto,category);
+
+    eventRepository.save(existingEvent);
+  }
+
+  @Override
+  public void createAll(List<EventInputDTO> dtos) {
+    // TODO: Validar que la peticion venga de un modulo-fuente registrado (SEGURIDAD)
+
+    for (EventInputDTO dto : dtos) {
+      //Validate if the event already exists in the repository
+      Event event = eventRepository.findByExternalIds(dto.getSourceClientId(), dto.getSourceId(), dto.getId());
+      if (event == null) {
+        this.create(dto);
+      } else {
+        this.update(event.getId(),dto);
+      }
+    }
+  }
 }

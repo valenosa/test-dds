@@ -3,7 +3,6 @@ package ar.utn.edu.frba.ddsi.models.entities.source.impl;
 import ar.utn.edu.frba.ddsi.exceptions.SubscriptionException;
 import ar.utn.edu.frba.ddsi.models.dtos.input.event.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceClientInputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.source.SubscribeOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.ISourceClientAdapter;
@@ -49,22 +48,7 @@ public class SourceClient implements ISourceClientAdapter {
   }
 
   @Override
-  public List<Source> fetchSources() {
-    List<SourceInputDTO> sourceDTOs =
-        webClient.get()
-            .uri("/sources")
-            .retrieve()
-            .bodyToFlux(SourceInputDTO.class)
-            .collectList()
-            .block();
-
-    if (sourceDTOs == null) return List.of();
-
-    return sourceDTOs.stream().map(sDto -> Source.from(sDto, this)).toList();
-  }
-
-  @Override
-  public List<Event> fetchEventsBySource(Source source) {
+  public List<EventInputDTO> fetchEventsBySource(Source source) {
     List<EventInputDTO> eventsDTOs =
         webClient.get()
             .uri("/sources/" + source.getInClientId() + "/events")
@@ -75,7 +59,7 @@ public class SourceClient implements ISourceClientAdapter {
 
     if (eventsDTOs == null) return List.of();
 
-    return eventsDTOs.stream().map(e -> Event.from(e, source)).toList();
+    return eventsDTOs;
   }
 
   @Override

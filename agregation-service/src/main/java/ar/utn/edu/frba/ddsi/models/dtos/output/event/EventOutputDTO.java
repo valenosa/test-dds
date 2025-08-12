@@ -1,13 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.dtos.output.event;
 
+import ar.utn.edu.frba.ddsi.models.dtos.input.event.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.Data;
-
 
 @Data
 public class EventOutputDTO {
@@ -21,7 +18,6 @@ public class EventOutputDTO {
   Double longitude;
   LocalDateTime eventDate;
   LocalDateTime uploadDate;
-  Set<String> tags;
 
   public static EventOutputDTO from(Event event) {
     EventOutputDTO dto = new EventOutputDTO();
@@ -35,7 +31,18 @@ public class EventOutputDTO {
     dto.setLongitude(event.getLongitude());
     dto.setEventDate(event.getEventDate());
     dto.setUploadDate(event.getUploadDate());
-    dto.setTags(event.getTags().stream().map(Tag::getName).collect(Collectors.toSet()));
+    return dto;
+  }
+
+  public static EventOutputDTO from(EventInputDTO inputDto){
+    EventOutputDTO dto = new EventOutputDTO();
+    dto.setTitle(inputDto.getTitle());
+    dto.setDescription(inputDto.getDescription());
+    dto.setCategory(inputDto.getCategory());
+    dto.setLatitude(inputDto.getLatitude());
+    dto.setLongitude(inputDto.getLongitude());
+    dto.setEventDate(inputDto.getEventDate());
+    dto.setUploadDate(LocalDateTime.now()); // Assuming upload date is now
     return dto;
   }
 }

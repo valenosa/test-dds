@@ -21,4 +21,6 @@ public interface IEventRepository {
       LocalDateTime untilEventDate,
       LocalDateTime fromEventDate
   );
+
+  Event findByExternalIds(Long sourceClientId, Long sourceId, Long inSourceEventId);
 }
