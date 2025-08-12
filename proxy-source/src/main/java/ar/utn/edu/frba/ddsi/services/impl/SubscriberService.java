@@ -18,7 +18,9 @@ public class SubscriberService implements ISubscriberService {
 
   ISourceService sourceService;
 
-  public SubscriberService(Publisher publisher, IEventService eventService, ISourceService sourceService) {
+  public SubscriberService(Publisher publisher,
+                           IEventService eventService,
+                           ISourceService sourceService) {
     this.publisher = publisher;
     this.eventService = eventService;
     this.sourceService = sourceService;

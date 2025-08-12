@@ -6,7 +6,6 @@ import ar.utn.edu.frba.ddsi.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
