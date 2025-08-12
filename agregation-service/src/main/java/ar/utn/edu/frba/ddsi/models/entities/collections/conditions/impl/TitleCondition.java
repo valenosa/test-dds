@@ -5,7 +5,7 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 
 public class TitleCondition implements ICondition {
 
-  String title;
+  final String title;
 
   public TitleCondition(String title) {
     this.title = title;

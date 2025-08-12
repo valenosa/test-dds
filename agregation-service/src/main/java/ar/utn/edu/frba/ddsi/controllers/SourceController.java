@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sources")
 public class SourceController {
 
-  @Autowired
   ISourceService sourceService;
+
+  @Autowired
+  public SourceController(ISourceService sourceService) {
+    this.sourceService = sourceService;
+  }
 
   @PostMapping("/clients")
   public SourceClientOutputDTO createSource(@RequestBody SourceClientInputDTO sourceClient) {

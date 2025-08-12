@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SourceClientRepository implements ISourceClientRepository {
 
-  Map<Long, SourceClient> sourceClients = new HashMap<>(); //<idSourceClient,sourceClient>
+  private final Map<Long, SourceClient> sourceClients = new HashMap<>(); //<idSourceClient,sourceClient>
   private final AtomicLong idGenerator = new AtomicLong(1);
 
   @Override

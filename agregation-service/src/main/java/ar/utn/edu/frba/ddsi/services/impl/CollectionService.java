@@ -19,11 +19,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CollectionService implements ICollectionService {
 
-  @Autowired
   ICollectionRepository collectionRepository;
 
-  @Autowired
   ISourceRepository sourceRepository;
+
+  @Autowired
+  public CollectionService(ISourceRepository sourceRepository, ICollectionRepository collectionRepository) {
+    this.sourceRepository = sourceRepository;
+    this.collectionRepository = collectionRepository;
+  }
 
   @Override
   public void create(CollectionCreationDTO collectionDto) {

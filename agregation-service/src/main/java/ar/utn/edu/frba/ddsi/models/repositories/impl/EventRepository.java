@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class EventRepository implements IEventRepository {
-  Map<Long, Event> events = new HashMap<>();
+  private final Map<Long, Event> events = new HashMap<>();
   private final AtomicLong idGenerator = new AtomicLong(1);
 
   @Override

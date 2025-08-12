@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class UntilDateCondition implements ICondition {
 
-  LocalDateTime to;
+  final LocalDateTime to;
 
   public UntilDateCondition(LocalDateTime to) {
     this.to = to;

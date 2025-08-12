@@ -7,6 +7,7 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
+import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.impl.SourceRepository;
 import ar.utn.edu.frba.ddsi.services.IEventService;
 import java.time.LocalDateTime;
@@ -17,10 +18,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventService implements IEventService {
 
-  @Autowired
   IEventRepository eventRepository;
+
+  ISourceRepository sourceRepository;
+
   @Autowired
-  private SourceRepository sourceRepository;
+  public EventService(IEventRepository eventRepository, SourceRepository sourceRepository) {
+    this.eventRepository = eventRepository;
+    this.sourceRepository = sourceRepository;
+  }
 
 
   @Override
@@ -77,7 +83,7 @@ public class EventService implements IEventService {
         .name(dto.getCategory())
         .build();
 
-    existingEvent.update(dto,category);
+    existingEvent.update(dto, category);
 
     eventRepository.save(existingEvent);
   }
@@ -92,7 +98,7 @@ public class EventService implements IEventService {
       if (event == null) {
         this.create(dto);
       } else {
-        this.update(event.getId(),dto);
+        this.update(event.getId(), dto);
       }
     }
   }

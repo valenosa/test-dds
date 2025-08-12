@@ -18,14 +18,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeletionRequestService implements IDeletionRequestService {
 
-  @Autowired
-  private IDeletionRequestRepository deletionRequestRepository;
+  IDeletionRequestRepository deletionRequestRepository;
+
+  IEventRepository eventRepository;
+
+  ISpamDetector spamDetector;
 
   @Autowired
-  private IEventRepository eventRepository;
+  public DeletionRequestService(IDeletionRequestRepository deletionRequestRepository, IEventRepository eventRepository, ISpamDetector spamDetector) {
+    this.deletionRequestRepository = deletionRequestRepository;
+    this.eventRepository = eventRepository;
+    this.spamDetector = spamDetector;
+  }
 
-  @Autowired
-  private ISpamDetector spamDetector;
 
   @Override
   public DeletionRequestOutputDTO create(DeletionRequestCreationDTO drDTO) {

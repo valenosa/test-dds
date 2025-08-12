@@ -5,7 +5,7 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 
 public class CategoryCondition implements ICondition {
-  Category category;
+  private final Category category;
 
   public CategoryCondition(Category category) {
     this.category = category;

@@ -19,14 +19,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class SourceService implements ISourceService {
 
-  @Autowired
-  private ISourceClientRepository sourceClientRepository;
+  ISourceClientRepository sourceClientRepository;
 
-  @Autowired
-  private ISourceRepository sourceRepository;
+  ISourceRepository sourceRepository;
 
   @Value("${aggregation-service.url}")
   String callbackUrl;
+
+  @Autowired
+  public SourceService(ISourceClientRepository sourceClientRepository, ISourceRepository sourceRepository) {
+    this.sourceClientRepository = sourceClientRepository;
+    this.sourceRepository = sourceRepository;
+  }
 
   @Override
   public SourceClientOutputDTO create(SourceClientInputDTO dto) {
