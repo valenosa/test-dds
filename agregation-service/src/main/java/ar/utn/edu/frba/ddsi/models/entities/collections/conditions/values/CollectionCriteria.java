@@ -17,7 +17,6 @@ public class CollectionCriteria implements ICondition{
     this.conditions = conditions;
   }
 
-
   @Override
   public boolean isSatisfiedBy(Event event) {
     return conditions.stream().allMatch(condition -> condition.isSatisfiedBy(event));

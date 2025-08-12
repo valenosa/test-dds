@@ -5,6 +5,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.input.collection.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.collection.CollectionOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.event.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.Collection;
+import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.CollectionCriteria;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.ICollectionRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
@@ -27,13 +28,26 @@ public class CollectionService implements ICollectionService {
   @Override
   public void create(CollectionCreationDTO collectionDto) {
 
+    // Get sources from repository by IDs
     List<Source> collectionSources = collectionDto.getSourceIds().stream()
         .map(sourceRepository::findById)
         .toList();
 
     //TODO: validar que todas las fuentes solicitadas existan, tirar error en caso contrario
 
-    Collection collection = Collection.from(collectionDto, collectionSources);
+    //Construct CollectionCriteria from DTO
+    CollectionCriteria collectionCriteria = CollectionCriteria.from(collectionDto.getConditions());
+
+    // Construct Collection
+    Collection collection = Collection.builder()
+        .title(collectionDto.getTitle())
+        .description(collectionDto.getDescription())
+        .sources(collectionSources)
+        .collectionCriteria(collectionCriteria)
+        .build();
+
+    //Refresh collection to populate events
+    collection.refresh(null);
 
     collectionRepository.save(collection);
   }
@@ -78,13 +92,10 @@ public class CollectionService implements ICollectionService {
 
   @Override
   public void refreshCollections(LocalDateTime lastUpdate) {
-
     for (Collection collection : collectionRepository.findAll()) {
       collection.refresh(lastUpdate);
       collectionRepository.save(collection);
     }
-
-
   }
 }
 

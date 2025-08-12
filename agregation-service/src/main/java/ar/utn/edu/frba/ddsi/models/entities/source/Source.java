@@ -5,11 +5,11 @@ import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
@@ -21,20 +21,22 @@ public class Source {
   private Long id;
 
   //-- Source Client
+  @NonNull
   private final ISourceClientAdapter sourceClient;
   private final Long inClientId;
 
   //-- Data
   private final Origin type;
 
-  @Builder.Default private final List<Event> events = new ArrayList<>();
+  @Builder.Default
+  private final List<Event> events = new ArrayList<>();
 
   public List<Event> getEvents(LocalDateTime lastUpdate) {
     if (lastUpdate == null) {
       return events;
     }
     return events.stream().filter(e ->
-        e.getUploadDate().isAfter(lastUpdate) && !e.isDeleted())
+            e.getUploadDate().isAfter(lastUpdate) && !e.isDeleted())
         .toList();
   }
 
@@ -42,17 +44,17 @@ public class Source {
     events.add(event);
   }
 
-  public void notifyEventDeleted(Event event){
+  public void notifyEventDeleted(Event event) {
     if (this.isNotifiable()) {
       sourceClient.deleteEvent(event);
     }
   }
 
-  public List<EventInputDTO> fetchEvents(){
+  public List<EventInputDTO> fetchEvents() {
     return this.sourceClient.fetchEventsBySource(this);
   }
 
-  private boolean isNotifiable(){
+  private boolean isNotifiable() {
     return type != Origin.PROXY && type != Origin.METAMAPA;
   }
 
