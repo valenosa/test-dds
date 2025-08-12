@@ -1,16 +1,21 @@
 package ar.utn.edu.frba.ddsi.models.entities.source;
 
 import ar.utn.edu.frba.ddsi.models.dtos.input.event.EventInputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
+@Builder
 public class Source {
   @Setter
   private Long id;
@@ -21,20 +26,8 @@ public class Source {
 
   //-- Data
   private final Origin type;
-  private final List<Event> events;
 
-  public static Source from(SourceInputDTO dto, ISourceClientAdapter sourceClient) {
-    return new Source(sourceClient, dto.getInClientId(), dto.getType());
-  }
-
-  public Source(ISourceClientAdapter sourceClient, Long inClientId, Origin type) {
-
-    this.sourceClient = sourceClient;
-    this.inClientId = inClientId;
-
-    this.type = type;
-    events = new ArrayList<>();
-  }
+  @Builder.Default private final List<Event> events = new ArrayList<>();
 
   public List<Event> getEvents(LocalDateTime lastUpdate) {
     if (lastUpdate == null) {

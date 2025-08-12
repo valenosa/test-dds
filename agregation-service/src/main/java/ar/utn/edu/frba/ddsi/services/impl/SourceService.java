@@ -47,7 +47,11 @@ public class SourceService implements ISourceService {
     if (sourceClient == null)
       throw new NotFoundException("Source not found - ID: " + dto.getSourceClientId());
 
-    Source source = new Source(sourceClient, dto.getInClientId(), dto.getType());
+    Source source = Source.builder()
+        .sourceClient(sourceClient)
+        .inClientId(dto.getInClientId())
+        .type(dto.getType())
+        .build();
 
     sourceRepository.save(source);
     return SourceOutputDTO.from(source);
