@@ -6,6 +6,7 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.deletion_request.DeletionRequestO
 import ar.utn.edu.frba.ddsi.services.impl.DeletionRequestService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +28,11 @@ public class DeletionRequestController {
     return deletionRequestService.create(dto);
   }
 
-  @PutMapping
-  public DeletionRequestOutputDTO evaluate(@RequestBody DeletionRequestEvaluationDTO dto) {
-    return deletionRequestService.evaluate(dto);
-  }
+@PutMapping("/{id}")
+public DeletionRequestOutputDTO evaluate(@PathVariable Long id, @RequestBody DeletionRequestEvaluationDTO dto) {
+  dto.setDeletionRequestId(id);
+  return deletionRequestService.evaluate(dto);
+}
 
   @GetMapping
   public List<DeletionRequestOutputDTO> get() {
