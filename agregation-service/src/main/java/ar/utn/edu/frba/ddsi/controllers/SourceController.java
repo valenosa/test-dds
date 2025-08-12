@@ -1,8 +1,6 @@
 package ar.utn.edu.frba.ddsi.controllers;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceClientInputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.input.source.SourceInputDTO;
-import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceClientOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.source.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
 import java.util.List;
@@ -24,16 +22,6 @@ public class SourceController {
   @Autowired
   public SourceController(ISourceService sourceService) {
     this.sourceService = sourceService;
-  }
-
-  @PostMapping("/clients")
-  public SourceClientOutputDTO createSource(@RequestBody SourceClientInputDTO sourceClient) {
-    return sourceService.create(sourceClient);
-  }
-
-  @GetMapping("/clients")
-  public List<SourceClientOutputDTO> getAllClients() {
-    return sourceService.getAllClients();
   }
 
   @PostMapping
