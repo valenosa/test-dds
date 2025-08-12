@@ -12,15 +12,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventService implements IEventService {
 
-  @Autowired
   ISourceRepository sourceRepository;
 
-  @Autowired
   Publisher publisher;
+
+  public EventService(ISourceRepository sourceRepository, Publisher publisher) {
+    this.sourceRepository = sourceRepository;
+    this.publisher = publisher;
+  }
 
   @Override
   public List<EventOutputDTO> getEvents(LocalDateTime lastUpdate) {
-    return sourceRepository.findAll() //? Qué onda con las proxy MetaMapa
+    return sourceRepository.findAll()
         .stream()
         //Obtengo todos los elementos de todas las fuentes
         .flatMap(source -> source.importEvents(lastUpdate).stream())
