@@ -9,7 +9,9 @@ import lombok.Data;
 @Data
 public class EventOutputDTO {
   Long id;
+  Long sourceClientId;
   Long sourceId;
+  Origin origin;
   String title;
   String description;
   String category;
@@ -17,12 +19,11 @@ public class EventOutputDTO {
   Double longitude;
   LocalDateTime eventDate;
   LocalDateTime uploadDate;
-  Origin origin;
 
   public static EventOutputDTO from(Event event) {
     EventOutputDTO dto = new EventOutputDTO();
     dto.setId(event.getId());
-    dto.setSourceId(1L); //En la dinámica el sourceId es siempre el mismo puesto que no existen Sources. Esto permite respetar el formato del agregador
+    dto.setSourceId(event.getSourceId());
     dto.setTitle(event.getTitle());
     dto.setDescription(event.getDescription());
     dto.setCategory(event.getCategory().getName()); //TODO: Verificar si esta bien pasar nombre o tenemos que pasar Id o un DTO

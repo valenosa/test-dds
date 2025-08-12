@@ -21,4 +21,6 @@ public interface IEventRepository {
   Event findById(Long eventId);
 
   Event delete(Event event);
+
+  List<Event> findBySourceId(Long sourceId);
 }

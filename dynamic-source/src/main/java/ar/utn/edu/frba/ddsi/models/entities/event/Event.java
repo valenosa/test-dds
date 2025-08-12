@@ -14,6 +14,7 @@ public class Event {
   //-- Identificador
   @Setter
   private Long id;
+  private final Long sourceId;
   private final Origin origin;
 
   //-- Description
@@ -40,6 +41,7 @@ public class Event {
 
   public static Event from(EventDTO dto) {
     return new Event(
+        1L, //En la dinámica el sourceId es siempre el mismo puesto que no existen Sources. Esto permite respetar el formato del agregador
         dto.getTitle(),
         dto.getDescription(),
         new Category(dto.getCategory()), //TODO: Manejar Categorias
@@ -51,7 +53,8 @@ public class Event {
     );
   }
 
-  public Event(String title,
+  public Event(Long sourceId,
+               String title,
                String description,
                Category category,
                Double latitude,
@@ -59,6 +62,7 @@ public class Event {
                LocalDateTime eventDate,
                Origin origin,
                String contributor) {
+    this.sourceId = sourceId;
     this.title = title;
     this.description = description;
     this.category = category;
