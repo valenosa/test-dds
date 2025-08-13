@@ -54,7 +54,7 @@ public class EventService implements IEventService {
 
     //Create event
     Event event = Event.builder()
-        .id(dto.getId())
+        .inSourceEventId(dto.getId())
         .title(dto.getTitle())
         .description(dto.getDescription())
         .category(category)
