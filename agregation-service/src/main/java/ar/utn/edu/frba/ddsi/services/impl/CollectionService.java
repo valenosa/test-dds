@@ -6,12 +6,13 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.collection.CollectionOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.event.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.Collection;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.CollectionCriteria;
+import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import ar.utn.edu.frba.ddsi.models.repositories.ICollectionRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ICollectionService;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class CollectionService implements ICollectionService {
   @Override
   public void create(CollectionCreationDTO collectionDto) {
 
-    // Get sources from repository by IDs
+    // Get sources from the repository by IDs
     List<Source> collectionSources = collectionDto.getSourceIds().stream()
         .map(sourceRepository::findById)
         .toList();
@@ -74,24 +75,16 @@ public class CollectionService implements ICollectionService {
     Collection collection = collectionRepository.findByHandler(handler);
     if (collection == null) throw new NotFoundException("Collection not found - Handler: " + handler);
 
-    // Get events from collection
-    List<EventOutputDTO> dtoEvents = new ArrayList<>(collection.getEvents().stream().map(EventOutputDTO::from).toList());
-
-    //Get events from sources Metamapa
-    dtoEvents.addAll(
-        collection.getMetamapaSources()
-            .parallelStream()
-            .flatMap(source -> source.fetchEvents().stream().map(EventOutputDTO::from)) //TODO: Mandar por query params al fetchEvents el collection criteria como filtros
-            .toList()
-    );
-
-    return dtoEvents.stream()
-        .filter(e -> (category == null || e.getCategory().equals(category)))
+    // Filter events
+    List<Event> finalEvents = collection.getEvents().stream()
+        .filter(e -> (category == null || e.getCategory().equals(new Category(category))))
         .filter(e -> (untilUploadDate == null || e.getUploadDate().isBefore(untilUploadDate)))
         .filter(e -> (fromUploadDate == null || e.getUploadDate().isAfter(fromUploadDate)))
         .filter(e -> (untilEventDate == null || e.getEventDate().isBefore(untilEventDate)))
         .filter(e -> (fromEventDate == null || e.getEventDate().isAfter(fromEventDate)))
         .toList();
+
+    return finalEvents.stream().map(EventOutputDTO::from).toList();
   }
 
   @Override

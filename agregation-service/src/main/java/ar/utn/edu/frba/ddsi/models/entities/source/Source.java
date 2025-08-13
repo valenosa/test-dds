@@ -1,7 +1,7 @@
 package ar.utn.edu.frba.ddsi.models.entities.source;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.event.EventInputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.entities.event.values.Category;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +50,28 @@ public class Source {
     }
   }
 
-  public List<EventInputDTO> fetchEvents() {
-    return this.sourceClient.fetchEventsBySource(this);
+  public List<Event> fetchEvents() {
+    // This method only applicable for Metamapa sources.
+    if (!this.isMetamapa()) {
+      throw new UnsupportedOperationException("This method should only be called for Metamapa sources");
+    }
+
+    return this.sourceClient.fetchEventsBySource(this)
+        .stream()
+        .map(dto -> {
+          //Create “fake” event
+          return Event.builder()
+              .title(dto.getTitle())
+              .description(dto.getDescription())
+              .category(new Category(dto.getCategory()))
+              .latitude(dto.getLatitude())
+              .longitude(dto.getLongitude())
+              .eventDate(dto.getEventDate())
+              .uploadDate(dto.getUploadDate())
+              .source(this)
+              .inSourceEventId(dto.getId())
+              .build();
+        }).toList();
   }
 
   private boolean isNotifiable() {

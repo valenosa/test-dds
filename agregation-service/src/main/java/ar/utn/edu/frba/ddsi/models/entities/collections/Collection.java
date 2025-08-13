@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +35,7 @@ public class Collection {
 
   public void refresh(LocalDateTime lastUpdate) {
 
-    // Update the events, adding new ones and removing those that no longer satisfy the criteria
+    // Update the events, adding new ones and removing those that no longer satisfy the criteria.
     for (Source source : this.sources) {
       for (Event event : source.getEvents(lastUpdate)) {
         if (this.collectionCriteria.isSatisfiedBy(event)) {
@@ -50,9 +51,18 @@ public class Collection {
     this.events.removeIf(Event::isDeleted);
   }
 
-  public List<Source> getMetamapaSources() {
-    return this.sources.stream()
+  public Set<Event> getEvents() {
+    Set<Event> allEvents = new HashSet<>(events);
+    allEvents.addAll(getMetamapaEvents());
+    return allEvents;
+  }
+
+  public Set<Event> getMetamapaEvents() {
+    //Pull and filter events from Metamapa sources (in parallel to improve performance).
+    return this.sources.parallelStream()
         .filter(Source::isMetamapa)
-        .toList();
+        .flatMap(s -> s.fetchEvents().stream())
+        .filter(this.collectionCriteria::isSatisfiedBy)
+        .collect(Collectors.toSet());
   }
 }
