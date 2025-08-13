@@ -6,8 +6,8 @@ import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.observer.Publisher;
-import ar.utn.edu.frba.ddsi.models.entities.source.SourceFactory;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
+import ar.utn.edu.frba.ddsi.models.entities.source.SourceFactory;
 import ar.utn.edu.frba.ddsi.models.repositories.IEventRepository;
 import ar.utn.edu.frba.ddsi.models.repositories.ISourceRepository;
 import ar.utn.edu.frba.ddsi.services.ISourceService;
@@ -33,20 +33,25 @@ public class SourceService implements ISourceService {
   private Publisher publisher;
 
   @Override
-  public SourceOutputDTO create(SourceInputDTO dto) {
+  public SourceOutputDTO create(SourceInputDTO sourceInput) {
 
-    Source source = sourceFactory.createFrom(dto);
+    Source source = sourceFactory.createFrom(sourceInput);
 
     sourceRepository.save(source);
 
-    publisher.notifyNewSource(source);
+    SourceOutputDTO sourceOutput = SourceOutputDTO.from(source);
 
-    return SourceOutputDTO.from(source);
+    publisher.notifyNewSource(sourceOutput);
+
+    return sourceOutput;
   }
 
   @Override
   public List<SourceOutputDTO> getSources() {
-    return sourceRepository.findAll().stream().map(SourceOutputDTO::from).collect(Collectors.toList());
+    return sourceRepository.findAll()
+        .stream()
+        .map(SourceOutputDTO::from)
+        .collect(Collectors.toList());
   }
 
   public void importSourceEvents(Long id) {
@@ -59,7 +64,12 @@ public class SourceService implements ISourceService {
 
     importedEvents.forEach(eventRepository::save);
 
-    publisher.notifyNewEvents(importedEvents);
+    List<EventOutputDTO> outputEvents = importedEvents
+        .stream()
+        .map(EventOutputDTO::from)
+        .toList();
+
+    publisher.notifyNewEvents(outputEvents);
   }
 
   @Override
@@ -74,8 +84,8 @@ public class SourceService implements ISourceService {
     //?TODO Return 404 if source not found
 
     return events
-          .stream()
-          .map(EventOutputDTO::from)
-          .toList();
+        .stream()
+        .map(EventOutputDTO::from)
+        .toList();
   }
 }

@@ -16,6 +16,10 @@ public class SourceClientController {
 
   ISourceClientService sourceClientService;
 
+  public SourceClientController(ISourceClientService sourceClientService) {
+    this.sourceClientService = sourceClientService;
+  }
+
   @PostMapping
   public SourceClientOutputDTO createSource(@RequestBody SourceClientInputDTO sourceClient) {
     return sourceClientService.create(sourceClient);
