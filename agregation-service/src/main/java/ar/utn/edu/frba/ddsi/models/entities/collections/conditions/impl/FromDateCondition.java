@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class FromDateCondition implements ICondition {
 
-  LocalDateTime from;
+  private final LocalDateTime from;
 
   public FromDateCondition(LocalDateTime from) {
     this.from = from;

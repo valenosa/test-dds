@@ -1,11 +1,11 @@
 package ar.utn.edu.frba.ddsi.models.entities.observer;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-import ar.utn.edu.frba.ddsi.models.entities.source.Source;
-import org.springframework.stereotype.Component;
-
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import org.springframework.stereotype.Component;
 
 @Component
 public class Publisher {
@@ -23,13 +23,13 @@ public class Publisher {
     subscribers.remove(subscriber);
   }
 
-  public void notifyNewEvents(Set<Event> events) {
+  public void notifyNewEvents(List<EventOutputDTO> events) {
     for (ISubscriber subscriber : subscribers) {
       subscriber.notifyEvents(events);
     }
   }
 
-  public void notifyNewSource(Source source) {
+  public void notifyNewSource(SourceOutputDTO source) {
     for (ISubscriber subscriber : subscribers) {
       subscriber.notifySource(source);
     }

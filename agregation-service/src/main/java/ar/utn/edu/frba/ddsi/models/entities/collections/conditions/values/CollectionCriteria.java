@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CollectionCriteria implements ICondition{
 
-  List<ICondition> conditions;
+  final List<ICondition> conditions;
 
   public static CollectionCriteria from(List<ConditionDTO> conditionsDto) {
     List<ICondition> conditions = conditionsDto.stream().map(c -> c.getConditionType().toCondition(c.getConditionValue())).toList();
@@ -16,7 +16,6 @@ public class CollectionCriteria implements ICondition{
   public CollectionCriteria(List<ICondition> conditions) {
     this.conditions = conditions;
   }
-
 
   @Override
   public boolean isSatisfiedBy(Event event) {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CollectionRepository implements ICollectionRepository {
 
-  Map<String, Collection> collections = new HashMap<>();
+  private final Map<String, Collection> collections = new HashMap<>();
 
   @Override
   public void save(Collection collection) {

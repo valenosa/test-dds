@@ -6,10 +6,16 @@ import ar.utn.edu.frba.ddsi.models.entities.source.apis.IAPI;
 import ar.utn.edu.frba.ddsi.models.entities.source.apis.impl.MetaMapa;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
 public class Source {
 
   @Getter

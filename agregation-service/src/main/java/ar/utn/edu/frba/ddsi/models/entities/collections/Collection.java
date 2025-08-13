@@ -1,6 +1,5 @@
 package ar.utn.edu.frba.ddsi.models.entities.collections;
 
-import ar.utn.edu.frba.ddsi.models.dtos.input.collection.CollectionCreationDTO;
 import ar.utn.edu.frba.ddsi.models.entities.collections.conditions.values.CollectionCriteria;
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.Source;
@@ -9,10 +8,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
+@Builder
 public class Collection {
 
   @Setter
@@ -21,29 +27,15 @@ public class Collection {
   private final String title;
   private final String description;
 
-  private final List<Source> sources;
-  private final Set<Event> events;
-  private final CollectionCriteria collectionCriteria;
+  @NonNull private final List<Source> sources;
+  @NonNull private final CollectionCriteria collectionCriteria;
 
-  public static Collection from(CollectionCreationDTO dto, List<Source> sources) {
-    CollectionCriteria collectionCriteria = CollectionCriteria.from(dto.getConditions());
-
-    return new Collection(dto.getTitle(), dto.getDescription(), sources, collectionCriteria);
-  }
-
-  public Collection(String title, String description, List<Source> sources, CollectionCriteria collectionCriteria) {
-    this.title = title;
-    this.description = description;
-    this.collectionCriteria = collectionCriteria;
-    this.sources = sources;
-    this.events = new HashSet<>();
-
-    this.refresh(null);
-  }
+  @Builder.Default
+  private final Set<Event> events = new HashSet<>();
 
   public void refresh(LocalDateTime lastUpdate) {
 
-    // Update the events, adding new ones and removing those that no longer satisfy the criteria
+    // Update the events, adding new ones and removing those that no longer satisfy the criteria.
     for (Source source : this.sources) {
       for (Event event : source.getEvents(lastUpdate)) {
         if (this.collectionCriteria.isSatisfiedBy(event)) {
@@ -66,7 +58,7 @@ public class Collection {
   }
 
   public Set<Event> getMetamapaEvents() {
-    //Pull and filter events from Metamapa sources (in parallel to improve performance)
+    //Pull and filter events from Metamapa sources (in parallel to improve performance).
     return this.sources.parallelStream()
         .filter(Source::isMetamapa)
         .flatMap(s -> s.fetchEvents().stream())

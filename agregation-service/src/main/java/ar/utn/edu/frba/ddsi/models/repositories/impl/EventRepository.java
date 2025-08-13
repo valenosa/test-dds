@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class EventRepository implements IEventRepository {
-  Map<Long, Event> events = new HashMap<>();
+  private final Map<Long, Event> events = new HashMap<>();
   private final AtomicLong idGenerator = new AtomicLong(1);
 
   @Override
@@ -48,6 +48,16 @@ public class EventRepository implements IEventRepository {
         this.findByDeleted(false),
         category, untilUploadDate, fromUploadDate, untilEventDate, fromEventDate
     );
+  }
+
+  @Override
+  public Event findByExternalIds(Long sourceClientId, Long sourceId, Long inSourceEventId) {
+    return events.values().stream()
+        .filter(e -> e.getSource().getSourceClient().getId().equals(sourceClientId) &&
+            e.getSource().getInClientId().equals(sourceId) &&
+            e.getInSourceEventId().equals(inSourceEventId))
+        .findFirst()
+        .orElse(null);
   }
 
   private List<Event> filterEvents(

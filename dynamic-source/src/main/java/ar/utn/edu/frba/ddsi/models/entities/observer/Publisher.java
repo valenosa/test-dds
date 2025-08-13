@@ -1,9 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.entities.observer;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -22,7 +23,7 @@ public class Publisher {
     subscribers.remove(subscriber);
   }
 
-  public void notifyNewEvents(Set<Event> events) {
+  public void notifyNewEvents(List<EventOutputDTO> events) {
     for (ISubscriber subscriber : subscribers) {
       subscriber.notifyEvents(events);
     }

@@ -9,10 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CollectionRefreshScheduler {
 
-  @Autowired
   ICollectionService collectionService;
 
   LocalDateTime lastUpdate = LocalDateTime.now();
+
+  @Autowired
+  public CollectionRefreshScheduler(ICollectionService collectionService) {
+    this.collectionService = collectionService;
+  }
 
   @Scheduled(cron = "${collection.refresh.cron}")
   public void refreshCollections() {

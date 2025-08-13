@@ -7,16 +7,24 @@ import ar.utn.edu.frba.ddsi.models.entities.source.Source;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
+@Builder
 public class Event {
 
   @Setter
   private Long id;
 
   //-- Source
+  @NonNull
   private final Source source;
   private final Long inSourceEventId;
 
@@ -29,57 +37,18 @@ public class Event {
   private  LocalDateTime eventDate;
 
   //-- Funcionales
-  public Set<Tag> tags;
   private final LocalDateTime uploadDate;
-  private boolean deleted;
+  @Builder.Default public Set<Tag> tags = new HashSet<>();
+  @Builder.Default private boolean deleted = false;
 
-  public static Event from(EventInputDTO dto, Source source) {
-    return new Event(
-        dto.getTitle(),
-        dto.getDescription(),
-        new Category(dto.getCategory()), //TODO: Ver que onda esto por ahora hardcodeo pera poder continuar
-        dto.getLatitude(),
-        dto.getLongitude(),
-        dto.getEventDate(),
-        dto.getUploadDate(),
-        source,
-        dto.getId()
-    );
-  }
 
-  public Event(String title,
-               String description,
-               Category category,
-               Double latitude,
-               Double longitude,
-               LocalDateTime eventDate,
-               LocalDateTime uploadDate,
-               Source source,
-               Long inSourceEventId) {
-    //Information
-    this.title = title;
-    this.description = description;
-    this.category = category;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.eventDate = eventDate;
-    this.uploadDate = uploadDate;
-    this.source = source;
-    this.inSourceEventId = inSourceEventId;
-
-    //Functional
-    this.deleted = false;
-    tags = new HashSet<>();
-  }
-
-  public void update(Event event) {
-    //? ¿Debería validar que todos estos campos no sean null?
-    this.title = event.getTitle();
-    this.description = event.getDescription();
-    this.category = event.getCategory();
-    this.latitude = event.getLatitude();
-    this.longitude = event.getLongitude();
-    this.eventDate = event.getEventDate();
+  public void update(EventInputDTO dto, Category category) {
+    if (dto.getTitle() != null) this.title = dto.getTitle();
+    if (dto.getDescription() != null) this.description = dto.getDescription();
+    if (category != null) this.category = category;
+    if (dto.getLatitude() != null) this.latitude = dto.getLatitude();
+    if (dto.getLongitude() != null) this.longitude = dto.getLongitude();
+    if (dto.getEventDate() != null) this.eventDate = dto.getEventDate();
   }
 
   public void markAsDeleted() {

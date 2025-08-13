@@ -2,12 +2,8 @@ package ar.utn.edu.frba.ddsi.models.dtos.output.event;
 
 import ar.utn.edu.frba.ddsi.models.entities.event.Event;
 import ar.utn.edu.frba.ddsi.models.entities.source.Origin;
-import ar.utn.edu.frba.ddsi.models.entities.event.values.Tag;
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.Data;
-
 
 @Data
 public class EventOutputDTO {
@@ -21,7 +17,6 @@ public class EventOutputDTO {
   Double longitude;
   LocalDateTime eventDate;
   LocalDateTime uploadDate;
-  Set<String> tags;
 
   public static EventOutputDTO from(Event event) {
     EventOutputDTO dto = new EventOutputDTO();
@@ -35,7 +30,6 @@ public class EventOutputDTO {
     dto.setLongitude(event.getLongitude());
     dto.setEventDate(event.getEventDate());
     dto.setUploadDate(event.getUploadDate());
-    dto.setTags(event.getTags().stream().map(Tag::getName).collect(Collectors.toSet()));
     return dto;
   }
 }

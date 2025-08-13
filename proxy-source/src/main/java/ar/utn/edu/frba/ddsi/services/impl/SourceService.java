@@ -36,6 +36,11 @@ public class SourceService implements ISourceService {
 
   @Override
   public List<SourceOutputDTO> getAllSources() {
-    return sourceRepository.findAll().stream().map(SourceOutputDTO::from).toList();
+    return findAllSources().stream().map(SourceOutputDTO::from).toList();
+  }
+
+  @Override
+  public List<Source> findAllSources() {
+    return sourceRepository.findAll();
   }
 }
