@@ -1,9 +1,10 @@
 package ar.utn.edu.frba.ddsi.models.entities.observer;
 
-import ar.utn.edu.frba.ddsi.models.entities.event.Event;
-
-import java.util.Set;
+import ar.utn.edu.frba.ddsi.models.dtos.output.EventOutputDTO;
+import ar.utn.edu.frba.ddsi.models.dtos.output.SourceOutputDTO;
+import java.util.List;
 
 public interface ISubscriber {
-  void notifyEvents(Set<Event> events);
+  void notifyEvents(List<EventOutputDTO> events);
+  void notifySource(SourceOutputDTO source);
 }
